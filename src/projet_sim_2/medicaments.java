@@ -51,4 +51,11 @@ public class medicaments {
         this.quantite = quantite;
     }
     
+    public int diminueStock(int modif) {
+        return quantite = quantite - modif;
+    }
+    
+    public int augmenteStock(int modif) {
+        return quantite = quantite + modif;
+    }
 }
