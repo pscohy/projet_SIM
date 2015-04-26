@@ -5,7 +5,7 @@
  */
 package infoh400;
 
-import ca.uhn.hl7v2.HL7Exception;
+/*import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.app.Connection;
 import ca.uhn.hl7v2.app.ConnectionHub;
 import ca.uhn.hl7v2.app.Initiator;
@@ -18,14 +18,14 @@ import ca.uhn.hl7v2.model.v24.segment.PID;
 import ca.uhn.hl7v2.parser.DefaultXMLParser;
 import ca.uhn.hl7v2.parser.Parser;
 import ca.uhn.hl7v2.parser.PipeParser;
-import java.io.IOException;
+import java.io.IOException;*/
 
 /**
  *
  * @author Schenkel Arnaud
  */
  
-public class HL7 {
+/*public class HL7 {
     
     public HL7() {
     }  
@@ -57,7 +57,7 @@ public class HL7 {
 		* Complete with more informations
 		*/
 
-		Parser parser = new PipeParser();
+		/*Parser parser = new PipeParser();
 		String encodedMessage = parser.encode(adt);
 		System.out.println("Printing ER7 Encoded Message:");//Traduction en HL7, format "pipes".
 		System.out.println(encodedMessage);
@@ -84,5 +84,5 @@ public class HL7 {
 		System.out.println("Printing XML Encoded Message:");//Traduction en HL7, format XML.
 		System.out.println(encodedMessage);
     }
-}
+}*/
 

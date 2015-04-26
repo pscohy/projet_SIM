@@ -7,10 +7,6 @@ package projet_sim_2;
 
 import java.sql.Date;
 
-
-
-
-
 /**
  *
  * @author INFO-H-400
@@ -76,6 +72,6 @@ public class patients {
     public void seteID(int eID) {
         this.eID = eID;
     }
-   
-    
+
+
 }
