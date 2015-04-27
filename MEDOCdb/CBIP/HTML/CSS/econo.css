@@ -1,0 +1,31 @@
+
+.legende {font :  11px Verdana;  color:maroon; letter-spacing : 1px;	line-height : 14px;}
+.pt_titel {font : bold 11px Verdana;  color:maroon; letter-spacing : 1px;	line-height : 14px;}
+.tit_legende {font : 10px Verdana;  color:maroon; line-height : 12px;}
+.pt_rij {font : 11px Verdana;  color:black; line-height : 12px;}
+.pt_rij_getal {font : 11px Verdana;  color:black; letter-spacing : 1px;	line-height : 12px;}
+.pt_rij_kl {font : 10px Verdana;  color:gray; letter-spacing : 1px;}
+
+H1 { font-size: 15px; color: green; font-family: verdana, arial, sansserif;	line-height : 20px;}
+H2 { font-size: 13px; color: green; font-family: verdana, arial, sansserif;	line-height : 20px;}
+H3 { font-size: 11px; color: green; font-family: verdana, arial, sansserif;	line-height : 20px;}
+
+
+.letterklein {  border-top:#ffffff solid 1px; border-left:#ffffff solid 1px; border-right:#000000 solid 1px; border-bottom:#000000 solid 1px; background-color:#008000; text-align:center; }
+a.letterkleinlink  {font : bold 10px arial;  color: #FFFFFF; text-decoration:none; }
+
+.footer {font :  10px Verdana;  color:#616161;}
+
+.footer_link {text-decoration: none;font :  10px Verdana;  color:#616161;}
+.footer_link:link {text-decoration: none;font :  10px Verdana;  color:blue;}
+.footer_link:visited {text-decoration: none;font :  10px Verdana;  color:blue;}
+.footer_link:active {text-decoration: none;font :  10px Verdana;  color:blue;}
+.footer_link:hover {text-decoration: underline;font :  10px Verdana;  color:blue;}
+
+.datum {font :  10px Verdana;  color:green; text-align: right;}
+
+.normal_font  {text-decoration: none; font :  11px Verdana;  color: #000000;  line-height : 14px;}
+.normal_font:link  {text-decoration: none; font :  11px Verdana;  color: blue;  line-height : 14px;}
+.normal_font:visited  {text-decoration: none; font :  11px Verdana;  color: blue;  line-height : 14px;}
+.normal_font:active  {text-decoration: none; font :  11px Verdana;  color: blue;  line-height : 14px;}
+.normal_font:hover  {text-decoration: underline; font :  11px Verdana;  color: blue;  line-height : 14px;}

@@ -1,0 +1,57 @@
+.datum {font :  10px Verdana;  color:green; text-align: right;}
+
+.footer {font :  10px Verdana;  color:#616161;}
+
+.footer_link {text-decoration: none;font :  10px Verdana;  color:#616161;}
+.footer_link:link {text-decoration: none;font :  10px Verdana;  color:blue;}
+.footer_link:visited {text-decoration: none;font :  10px Verdana;  color:blue;}
+.footer_link:active {text-decoration: none;font :  10px Verdana;  color:blue;}
+.footer_link:hover {text-decoration: underline;font :  10px Verdana;  color:blue;}
+
+
+
+.abstract {font :  11px Verdana;  color:black; letter-spacing : 1px;	line-height : 14px; text-align : justify;}
+.abstract_titel {font :  12px Verdana;  color:green; letter-spacing : 2px;	line-height : 14px;  font-weight:bold;}
+
+.tekst {font :  11px Verdana;  color:black; letter-spacing : 1px;	line-height : 14px;}
+.liNoBullet {list-style-type: none;}
+.Folia_titels {font-size : 12px; color : #008000; font-family:Verdana; font-weight:bold;}
+.Folia_list {margin-left:15px; padding-left:2px; font-family:Arial; font-size : 11px; line-height:14px;}
+.normal_font  {font :  11px Verdana;  color: #000000;  line-height : 14px;}
+.forms_invulveld {font:12px Arial; color:#000000; border-left:#000000 solid 1px; border-top:#000000 solid 1px; border-bottom:#000000 solid 1px; border-right:#000000 solid 1px; }
+.forms_submit { color: #FFFFFF; border-top:#ffffff solid 1px; border-left:#ffffff solid 1px; border-right:#000000 solid 1px; border-bottom:#000000 solid 1px; background-color:#008000; text-align:center; font-size : 11px;}
+.forms_dropdown {font :  11px Verdana;  color: #000000;}
+
+.archief {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.archief:link {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.archief:visited {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.archief:active {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px; background-color: ffff99;}
+.archief:hover {text-decoration: underline; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+
+.toc {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.toc:link {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.toc:visited {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.toc:active {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px; background-color: ffff99;}
+.toc:hover {text-decoration: underline; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+
+.archief_titel {font :  10px Verdana;  color:black; letter-spacing : 1px;	line-height : 15px;}
+
+.menu_mnden {text-decoration: none;color: blue;font : 11px Verdana; }
+.menu_mnden:link {text-decoration: none;color: blue;font : 11px Verdana; }
+.menu_mnden:visited {text-decoration: none; color: blue;font : 11px Verdana; }
+.menu_mnden:active {text-decoration: none; color: blue;font : 11px Verdana; }
+.menu_mnden:hover {text-decoration: underline; color: blue; font : 11px Verdana; }
+/* "Courier New", Courier, monospace */
+
+.brefs {text-decoration: none;color: blue;font : 11px Verdana; }
+.brefs:link {text-decoration: none;color: blue;font : 11px Verdana; }
+.brefs:visited {text-decoration: none; color: blue;font : 11px Verdana; }
+.brefs:active {text-decoration: none; color: blue;font : 11px Verdana; }
+.brefs:hover {text-decoration: underline; color: blue; font : 11px Verdana; }
+
+
+H1 { font-size: 15px; color: green; font-family: verdana, arial, sansserif;	line-height : 20px;}
+H2 { font-size: 13px; color: green; font-family: verdana, arial, sansserif;	line-height : 20px;}
+H3 { font-size: 11px; color: green; font-family: verdana, arial, sansserif;	line-height : 20px;}
+
+ 

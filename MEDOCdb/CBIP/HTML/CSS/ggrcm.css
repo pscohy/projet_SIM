@@ -1,0 +1,229 @@
+.tocnr {text-decoration: none; font :  11px Verdana;  color:black; letter-spacing : 1px;}
+.tocnr:link {text-decoration: none; font :  11px Verdana;  color:black; letter-spacing : 1px;}
+.tocnr:visited {text-decoration: none; font :  11px Verdana;  color:black; letter-spacing : 1px;}
+.tocnr:active {text-decoration: none; font :  11px Verdana;  color:black; letter-spacing : 1px;}
+.tocnr:hover {text-decoration: underline; font :  11px Verdana;  color:black; letter-spacing : 1px;}
+
+.toc {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.toc:link {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.toc:visited {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.toc:active {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.toc:hover {text-decoration: underline; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+
+.namen {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.namen:link {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.namen:visited {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.namen:active {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.namen:hover {text-decoration: underline; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+
+.MPnamen {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.MPnamen:link {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.MPnamen:visited {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.MPnamen:active {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.MPnamen:hover {text-decoration: underline; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+
+.IrNamen {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.IrNamen:link {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.IrNamen:visited {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.IrNamen:active {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.IrNamen:hover {text-decoration: underline; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+
+.innamen {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.innamen:link {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.innamen:visited {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.innamen:active {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.innamen:hover {text-decoration: underline; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+
+.hfdst {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;font-weight : bold;}
+.hfdst:link {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;font-weight : bold;}
+.hfdst:visited {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;font-weight : bold;}
+.hfdst:active {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;font-weight : bold;}
+.hfdst:hover {text-decoration: underline; font :  11px Verdana;  color:blue; letter-spacing : 1px;font-weight : bold;}
+
+.letter {  border-top:#ffffff solid 1px; border-left:#ffffff solid 1px; border-right:#000000 solid 1px; border-bottom:#000000 solid 1px; background-color:#008000; text-align:center; }
+a.letterlink  {font : bold 12px arial;  color: #FFFFFF; text-decoration:none; }
+
+.letterklein {  border-top:#ffffff solid 1px; border-left:#ffffff solid 1px; border-right:#000000 solid 1px; border-bottom:#000000 solid 1px; background-color:#008000; text-align:center; }
+a.letterkleinlink  {font : bold 10px arial;  color: #FFFFFF; text-decoration:none; }
+a { font-family: verdana; font-size: 12px;}
+
+
+H1 { font-size: 15px; color: green; font-family: verdana, arial, sansserif;	line-height : 20px;}
+H2 { font-size: 15px; color: green; font-family: verdana, arial, sansserif;	line-height : 20px;}
+H3 { font-size: 15px; color: green; font-family: verdana, arial, sansserif;	line-height : 20px;}
+
+H4 { font-size: 14px; color: black; font-family: verdana, arial, sansserif;	line-height : 18px;}
+H5 { font-size: 13px; color: black; font-family: verdana, arial, sansserif;	line-height : 16px;}
+H6 { font-size: 12px; color: black; font-family: verdana, arial, sansserif;	line-height : 14px;}
+
+.forms_submit { color: #FFFFFF; border-top:#ffffff solid 1px; border-left:#ffffff solid 1px; border-right:#000000 solid 1px; border-bottom:#000000 solid 1px; background-color:#008000; text-align:center; font-size : 10px;}
+.normal_font  {font :  11px Verdana;  color: #000000;  line-height : 14px;}
+
+.footer {font :  10px Verdana;  color:#616161;}
+
+.footer_link {text-decoration: none;font :  10px Verdana;  color:#616161;}
+.footer_link:link {text-decoration: none;font :  10px Verdana;  color:blue;}
+.footer_link:visited {text-decoration: none;font :  10px Verdana;  color:blue;}
+.footer_link:active {text-decoration: none;font :  10px Verdana;  color:blue;}
+.footer_link:hover {text-decoration: underline;font :  10px Verdana;  color:blue;}
+
+
+.fabrikant {text-decoration: none; font :  11px Verdana;  color:black; letter-spacing : 1px;}
+.fabrikant:link {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.fabrikant:visited {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.fabrikant:active {text-decoration: none; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+.fabrikant:hover {text-decoration: underline; font :  11px Verdana;  color:blue; letter-spacing : 1px;}
+
+
+
+.subtitel {text-decoration: none; 	font : bold 11px arial;  color:green; letter-spacing : 2px;}
+.subtitel:link {text-decoration: none; font : bold 11px arial;  color:blue; letter-spacing : 1px;}
+.subtitel:visited {text-decoration: none; font : bold 11px arial;  color:blue; letter-spacing : 1px;}
+.subtitel:active {text-decoration: none; font : bold 11px arial;  color:blue; letter-spacing : 1px;}
+.subtitel:hover {text-decoration: underline; font : bold 11px arial;  color:blue; letter-spacing : 1px;}
+
+.tekst {font :  11px Verdana;  color:black; letter-spacing : 1px;	line-height : 14px;}
+.Tekst {font :  11px Verdana;  color:black; letter-spacing : 1px;	line-height : 14px;}
+.tekst:link {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.tekst:visited {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.tekst:active {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.tekst:hover {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+
+.Text {font :  11px Verdana;  color:black; letter-spacing : 1px;	line-height : 14px;}
+.text {font :  11px Verdana;  color:black; letter-spacing : 1px;	line-height : 14px;}
+.text:link {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.text:visited {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.text:active {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.text:hover {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+
+.drug {font : bold 11px Verdana;  color:red; letter-spacing : 1px;	line-height : 14px;}
+.drug:link {font : bold 11px Verdana;  color:red; letter-spacing : 1px;	line-height : 14px;}
+.drug:visited {font : bold 11px Verdana;  color:red; letter-spacing : 1px;	line-height : 14px;}
+.drug:active {font : bold 11px Verdana;  color:red; letter-spacing : 1px;	line-height : 14px;}
+.drug:hover {font : bold 11px Verdana;  color:red; letter-spacing : 1px;	line-height : 14px;}
+
+.firm {font :  11px Verdana;  color:gray; letter-spacing : 1px;	line-height : 14px;}
+.firm:link {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.firm:visited {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.firm:active {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.firm:hover {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+
+.Posologie {font :  11px Verdana;  color:black; letter-spacing : 1px;	line-height : 14px;}
+.Posologie:link {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.Posologie:visited {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.Posologie:active {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+.Posologie:hover {font :  11px Verdana;  color:blue; letter-spacing : 1px;	line-height : 14px;}
+
+
+.datum {
+	font : 10px Verdana;
+	color:green;
+	text-align: right;
+}
+.Datum {
+	font : 10px Verdana;
+	color:green;
+	text-align: right;
+}
+
+.InNm_MPG {
+	font : bolder 10px Verdana;
+	color:black;
+	letter-spacing : 1px;
+	line-height : 14px;
+}
+
+.Mpp_MPG {
+	font : 10px Verdana;
+	color:black;
+	letter-spacing : 1px;
+	line-height : 14px;
+}
+
+.HYR_INMP{text-decoration: none;font : bold 11px Verdana;	color:blue; letter-spacing : 1px; line-height : 14px;}
+.HYR_INMP:link{text-decoration: none;font : bold 11px Verdana;	color:blue; letter-spacing : 1px; line-height : 14px;}
+.HYR_INMP:visited{text-decoration: none;font : bold 11px Verdana;	color:blue; letter-spacing : 1px; line-height : 14px;}
+.HYR_INMP:active{text-decoration: none;font : bold 11px Verdana;	color:blue; letter-spacing : 1px; line-height : 14px;}
+.HYR_INMP:hover{text-decoration: underline;font : bold 11px Verdana;	color:blue; letter-spacing : 1px; line-height : 14px;}
+
+.MP_INMP{text-decoration: none;font : 11px Verdana; color: blue; letter-spacing : 1px; line-height : 13px;margin-left : 25px;}
+.MP_INMP:link{text-decoration: none;font : 11px Verdana; color: blue; letter-spacing : 1px; line-height : 13px;margin-left : 25px;}
+.MP_INMP:visited{text-decoration: none;font : 11px Verdana; color: blue; letter-spacing : 1px; line-height : 13px;margin-left : 25px;}
+.MP_INMP:active{text-decoration: none;font : 11px Verdana; color: blue; letter-spacing : 1px; line-height : 13px;margin-left : 25px;}
+.MP_INMP:hover{text-decoration: underline;font : 11px Verdana; color: blue; letter-spacing : 1px; line-height : 13px;margin-left : 25px;}
+
+.Mp_MPG {
+	font : bold 10px Verdana;
+	color:black;
+	letter-spacing : 1px;
+	line-height : 12px;
+}
+
+.IR_MPG {
+	font : normal 10px Verdana;
+	color: Gray;
+	letter-spacing : 1px;
+	line-height : 12px;
+	text-align : left;
+}
+
+.PT_MPG {
+	font : bolder 10px Verdana;
+	color: Gray;
+	letter-spacing : 1px;
+	line-height : 12px;
+}
+
+.T1_MPG {
+	font : bold 12px Verdana;
+	color:green;
+	letter-spacing : 1px;
+	line-height : 14px;
+}
+
+.T2_MPG {
+	font : 10px Verdana;
+	color:gray;
+	line-height : 14px;
+	margin-bottom : 2px;
+	margin-top : 2px;
+}
+
+
+MPnote_MPG {
+	font : bolder 10px Verdana;
+	color:black;
+	letter-spacing : 1px;
+	line-height : 14px;
+}
+
+.MPposol_MPG {
+	font : normal 10px Verdana;
+	color: Maroon;
+	letter-spacing : 1px;
+	line-height : 14px;
+}
+
+.MPGposol_MPG {
+	font : bolder 10px Verdana;
+	color:black;
+	letter-spacing : 1px;
+	line-height : 14px;
+	background : Silver;
+}
+
+.prijs {text-decoration: none; font :  10px Verdana;  color:blue;}
+.prijs:link {text-decoration: none; font :  10px Verdana;  color:blue;}
+.prijs:visited {text-decoration: none; font :  10px Verdana;  color:blue;}
+.prijs:active {text-decoration: none; font :  10px Verdana;  color:blue;}
+.prijs:hover {text-decoration: underline; font :  10px Verdana;  color:blue;}
+
+.VitB12 {
+	font : bold x-small Verdana;
+	color: White;
+	letter-spacing : 1px;
+	line-height : 10px;
+	background : Aqua;
+	background-color : Gray;
+	font-weight : bold;
+}
