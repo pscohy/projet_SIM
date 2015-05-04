@@ -11,61 +11,120 @@ package projet_sim_2;
  */
 public class medicaments {
     
-    String nom;
-    int mID,quantite, DPP;
-    
-    
-    public medicaments(){
-        mID = 33;
-        quantite = 5;
-        nom = "reducteur_douleur";
-        DPP = 12;
-    }
-    
-    public medicaments(int mId, int quantite, int DPP, String nom ){
-        mID = mID;
-        quantite = quantite;
-        nom = nom;
-        DPP = DPP;
+    int cti, dosis, generic, pack_size, quantite; //Cti Clé primaire. Quantite pour le stock. generic 0 si pas generic, different si generic
+    String ActSubs_Name, unit, mp_name, mah, PharmFormFr, PackFr, DelivFr;//unit a associer avec l'attribut dosis
+
+    public medicaments(int cti, int dosis, int generic, int pack_size, int quantite, String ActSubs_Name, String unit, String mp_name, String mah, String PharmFormFr, String PackFr, String DelivFr) {
+        this.cti = cti;
+        this.dosis = dosis;
+        this.generic = generic;
+        this.pack_size = pack_size;
+        this.quantite = quantite;
+        this.ActSubs_Name = ActSubs_Name;
+        this.unit = unit;
+        this.mp_name = mp_name;
+        this.mah = mah;
+        this.PharmFormFr = PharmFormFr;
+        this.PackFr = PackFr;
+        this.DelivFr = DelivFr;
     }
 
-    public String getNom() {
-        return nom;
+    public int getCti() {
+        return cti;
     }
 
-    public int getmID() {
-        return mID;
+    public void setCti(int cti) {
+        this.cti = cti;
+    }
+
+    public int getDosis() {
+        return dosis;
+    }
+
+    public void setDosis(int dosis) {
+        this.dosis = dosis;
+    }
+
+    public int getGeneric() {
+        return generic;
+    }
+
+    public void setGeneric(int generic) {
+        this.generic = generic;
+    }
+
+    public int getPack_size() {
+        return pack_size;
+    }
+
+    public void setPack_size(int pack_size) {
+        this.pack_size = pack_size;
     }
 
     public int getQuantite() {
         return quantite;
     }
-    
-    public int getDPP() {
-        return DPP;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setmID(int mID) {
-        this.mID = mID;
-    }
-    
-    public void setDPP(int DPP) {
-        this.DPP = DPP;
-    }
 
     public void setQuantite(int quantite) {
         this.quantite = quantite;
     }
-    
-    public int diminueStock(int modif) {
-        return quantite = quantite - modif;
+
+    public String getActSubs_Name() {
+        return ActSubs_Name;
     }
-    
-    public int augmenteStock(int modif) {
-        return quantite = quantite + modif;
+
+    public void setActSubs_Name(String ActSubs_Name) {
+        this.ActSubs_Name = ActSubs_Name;
     }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getMp_name() {
+        return mp_name;
+    }
+
+    public void setMp_name(String mp_name) {
+        this.mp_name = mp_name;
+    }
+
+    public String getMah() {
+        return mah;
+    }
+
+    public void setMah(String mah) {
+        this.mah = mah;
+    }
+
+    public String getPharmFormFr() {
+        return PharmFormFr;
+    }
+
+    public void setPharmFormFr(String PharmFormFr) {
+        this.PharmFormFr = PharmFormFr;
+    }
+
+    public String getPackFr() {
+        return PackFr;
+    }
+
+    public void setPackFr(String PackFr) {
+        this.PackFr = PackFr;
+    }
+
+    public String getDelivFr() {
+        return DelivFr;
+    }
+
+    public void setDelivFr(String DelivFr) {
+        this.DelivFr = DelivFr;
+    }
+
+    
+    
 }
