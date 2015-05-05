@@ -28,8 +28,8 @@ public class Projet_SIM_2 {
     public static void main(String[] args) throws EIDException, SQLException, ParseException{
         actionPatient a = new actionPatient();
         patients p = a.getPatient(2345);
-        //String prenom = p.getPrenom();
-        //System.out.println(prenom);
+        String prenom = p.getPrenom();
+        System.out.println(prenom);
     }
     
 }
