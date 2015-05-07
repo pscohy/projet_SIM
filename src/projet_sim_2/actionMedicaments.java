@@ -26,31 +26,7 @@ public class actionMedicaments {
     public actionMedicaments(){
     }
     
-    public Connection connect (){
-        String driver ="com.mysql.jdbc.Driver";
-        String userName = "root";
-        String password = "";
-        //String url = "jdbc:mysql://localhost:3306/projetsim?zeroDateTimeBehavior=convertToNull";
-        String url = "jdbc:mysql://localhost:3306/projetsim";
-        try {
-        try {
-        Class.forName (driver).newInstance ();
-        } catch (InstantiationException ex) {
-        Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-        Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        } catch (ClassNotFoundException ex) {
-        Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Connection conn = null;
-        try {
-        conn = DriverManager.getConnection (url, userName, password);
-        } catch (SQLException ex) {
-        Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return conn;
-    }
+    
     public patients getPatient (int eID) throws SQLException, ParseException{
         String sql = "SELECT nom, prenom, adresse,date_de_naissance, eID FROM patient WHERE eID = ?";
         PreparedStatement ps;
