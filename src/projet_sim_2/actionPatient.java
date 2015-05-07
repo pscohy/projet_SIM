@@ -28,7 +28,7 @@ public class actionPatient {
     public actionPatient(){
     }
     
-    public Connection connect (){
+    /*public Connection connect (){
         String driver ="com.mysql.jdbc.Driver";
         String userName = "root";
         String password = "";
@@ -37,9 +37,7 @@ public class actionPatient {
         try {
         try {
         Class.forName (driver).newInstance ();
-        } catch (InstantiationException ex) {
-        Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (InstantiationException | IllegalAccessException ex) {
         Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
         }
         } catch (ClassNotFoundException ex) {
@@ -52,13 +50,11 @@ public class actionPatient {
         Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
         }
         return conn;
-    }
+    }*/
     public patients getPatient (int eID) throws SQLException, ParseException{
         String sql = "SELECT nom, prenom, adresse,date_de_naissance, eID FROM patient WHERE eID = ?";
         PreparedStatement ps;
-        patients p = null;
-        actionPatient a = new actionPatient();
-        Connection c = a.connect();
+        Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
         ResultSet resultat = ps.executeQuery();
@@ -67,54 +63,46 @@ public class actionPatient {
         }
         else {
             //while (resultat.next()){
-                //p = new patients(resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getDate("date_de_naissance"), resultat.getInt("eID") );
+                //patients p = new patients(resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getDate("date_de_naissance"), resultat.getInt("eID") );
                 System.out.println(resultat.getString("prenom"));
             //}
             
         }
         //return p;
-        
+       
         return null;
         
     }
     
-    public void createPatient(String nom, String prenom, String adresse, Date date_de_naissance, int eID) throws SQLException{
-        String sql = "INSERT INTO patient (nom, prenom, adresse, date_de_naissance, eID) VALUES (?,?,?,?,?)";
+    public patients createPatient(int eID) throws SQLException{
+        String sql = "INSERT INTO patient (eID) VALUES (?)";
         PreparedStatement ps;
-        patients p = null;
-        actionPatient a = new actionPatient();
-        Connection c = a.connect();
+        Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setString(1, nom);
-        ps.setString(2, prenom);
-        ps.setString(3, adresse);
-        ps.setDate(4, date_de_naissance);
-        ps.setInt(5, eID);
-        int statut = ps.executeUpdate();
-        
+        ps.setInt(1, eID);
+        int statut = ps.executeUpdate(); 
+        patients p = new patients ("", "", "","", eID); // Problème date!!!
+        return p;    
     }
     public void removePatient(int eID) throws SQLException{
         String sql = "DELETE*FROM patient WHERE eID=?";
         PreparedStatement ps;
         patients p = null;
-        actionPatient a = new actionPatient();
-        Connection c = a.connect();
+        Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
         int statut = ps.executeUpdate(); 
     }
-    public void updatePatient(String nom, String prenom, String adresse, Date date_de_naissance, int eID) throws SQLException{
+    public void updatePatient(patients p) throws SQLException{
         String sql = "UPDATE patient SET nom=?,prenom=?,adresse=?,date_de_naissance=? WHERE eID=?";
         PreparedStatement ps;
-        patients p = null;
-        actionPatient a = new actionPatient();
-        Connection c = a.connect();
+        Connection c = this.connect();
         ps = c.prepareStatement(sql);
-        ps.setString(1, nom);
-        ps.setString(2, prenom);
-        ps.setString(3, adresse);
-        ps.setDate(4, date_de_naissance);
-        ps.setInt(5, eID);
+        ps.setString(1, p.getNom());
+        ps.setString(2, p.getPrenom());
+        ps.setString(3, p.getAdresse());
+        ps.setDate(4, p.getDate_naissance());
+        ps.setInt(5, p.geteID());
         int statut = ps.executeUpdate();
     }
 }

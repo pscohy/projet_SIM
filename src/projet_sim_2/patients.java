@@ -25,12 +25,13 @@ public class patients {
         eID = 456789;
     }
     
+    
     public patients(String nom, String prenom, String adresse, Date date_naissance, int eID){
-        nom = nom;
-        prenom = prenom;
-        adresse = adresse;
-        date_naissance = date_naissance;
-        eID = eID;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.date_naissance = date_naissance;
+        this.eID = eID;
     }
 
     public String getNom() {
