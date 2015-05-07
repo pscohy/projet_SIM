@@ -11,21 +11,21 @@ import java.sql.Date;
  *
  * @author INFO-H-400
  */
-public class patients {
+public class patient implements Ipatient {
     
     String nom, prenom,adresse;
     Date date_naissance;
     int eID;
     
-    public patients(){
+    public patient(){
         nom = "Proutprout";
         prenom = "Jean-Michel";
         adresse = "rue des cerises 43, 6150 Proutville";
         date_naissance = new java.sql.Date(1993,04,03);
-        eID = 456789;
+        eID = 2345;
     }
     
-    public patients(String nom, String prenom, String adresse, Date date_naissance, int eID){
+    public patient(int eID, String nom, String prenom, String adresse, Date date_naissance){
         nom = nom;
         prenom = prenom;
         adresse = adresse;

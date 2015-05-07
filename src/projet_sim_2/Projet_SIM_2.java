@@ -26,8 +26,13 @@ public class Projet_SIM_2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws EIDException, SQLException, ParseException{
-        actionPatient a = new actionPatient();
-        patients p = a.getPatient(2345);
+        interactionBaseDonnees base = new interactionBaseDonnees();
+        
+        //patient patient = new patient();
+        //base.createPatient(patient.getNom(),patient.getPrenom(),patient.getAdresse(), patient.getDate_naissance(), patient.geteID());
+        
+        patient p = base.getPatient(2345);
+        
         String prenom = p.getPrenom();
         System.out.println(prenom);
     }
