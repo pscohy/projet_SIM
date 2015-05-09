@@ -96,7 +96,7 @@ public class actionPatient {
     public void updatePatient(patients p) throws SQLException{
         String sql = "UPDATE patient SET nom=?,prenom=?,adresse=?,date_de_naissance=? WHERE eID=?";
         PreparedStatement ps;
-        Connection c = this.connect();
+        Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setString(1, p.getNom());
         ps.setString(2, p.getPrenom());
