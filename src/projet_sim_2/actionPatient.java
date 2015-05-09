@@ -27,30 +27,7 @@ public class actionPatient {
     
     public actionPatient(){
     }
-    
-    /*public Connection connect (){
-        String driver ="com.mysql.jdbc.Driver";
-        String userName = "root";
-        String password = "";
-        //String url = "jdbc:mysql://localhost:3306/projetsim?zeroDateTimeBehavior=convertToNull";
-        String url = "jdbc:mysql://localhost:3306/projetsim";
-        try {
-        try {
-        Class.forName (driver).newInstance ();
-        } catch (InstantiationException | IllegalAccessException ex) {
-        Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        } catch (ClassNotFoundException ex) {
-        Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Connection conn = null;
-        try {
-        conn = DriverManager.getConnection (url, userName, password);
-        } catch (SQLException ex) {
-        Logger.getLogger(Projet_SIM_2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return conn;
-    }*/
+   
     public patients getPatient (int eID) throws SQLException, ParseException{
         String sql = "SELECT nom, prenom, adresse,date_de_naissance, eID FROM patient WHERE eID = ?";
         PreparedStatement ps;
@@ -58,20 +35,27 @@ public class actionPatient {
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
         ResultSet resultat = ps.executeQuery();
-        if (!(resultat.next())){
+        patients p = null;
+        if (!resultat.next()){
             System.out.println("Patient non existant");
+            return p;
         }
-        else {
-            //while (resultat.next()){
-                //patients p = new patients(resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getDate("date_de_naissance"), resultat.getInt("eID") );
-                System.out.println(resultat.getString("prenom"));
-            //}
-            
+        else{
+            p = new patients(resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getString("date_de_naissance"), resultat.getInt("eID") );
+            if (p.getNom()== null){
+                p.setNom("");
+            }
+            if (p.getPrenom()== null){
+                p.setPrenom("");
+            }
+            if (p.getAdresse()== null){
+                p.setAdresse("");
+            }
+            if (p.getDate_naissance() == null){
+                p.setDate_naissance("");
+            }//Plus utile à partir du moment où l'on crée des patients via l'interface.
+            return p;
         }
-        //return p;
-       
-        return null;
-        
     }
     
     public patients createPatient(int eID) throws SQLException{
@@ -81,11 +65,12 @@ public class actionPatient {
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
         int statut = ps.executeUpdate(); 
-        patients p = new patients ("", "", "","", eID); // Problème date!!!
+        patients p = new patients ("", "", "","", eID); 
         return p;    
     }
+    
     public void removePatient(int eID) throws SQLException{
-        String sql = "DELETE*FROM patient WHERE eID=?";
+        String sql = "DELETE FROM patient WHERE eID=?";
         PreparedStatement ps;
         patients p = null;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
@@ -93,6 +78,7 @@ public class actionPatient {
         ps.setInt(1, eID);
         int statut = ps.executeUpdate(); 
     }
+    
     public void updatePatient(patients p) throws SQLException{
         String sql = "UPDATE patient SET nom=?,prenom=?,adresse=?,date_de_naissance=? WHERE eID=?";
         PreparedStatement ps;
@@ -101,7 +87,7 @@ public class actionPatient {
         ps.setString(1, p.getNom());
         ps.setString(2, p.getPrenom());
         ps.setString(3, p.getAdresse());
-        ps.setDate(4, p.getDate_naissance());
+        ps.setString(4, p.getDate_naissance());
         ps.setInt(5, p.geteID());
         int statut = ps.executeUpdate();
     }
