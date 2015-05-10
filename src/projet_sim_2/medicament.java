@@ -9,12 +9,12 @@ package projet_sim_2;
  *
  * @author INFO-H-400
  */
-public class medicaments {
+public class medicament {
     
     int cti, dosis, generic, pack_size, quantite; //Cti Clé primaire. Quantite pour le stock. generic 0 si pas generic, different si generic
     String ActSubs_Name, unit, mp_name, mah, PharmFormFr, PackFr, DelivFr;//unit a associer avec l'attribut dosis
 
-    public medicaments(int cti, int dosis, int generic, int pack_size, int quantite, String ActSubs_Name, String unit, String mp_name, String mah, String PharmFormFr, String PackFr, String DelivFr) {
+    public medicament(int cti, int dosis, int generic, int pack_size, int quantite, String ActSubs_Name, String unit, String mp_name, String mah, String PharmFormFr, String PackFr, String DelivFr) {
         this.cti = cti;
         this.dosis = dosis;
         this.generic = generic;

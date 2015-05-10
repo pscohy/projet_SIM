@@ -18,12 +18,15 @@
 >>>>>>> 2c4e6d865613b292d419e0f5c4a0271e1eda33eb
 =======
             <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/prescription.java</file>
-            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/medicaments.java</file>
-            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/patients.java</file>
-            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/actionPatient.java</file>
-            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/actionPrescription.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/interactionBaseDonnees.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/patient.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/medicament.java</file>
             <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/Projet_SIM_2.java</file>
+<<<<<<< HEAD
 >>>>>>> 2739c0092f9bb1851fe94c8b6ce93dc991402cb3
+=======
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/Ipatient.java</file>
+>>>>>>> structure
         </group>
     </open-files>
 </project-private>

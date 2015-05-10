@@ -10,13 +10,13 @@ package projet_sim_2;
  *
  * @author INFO-H-400
  */
-public class patients {
+public class patient implements Ipatient {
     
     String nom, prenom,adresse;
     String date_naissance;
     int eID;
     
-    public patients(){
+    public patient(){
         nom = "Proutprout";
         prenom = "Jean-Michel";
         adresse = "rue des cerises 43, 6150 Proutville";
