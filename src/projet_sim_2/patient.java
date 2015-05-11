@@ -25,7 +25,7 @@ public class patient implements Ipatient {
     }
     
     
-    public patients(String nom, String prenom, String adresse, String date_naissance, int eID){
+    public patient(String nom, String prenom, String adresse, String date_naissance, int eID){
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;

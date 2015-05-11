@@ -28,20 +28,20 @@ public class interactionBaseDonnees {
     public interactionBaseDonnees(){
     }
         
-    public patients getPatient (int eID) throws SQLException, ParseException{
+    public patient getPatient (int eID) throws SQLException, ParseException{
         String sql = "SELECT nom, prenom, adresse,date_de_naissance, eID FROM patient WHERE eID = ?";
         PreparedStatement ps;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
         ResultSet resultat = ps.executeQuery();
-        patients p = null;
+        patient p = null;
         if (!resultat.next()){
             System.out.println("Patient non existant");
             return p;
         }
         else{
-            p = new patients(resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getString("date_de_naissance"), resultat.getInt("eID") );
+            p = new patient(resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getString("date_de_naissance"), resultat.getInt("eID") );
             if (p.getNom()== null){
                 p.setNom("");
             }
@@ -58,7 +58,7 @@ public class interactionBaseDonnees {
 		}
     }
     
-     public medicament getMedicament(int cti) throws SQLException{
+     /*public medicament getMedicament(int cti) throws SQLException{
         String sql = "SELECT cti, dosis, generic, pack_size, quantite, ActuSubs_Name, unit, mp_name, PharmFormFr, PackFr, DelivFr FROM medicament WHERE cti = ?";
         PreparedStatement ps;
         medicament medicament = null;
@@ -102,21 +102,21 @@ public class interactionBaseDonnees {
         }
         return patient;
         
-    }
+    }*/
     
-    public patients createPatient(int eID) throws SQLException{
+    public patient createPatient(int eID) throws SQLException{
         String sql = "INSERT INTO patient (eID) VALUES (?)";
         PreparedStatement ps;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
         int statut = ps.executeUpdate(); 
-        patients p = new patients ("", "", "","", eID); 
+        patient p = new patient ("", "", "","", eID); 
         return p;    
     }
 
     
-    public void createMedicament(int cti, int dosis, int generic, int pack_size, int quantite, String ActSubs_Name, String unit, String mp_name, String mah, String PharmFormFr, String PackFr, String DelivFr) throws SQLException{
+    /*public void createMedicament(int cti, int dosis, int generic, int pack_size, int quantite, String ActSubs_Name, String unit, String mp_name, String mah, String PharmFormFr, String PackFr, String DelivFr) throws SQLException{
         String sql = "INSERT INTO medicament (cti, dosis, generic, pack_size, quantite, ActSubs_Name, unit, mp_name, mah, PharmFormFr, PackFr, DelivFr) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps;
         interactionBaseDonnees base = new interactionBaseDonnees();
@@ -155,12 +155,12 @@ public class interactionBaseDonnees {
         ps.setBoolean(8, delivre);
         int statut = ps.executeUpdate();
         
-    }
+    }*/
     
     public void removePatient(int eID) throws SQLException{
         String sql = "DELETE FROM patient WHERE eID=?";
         PreparedStatement ps;
-        patients p = null;
+        patient p = null;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
@@ -168,7 +168,7 @@ public class interactionBaseDonnees {
     }
 
     
-    public void removeMedicament(int cti) throws SQLException{
+    /*public void removeMedicament(int cti) throws SQLException{
         String sql = "DELETE*FROM medicament WHERE cti=?";
         PreparedStatement ps;
         medicament m = null;
@@ -188,9 +188,9 @@ public class interactionBaseDonnees {
         ps = c.prepareStatement(sql);
         ps.setInt(1, pID);
         int statut = ps.executeUpdate(); 
-    }
+    }*/
     
-    public void updatePatient(patients p) throws SQLException{
+    public void updatePatient(patient p) throws SQLException{
         String sql = "UPDATE patient SET nom=?,prenom=?,adresse=?,date_de_naissance=? WHERE eID=?";
         PreparedStatement ps;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
@@ -204,7 +204,7 @@ public class interactionBaseDonnees {
     }
 
     
-     public void updateMedicament(int cti, int dosis, int generic, int pack_size, int quantite, String ActSubs_Name, String unit, String mp_name, String mah, String PharmFormFr, String PackFr, String DelivFr) throws SQLException{
+     /*public void updateMedicament(int cti, int dosis, int generic, int pack_size, int quantite, String ActSubs_Name, String unit, String mp_name, String mah, String PharmFormFr, String PackFr, String DelivFr) throws SQLException{
         String sql = "UPDATE patient SET dosis=?,generic=?,pack_size=?, quantite=?, ActSubs_Name =?, unit=?, mp_name=?, mah=?, PharmFormFr=?, PackFr =?, DelivFr =? WHERE eID=?";
         PreparedStatement ps;
         medicament m = null;
@@ -242,7 +242,7 @@ public class interactionBaseDonnees {
         ps.setDate(7, date_delivrance);
         ps.setBoolean(8, delivre);
         int statut = ps.executeUpdate();
-    }
+    }*/
    
 }
 

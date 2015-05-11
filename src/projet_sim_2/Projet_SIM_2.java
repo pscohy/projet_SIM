@@ -26,7 +26,6 @@ public class Projet_SIM_2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws EIDException, SQLException, ParseException{
-<<<<<<< HEAD
         /*actionPatient a = new actionPatient();
         patients p = a.createPatient(1234);
         patients d = new patients ("Bayot", "Madli", "Archiducs","", 1234);

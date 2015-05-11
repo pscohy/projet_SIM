@@ -40,7 +40,7 @@ public class MedBDPatient extends javax.swing.JDialog {
     /**
      * Creates new form MedBDPatient
      */
-    private patients p;
+    private patient p;
     public MedBDPatient(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -65,7 +65,7 @@ public class MedBDPatient extends javax.swing.JDialog {
         return returnStatus;
     }
     
-    public void setPatient(patients p){
+    public void setPatient(patient p){
         this.p = p;
     }
 
@@ -204,7 +204,7 @@ public class MedBDPatient extends javax.swing.JDialog {
         this.p.setAdresse(this.tfAdresse.getText()); 
         String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDeNaissance.getDate());
         this.p.setDate_naissance(resultat);
-        actionPatient a = new actionPatient();
+        interactionBaseDonnees a = new interactionBaseDonnees();
         a.updatePatient(this.p);    
     }
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
