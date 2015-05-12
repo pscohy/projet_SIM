@@ -21,8 +21,8 @@ public class MedAccueil extends javax.swing.JFrame {
     /**
      * Creates new form MedAccueil
      */
-    private patients p;
-    private actionPatient a;
+    private patient p;
+    private interactionBaseDonnees a;
     public MedAccueil() {
         initComponents();
         this.btnCreer.setEnabled(false);
@@ -31,10 +31,10 @@ public class MedAccueil extends javax.swing.JFrame {
         this.spinID.setValue(0);
         this.lblAppartenance.setText("");
         this.p = null;
-        this.a = new actionPatient();
+        this.a = new interactionBaseDonnees();
     }
     
-    public patients getPatient(){
+    public patient getPatient(){
         return this.p;
     }
     
@@ -201,7 +201,7 @@ public class MedAccueil extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCreerActionPerformed
 
-    public void display (patients p, MedBDPatient di){
+    public void display (patient p, MedBDPatient di){
         di.getSpinID().setValue(this.p.geteID());
         di.getTfNom().setText(this.p.getNom());
         di.getTfPrenom().setText(this.p.getPrenom());

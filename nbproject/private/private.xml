@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/PharmAccueil.java</file>
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/patients.java</file>
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/medicaments.java</file>
@@ -15,6 +16,17 @@
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/MedAccueil.java</file>
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/actionMedicaments.java</file>
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/StartWindow.java</file>
+=======
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/prescription.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/interactionBaseDonnees.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/patient.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/medicament.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/PharmAccueil.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/MedAccueil.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/Projet_SIM_2.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/Ipatient.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/MedBDPatient.java</file>
+>>>>>>> 5de29b2c92dfee906b5a08cfb330e927e6d86db1
         </group>
     </open-files>
 </project-private>
