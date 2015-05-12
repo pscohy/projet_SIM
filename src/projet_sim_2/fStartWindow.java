@@ -9,12 +9,12 @@ package projet_sim_2;
  *
  * @author Madli
  */
-public class StartWindow extends javax.swing.JFrame {
+public class fStartWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form StartWindow
      */
-    public StartWindow() {
+    public fStartWindow() {
         initComponents();
     }
 
@@ -72,13 +72,15 @@ public class StartWindow extends javax.swing.JFrame {
 
     private void btnMedecinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedecinActionPerformed
         // TODO add your handling code here:
-        new MedAccueil().setVisible(true);
+        new fMedAccueil().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMedecinActionPerformed
 
     private void btnPharmacienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPharmacienActionPerformed
         // TODO add your handling code here:
-        new PharmAccueil().setVisible(true);
+        fPharmAccueil fenetre = new fPharmAccueil(this , true);
+        fenetre.setVisible(true);
+        System.out.println(fenetre.getReturnStatus());//1 = ok; 0 = cancel
         this.dispose();
     }//GEN-LAST:event_btnPharmacienActionPerformed
 
@@ -99,20 +101,21 @@ public class StartWindow extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fStartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fStartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fStartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fStartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StartWindow().setVisible(true);
+                new fStartWindow().setVisible(true);
             }
         });
     }

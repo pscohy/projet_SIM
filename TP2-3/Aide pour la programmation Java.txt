@@ -1,0 +1,19 @@
+import java.sql.*;
+
+String userName = "...";
+String password = "...";
+String url = "jdbc:mysql://<localhost>:<port>/<db>";
+Class.forName ("com.mysql.jdbc.Driver").newInstance ();
+Connection conn = DriverManager.getConnection (url, userName, password);
+
+Statement s = conn.createStatement ();
+s.executeQuery ("SELECT ... FROM ...");
+ResultSet rs = s.getResultSet ();
+while (rs.next ())
+{
+int intVal = rs.getInt ("...");
+String strVal = rs.getString ("...");
+System.out.println ("... = " + intVal + ", " + strVal);
+}
+rs.close ();
+s.close ();

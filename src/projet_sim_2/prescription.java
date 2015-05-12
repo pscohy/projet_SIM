@@ -13,8 +13,7 @@ import java.sql.Date;
  */
 public class prescription {
     int pID, mID, eID,inami;
-    String posologie;
-    Date date_prescription, date_delivrance;
+    String posologie, date_prescription, date_delivrance;
     Boolean delivre;
     
     
@@ -24,12 +23,12 @@ public class prescription {
         eID = 456789;
         inami = 17;
         posologie = "3x/jour";
-        date_prescription = new java.sql.Date(2015,04,01);
-        date_delivrance = new java.sql.Date(2015,04,02);
+        date_prescription = "2015/05/12";
+        date_delivrance = "2015/05/14";
         delivre = false;
     }
 
-    public prescription(int pID, int mID, int eID, int inami, String posologie, Date date_prescription, Date date_delivrance, Boolean delivre) {
+    public prescription(int pID, int mID, int eID, int inami, String posologie, String date_prescription, String date_delivrance, Boolean delivre) {
         this.pID = pID;
         this.mID = mID;
         this.eID = eID;
@@ -60,11 +59,11 @@ public class prescription {
         return posologie;
     }
 
-    public Date getDate_prescription() {
+    public String getDate_prescription() {
         return date_prescription;
     }
 
-    public Date getDate_delivrance() {
+    public String getDate_delivrance() {
         return date_delivrance;
     }
 
@@ -92,11 +91,11 @@ public class prescription {
         this.posologie = posologie;
     }
 
-    public void setDate_prescription(Date date_prescription) {
+    public void setDate_prescription(String date_prescription) {
         this.date_prescription = date_prescription;
     }
 
-    public void setDate_delivrance(Date date_delivrance) {
+    public void setDate_delivrance(String date_delivrance) {
         this.date_delivrance = date_delivrance;
     }
 

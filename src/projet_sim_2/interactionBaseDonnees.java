@@ -29,80 +29,117 @@ public class interactionBaseDonnees {
     }
         
     public patient getPatient (int eID) throws SQLException, ParseException{
-        String sql = "SELECT nom, prenom, adresse,date_de_naissance, eID FROM patient WHERE eID = ?";
+        String sql = "SELECT eID, nom, prenom, adresse,date_de_naissance FROM patient WHERE eID = ?";
         PreparedStatement ps;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
         ResultSet resultat = ps.executeQuery();
-        patient p = null;
+        patient patient = null;
         if (!resultat.next()){
             System.out.println("Patient non existant");
-            return p;
+            return patient;
         }
         else{
-            p = new patient(resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getString("date_de_naissance"), resultat.getInt("eID") );
-            if (p.getNom()== null){
-                p.setNom("");
+            patient = new patient(resultat.getInt("eID"), resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getString("date_de_naissance") );
+            if (patient.getNom()== null){
+                patient.setNom("");
             }
-            if (p.getPrenom()== null){
-                p.setPrenom("");
+            if (patient.getPrenom()== null){
+                patient.setPrenom("");
             }
-            if (p.getAdresse()== null){
-                p.setAdresse("");
+            if (patient.getAdresse()== null){
+                patient.setAdresse("");
             }
-            if (p.getDate_naissance() == null){
-                p.setDate_naissance("");
+            if (patient.getDate_naissance() == null){
+                patient.setDate_naissance("");
             }//Plus utile à partir du moment où l'on crée des patients via l'interface.
-            return p;
+            return patient;
 		}
     }
     
-     /*public medicament getMedicament(int cti) throws SQLException{
-        String sql = "SELECT cti, dosis, generic, pack_size, quantite, ActuSubs_Name, unit, mp_name, PharmFormFr, PackFr, DelivFr FROM medicament WHERE cti = ?";
-        PreparedStatement ps;
-        medicament medicament = null;
-        interactionBaseDonnees base = new interactionBaseDonnees();
-        Connection c = base.connect();
-        ps = c.prepareStatement(sql);
-        ps.setInt(1, cti);
-        ResultSet resultat = ps.executeQuery();
-        if (!(resultat.next())){
-            System.out.println("medicament non existant");
-        }
-        else {
-            //while (resultat.next()){
-                //p = new patient(resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getDate("date_de_naissance"), resultat.getInt("eID") ); //pq creer un nouveau patient si on le get???
-                System.out.println(resultat.getString("mp_name"));
-            //}
-            
-        }
-        
-        return medicament;     
-    }
-    
-    public prescription getPrescription (int pID) throws SQLException, ParseException{
+        public prescription getPrescription (int pID) throws SQLException, ParseException{
         String sql = "SELECT pID, mID, eID, inami, posologie, date_prescription, date_delivrance, delivre FROM prescription WHERE pID = ?";
         PreparedStatement ps;
-        patient patient = null;
-        interactionBaseDonnees base = new interactionBaseDonnees();
-        Connection c = base.connect();
+        Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setInt(1, pID);
         ResultSet resultat = ps.executeQuery();
-        if (!(resultat.next())){
+        prescription prescription = null;
+        if (!resultat.next()){
             System.out.println("Prescription non existante");
+            return prescription;
         }
-        else {
-            //while (resultat.next()){
-                //p = new patient(resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getDate("date_de_naissance"), resultat.getInt("eID") );
-                System.out.println(resultat.getString("posologie"));
-            //}
-            
+        else{
+            prescription = new prescription(resultat.getInt("pID"),resultat.getInt("mID"), resultat.getInt("eID"), resultat.getInt("inami"), resultat.getString("posologie"), resultat.getString("date_prescription"),resultat.getString("date_delivrance"),resultat.getBoolean("delivre") );
+            /*if (p.getmID()== null){
+                p.setmID(0);
+            }
+            if (p.geteID()== null){
+                p.seteID(0);
+            }
+            if (p.getInami()== null){
+                p.setInami(0);
+            }*/
+            if (prescription.getPosologie() == null){
+                prescription.setPosologie("");
+            }
+            if (prescription.getDate_prescription() == null){
+                prescription.setDate_prescription("");
+            }
+            if (prescription.getDate_delivrance() == null){
+                prescription.setDate_delivrance("");
+            }
+            if (prescription.getDelivre() == null){
+                prescription.setDelivre(false);
+            }
+//Plus utile à partir du moment où l'on crée des patients via l'interface.
+            return prescription;
+		}
+    }
+     
+        /* public medicament getMedicament (int cti) throws SQLException, ParseException{
+        String sql = "SELECT cti, dosis, generic, pack_size, quantite, ActuSubs_Name, unit, mp_name, PharmFormFr, PackFr, DelivFr FROM medicament WHERE cti = ?";
+        PreparedStatement ps;
+        Connection c = projet_sim_2.Connection.getInstance().getConn();
+        ps = c.prepareStatement(sql);
+        ps.setInt(1, cti);
+        ResultSet resultat = ps.executeQuery();
+        medicament medicament = null;
+        if (!resultat.next()){
+            System.out.println("Medicament non existante");
+            return medicament;
         }
-        return patient;
+        else{
+            medicament = new medicament(resultat.getInt("cti"),resultat.getInt("dosis"), resultat.getInt("generic"), resultat.getInt("pack_size"), resultat.getInt("quantite"), resultat.getString("ActSubs_Name"),resultat.getString("unit"), resultat.getString("mp_name"), resultat.getString("mah"),resultat.getString("PharmFormFr"),resultat.getString("PackFr"), resultat.getString("DelivFr") ); 
+            if (p.getmID()== null){
+                p.setmID(0);
+            }
+            if (p.geteID()== null){
+                p.seteID(0);
+            }
+            if (p.getInami()== null){
+                p.setInami(0);
+            }
+            if (p.getPosologie() == null){
+                p.setPosologie("");
+            }
+            if (p.getDate_prescription() == null){
+                p.setDate_prescription("");
+            }
+            if (p.getDate_delivrance() == null){
+                p.setDate_delivrance("");
+            }
+            if (p.getDelivre() == null){
+                p.setDelivre(false);
+            }
+//Plus utile à partir du moment où l'on crée des patients via l'interface.
+            return p;
+		}
+    } */
         
-    }*/
+    
+     
     
     public patient createPatient(int eID) throws SQLException{
         String sql = "INSERT INTO patient (eID) VALUES (?)";
@@ -111,8 +148,8 @@ public class interactionBaseDonnees {
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
         int statut = ps.executeUpdate(); 
-        patient p = new patient ("", "", "","", eID); 
-        return p;    
+        patient patient = new patient (eID,"", "", "",""); 
+        return patient;    
     }
 
     
@@ -160,7 +197,7 @@ public class interactionBaseDonnees {
     public void removePatient(int eID) throws SQLException{
         String sql = "DELETE FROM patient WHERE eID=?";
         PreparedStatement ps;
-        patient p = null;
+        patient patient = null;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setInt(1, eID);
@@ -190,16 +227,16 @@ public class interactionBaseDonnees {
         int statut = ps.executeUpdate(); 
     }*/
     
-    public void updatePatient(patient p) throws SQLException{
+    public void updatePatient(patient patient) throws SQLException{
         String sql = "UPDATE patient SET nom=?,prenom=?,adresse=?,date_de_naissance=? WHERE eID=?";
         PreparedStatement ps;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setString(1, p.getNom());
-        ps.setString(2, p.getPrenom());
-        ps.setString(3, p.getAdresse());
-        ps.setString(4, p.getDate_naissance());
-        ps.setInt(5, p.geteID());
+        ps.setString(1, patient.getNom());
+        ps.setString(2, patient.getPrenom());
+        ps.setString(3, patient.getAdresse());
+        ps.setString(4, patient.getDate_naissance());
+        ps.setInt(5, patient.geteID());
         int statut = ps.executeUpdate();
     }
 

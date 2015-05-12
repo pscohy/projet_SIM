@@ -16,14 +16,14 @@ import java.util.logging.Logger;
  *
  * @author Madli
  */
-public class MedAccueil extends javax.swing.JFrame {
+public class fMedAccueil extends javax.swing.JFrame {
 
     /**
-     * Creates new form MedAccueil
+     * Creates new form fMedAccueil
      */
     private patient p;
     private interactionBaseDonnees a;
-    public MedAccueil() {
+    public fMedAccueil() {
         initComponents();
         this.btnCreer.setEnabled(false);
         this.btnModifier.setEnabled(false);
@@ -143,7 +143,7 @@ public class MedAccueil extends javax.swing.JFrame {
         try {
             this.a.removePatient((int) this.spinID.getValue());
         } catch (SQLException ex) {
-            Logger.getLogger(MedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.refresh();
     }//GEN-LAST:event_btnSupprimerActionPerformed
@@ -153,9 +153,9 @@ public class MedAccueil extends javax.swing.JFrame {
         try {
             this.p = this.a.getPatient((int) this.spinID.getValue());
         } catch (SQLException ex) {
-            Logger.getLogger(MedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(MedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         if (this.p == null){
@@ -177,7 +177,7 @@ public class MedAccueil extends javax.swing.JFrame {
 
     private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
         // TODO add your handling code here:
-        MedBDPatient di = new MedBDPatient(this , true);
+        fMedBDPatient di = new fMedBDPatient(this , true);
         this.display(this.p, di);
         di.setPatient(p);
         di.setVisible(true);
@@ -188,20 +188,20 @@ public class MedAccueil extends javax.swing.JFrame {
     private void btnCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreerActionPerformed
         // TODO add your handling code here:
         try {
-            MedBDPatient di = new MedBDPatient(this , true);
+            fMedBDPatient di = new fMedBDPatient(this , true);
             this.p = a.createPatient((int) this.spinID.getValue());
             this.display(this.p, di);
             di.setPatient(p);
             di.setVisible(true);
             System.out.println(di.getReturnStatus());//1 = ok; 0 = cancel
         } catch (SQLException ex) {
-            Logger.getLogger(MedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.refresh();
         
     }//GEN-LAST:event_btnCreerActionPerformed
 
-    public void display (patient p, MedBDPatient di){
+    public void display (patient p, fMedBDPatient di){
         di.getSpinID().setValue(this.p.geteID());
         di.getTfNom().setText(this.p.getNom());
         di.getTfPrenom().setText(this.p.getPrenom());
@@ -213,7 +213,7 @@ public class MedAccueil extends javax.swing.JFrame {
             java.util.Date d = (java.util.Date) sdf.parse(p.getDate_naissance());
             di.getDcDateDeNaissance().setDate(d);
         } catch (ParseException ex) {
-            Logger.getLogger(MedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
         di.getTfAdresse().setText(this.p.getAdresse());
     }
@@ -234,20 +234,21 @@ public class MedAccueil extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MedAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MedAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MedAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MedAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MedAccueil().setVisible(true);
+                new fMedAccueil().setVisible(true);
             }
         });
     }
