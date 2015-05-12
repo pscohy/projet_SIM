@@ -129,6 +129,11 @@ public class MedBDPatient extends javax.swing.JDialog {
         });
 
         btnPrescriptions.setText("Consulter les prescriptions");
+        btnPrescriptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrescriptionsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,15 +151,18 @@ public class MedBDPatient extends javax.swing.JDialog {
                     .addComponent(btnPrescriptions))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(spinID)
-                        .addComponent(tfNom)
-                        .addComponent(tfPrenom)
-                        .addComponent(dcDateDeNaissance, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                        .addComponent(tfAdresse))
-                    .addComponent(okButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelButton))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(spinID, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tfNom, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dcDateDeNaissance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(tfAdresse, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addContainerGap())
         );
 
@@ -182,9 +190,11 @@ public class MedBDPatient extends javax.swing.JDialog {
                     .addComponent(dcDateDeNaissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAdresse)
-                    .addComponent(tfAdresse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblAdresse)
+                        .addGap(0, 55, Short.MAX_VALUE))
+                    .addComponent(tfAdresse))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(okButton)
@@ -230,6 +240,14 @@ public class MedBDPatient extends javax.swing.JDialog {
     private void tfNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNomActionPerformed
+
+    private void btnPrescriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescriptionsActionPerformed
+        // TODO add your handling code here:
+        MedPrescriptions d = new MedPrescriptions();
+        d.setAlwaysOnTop(true);
+        d.setVisible(true);
+        System.out.println("banane");
+    }//GEN-LAST:event_btnPrescriptionsActionPerformed
     
     private void doClose(int retStatus) {
         returnStatus = retStatus;

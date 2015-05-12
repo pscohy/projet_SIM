@@ -37,17 +37,22 @@
               </Group>
               <EmptySpace pref="23" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="spinID" max="32767" attributes="0"/>
-                      <Component id="tfNom" max="32767" attributes="0"/>
-                      <Component id="tfPrenom" alignment="0" max="32767" attributes="0"/>
-                      <Component id="dcDateDeNaissance" pref="107" max="32767" attributes="0"/>
-                      <Component id="tfAdresse" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="okButton" linkSize="1" min="-2" pref="67" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cancelButton" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="okButton" linkSize="1" alignment="1" min="-2" pref="67" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Component id="spinID" min="-2" pref="166" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="tfNom" alignment="0" max="32767" attributes="0"/>
+                          <Component id="tfPrenom" alignment="0" max="32767" attributes="0"/>
+                          <Component id="dcDateDeNaissance" alignment="0" pref="166" max="32767" attributes="0"/>
+                          <Component id="tfAdresse" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="cancelButton" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -79,10 +84,13 @@
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblAdresse" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfAdresse" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="lblAdresse" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="55" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="tfAdresse" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="67" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="okButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -155,6 +163,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Consulter les prescriptions"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrescriptionsActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
