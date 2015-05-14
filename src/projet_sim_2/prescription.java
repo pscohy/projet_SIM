@@ -13,8 +13,12 @@ import java.sql.Date;
  */
 public class prescription {
     int pID, mID, eID,inami;
+<<<<<<< HEAD
     String posologie;
     String date_prescription, date_delivrance;
+=======
+    String posologie, date_prescription, date_delivrance;
+>>>>>>> 156116add2c76d43dd9b48a0c03e94e35f67a59e
     Boolean delivre;
     
     
@@ -24,8 +28,8 @@ public class prescription {
         eID = 456789;
         inami = 17;
         posologie = "3x/jour";
-        date_prescription = new java.sql.Date(2015,04,01);
-        date_delivrance = new java.sql.Date(2015,04,02);
+        date_prescription = "2015/05/12";
+        date_delivrance = "2015/05/14";
         delivre = false;
     }*/
 

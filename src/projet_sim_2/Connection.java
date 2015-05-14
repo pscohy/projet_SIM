@@ -25,7 +25,7 @@ public class Connection {
     {
     String driver ="com.mysql.jdbc.Driver";
     String userName = "root";
-    String password = "";
+    String password = "1234";
     //String url = "jdbc:mysql://localhost:3306/projetsim?zeroDateTimeBehavior=convertToNull";
     String url = "jdbc:mysql://localhost:3306/projetsim";
     try {

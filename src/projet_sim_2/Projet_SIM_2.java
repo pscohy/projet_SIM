@@ -27,10 +27,10 @@ public class Projet_SIM_2 {
      */
     public static void main(String[] args) throws EIDException, SQLException, ParseException{
         /*actionPatient a = new actionPatient();
-        patients p = a.createPatient(1234);
-        patients d = new patients ("Bayot", "Madli", "Archiducs","", 1234);
+        patient p = a.createPatient(1234);
+        patient d = new patient ("Bayot", "Madli", "Archiducs","", 1234);
         a.updatePatient(d);*/
-        new StartWindow().setVisible(true);
+        new fStartWindow().setVisible(true);
     }
     
 }

@@ -53,7 +53,11 @@ public class interactionBaseDonnees {
             }
             if (patient.getDate_naissance() == null){
                 patient.setDate_naissance("");
+<<<<<<< HEAD
             }//Plus utile Ã  partir du moment oÃ¹ l'on crÃ©e des patients via l'interface.
+=======
+            }//Plus utile à partir du moment où l'on crée des patients via l'interface.
+>>>>>>> 156116add2c76d43dd9b48a0c03e94e35f67a59e
             return patient;
 		}
     }
@@ -93,11 +97,19 @@ public class interactionBaseDonnees {
             if (prescription.getDelivre() == null){
                 prescription.setDelivre(false);
             }
+<<<<<<< HEAD
+=======
+//Plus utile à partir du moment où l'on crée des patients via l'interface.
+>>>>>>> 156116add2c76d43dd9b48a0c03e94e35f67a59e
             return prescription;
 		}
     }
      
+<<<<<<< HEAD
         public medicament getMedicament (int cti) throws SQLException, ParseException{
+=======
+        /* public medicament getMedicament (int cti) throws SQLException, ParseException{
+>>>>>>> 156116add2c76d43dd9b48a0c03e94e35f67a59e
         String sql = "SELECT cti, dosis, generic, pack_size, quantite, ActuSubs_Name, unit, mp_name, PharmFormFr, PackFr, DelivFr FROM medicament WHERE cti = ?";
         PreparedStatement ps;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
@@ -106,11 +118,16 @@ public class interactionBaseDonnees {
         ResultSet resultat = ps.executeQuery();
         medicament medicament = null;
         if (!resultat.next()){
+<<<<<<< HEAD
             System.out.println("Medicament non existant");
+=======
+            System.out.println("Medicament non existante");
+>>>>>>> 156116add2c76d43dd9b48a0c03e94e35f67a59e
             return medicament;
         }
         else{
             medicament = new medicament(resultat.getInt("cti"),resultat.getInt("dosis"), resultat.getInt("generic"), resultat.getInt("pack_size"), resultat.getInt("quantite"), resultat.getString("ActSubs_Name"),resultat.getString("unit"), resultat.getString("mp_name"), resultat.getString("mah"),resultat.getString("PharmFormFr"),resultat.getString("PackFr"), resultat.getString("DelivFr") ); 
+<<<<<<< HEAD
             /* if (medicament.getCti()==null){
                 medicament.setCti(0);
             }
@@ -162,6 +179,33 @@ public class interactionBaseDonnees {
             return medicament;
 		}
     }
+=======
+            if (p.getmID()== null){
+                p.setmID(0);
+            }
+            if (p.geteID()== null){
+                p.seteID(0);
+            }
+            if (p.getInami()== null){
+                p.setInami(0);
+            }
+            if (p.getPosologie() == null){
+                p.setPosologie("");
+            }
+            if (p.getDate_prescription() == null){
+                p.setDate_prescription("");
+            }
+            if (p.getDate_delivrance() == null){
+                p.setDate_delivrance("");
+            }
+            if (p.getDelivre() == null){
+                p.setDelivre(false);
+            }
+//Plus utile à partir du moment où l'on crée des patients via l'interface.
+            return p;
+		}
+    } */
+>>>>>>> 156116add2c76d43dd9b48a0c03e94e35f67a59e
         
     
      
@@ -264,6 +308,7 @@ public class interactionBaseDonnees {
         ps.setString(3, patient.getAdresse());
         ps.setString(4, patient.getDate_naissance());
         ps.setInt(5, patient.geteID());
+<<<<<<< HEAD
         int statut = ps.executeUpdate();
     }
     
@@ -282,6 +327,8 @@ public class interactionBaseDonnees {
         ps.setString (6, date_prescription);
         ps.setString (7, date_delivrance);
         ps.setBoolean(8, delivre);
+=======
+>>>>>>> 156116add2c76d43dd9b48a0c03e94e35f67a59e
         int statut = ps.executeUpdate();
     }
     
