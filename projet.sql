@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: projet
 -- ------------------------------------------------------
--- Server version	5.6.22-log
+-- Server version	5.6.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `medicament`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `medicament` (
-  `cti` varchar(12) NOT NULL,
+  `mID` varchar(12) NOT NULL,
   `nom` varchar(255) DEFAULT NULL,
   `mah` varchar(200) DEFAULT NULL,
   `generic` varchar(50) DEFAULT NULL,
@@ -33,8 +33,8 @@ CREATE TABLE `medicament` (
   `DelivFr` varchar(255) DEFAULT NULL,
   `ActSubsts` varchar(4000) DEFAULT NULL,
   `quantite` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cti`),
-  KEY `mID` (`cti`)
+  PRIMARY KEY (`mID`),
+  KEY `mID` (`mID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -63,7 +63,7 @@ CREATE TABLE `patient` (
   `nom` varchar(100) DEFAULT NULL,
   `prenom` varchar(100) DEFAULT NULL,
   `adresse` varchar(250) DEFAULT NULL,
-  `date_de_naissance` date DEFAULT NULL,
+  `date_de_naissance` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`eID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -89,8 +89,8 @@ CREATE TABLE `prescription` (
   `pID` int(11) NOT NULL,
   `mID` varchar(12) NOT NULL,
   `posologie` varchar(250) DEFAULT NULL,
-  `date_prescription` date DEFAULT NULL,
-  `date_delivrance` date DEFAULT NULL,
+  `date_prescription` varchar(25) DEFAULT NULL,
+  `date_delivrance` varchar(25) DEFAULT NULL,
   `delivre` tinyint(1) DEFAULT NULL,
   `eID` int(11) DEFAULT NULL,
   `inami` int(11) DEFAULT NULL,
@@ -119,4 +119,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-15 11:52:06
+-- Dump completed on 2015-05-18 16:48:23
