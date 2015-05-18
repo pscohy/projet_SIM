@@ -5,32 +5,32 @@
  */
 package projet_sim_2;
 
-import java.sql.Date;
 
 /**
  *
  * @author INFO-H-400
  */
-public class patients {
+public class patient implements Ipatient {
     
     String nom, prenom,adresse;
-    Date date_naissance;
+    String date_naissance;
     int eID;
     
-    public patients(){
+    public patient(){
         nom = "Proutprout";
         prenom = "Jean-Michel";
         adresse = "rue des cerises 43, 6150 Proutville";
-        date_naissance = new java.sql.Date(1993,04,03);
+        date_naissance = "1993/04/03";
         eID = 456789;
     }
     
-    public patients(String nom, String prenom, String adresse, Date date_naissance, int eID){
-        nom = nom;
-        prenom = prenom;
-        adresse = adresse;
-        date_naissance = date_naissance;
-        eID = eID;
+    
+    public patient(int eID, String nom, String prenom, String adresse, String date_naissance){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.date_naissance = date_naissance;
+        this.eID = eID;
     }
 
     public String getNom() {
@@ -45,7 +45,7 @@ public class patients {
         return adresse;
     }
 
-    public Date getDate_naissance() {
+    public String getDate_naissance() {
         return date_naissance;
     }
 
@@ -65,7 +65,7 @@ public class patients {
         this.adresse = adresse;
     }
 
-    public void setDate_naissance(Date date_naissance) {
+    public void setDate_naissance(String date_naissance) {
         this.date_naissance = date_naissance;
     }
 
