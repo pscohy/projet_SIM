@@ -6,6 +6,7 @@
 package projet_sim_2;
 
 import com.toedter.calendar.JDateChooser;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -17,6 +18,8 @@ import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -45,7 +48,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.p = null;
-
+        this.setTitle("Boîte de dialogue patient à l'usage d'un médecin");
         // Close the dialog when Esc is pressed
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -243,10 +246,16 @@ public class fMedBDPatient extends javax.swing.JDialog {
 
     private void btnPrescriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescriptionsActionPerformed
         // TODO add your handling code here:
-        MedPrescriptions d = new MedPrescriptions();
-        d.setAlwaysOnTop(true);
-        d.setVisible(true);
-        System.out.println("banane");
+        MedPrescriptions d;
+        try {
+            d = new MedPrescriptions((int)this.spinID.getValue());
+            d.setVisible(true);
+            this.dispose();
+            d.setAlwaysOnTop(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(fMedBDPatient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnPrescriptionsActionPerformed
     
     private void doClose(int retStatus) {
