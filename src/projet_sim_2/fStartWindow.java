@@ -79,10 +79,10 @@ public class fStartWindow extends javax.swing.JFrame {
 
     private void btnPharmacienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPharmacienActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         fPharmAccueil fenetre = new fPharmAccueil(this , true);
         fenetre.setVisible(true);
         System.out.println(fenetre.getReturnStatus());//1 = ok; 0 = cancel
-        this.dispose();
     }//GEN-LAST:event_btnPharmacienActionPerformed
 
     /**

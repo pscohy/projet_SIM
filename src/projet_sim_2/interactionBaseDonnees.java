@@ -54,7 +54,7 @@ public class interactionBaseDonnees {
             }
             if (patient.getDate_naissance() == null){
                 patient.setDate_naissance("");
-            }//Plus utile à partir du moment où l'on crée des patients via l'interface.
+            }
             return patient;
 		}
     }
@@ -85,9 +85,45 @@ public class interactionBaseDonnees {
             }
             if (prescription.getDelivre() == null){
                 prescription.setDelivre(false);
-            }//Plus utile à partir du moment où l'on crée des patients via l'interface.
+            }
 
             return prescription;
+		}
+    }
+        
+        public ArrayList<prescription> getPrescriptionPatient (int eID) throws SQLException, ParseException{
+        String sql = "SELECT pID, mID, eID, inami, posologie, date_prescription, date_delivrance, delivre FROM prescription WHERE eID = ?";
+        PreparedStatement ps;
+        Connection c = projet_sim_2.Connection.getInstance().getConn();
+        ps = c.prepareStatement(sql);
+        ps.setInt(1, eID);
+        ResultSet resultat = ps.executeQuery();
+        prescription prescription = null;
+        ArrayList <prescription> liste_prescription = new ArrayList<prescription>();
+        if (!resultat.next()){
+            System.out.println("Pas de prescription");
+            return liste_prescription;
+        }
+        else{
+            while (resultat.next()){
+                prescription = new prescription(resultat.getInt("pID"),resultat.getString("mID"), resultat.getInt("eID"), resultat.getInt("inami"), resultat.getString("posologie"), resultat.getString("date_prescription"),resultat.getString("date_delivrance"),resultat.getBoolean("delivre") );
+                liste_prescription.add(prescription);
+                
+                
+                if (prescription.getPosologie() == null){
+                    prescription.setPosologie("");
+                }
+                if (prescription.getDate_prescription() == null){
+                    prescription.setDate_prescription("");
+                }
+                if (prescription.getDate_delivrance() == null){
+                    prescription.setDate_delivrance("");
+                }
+                if (prescription.getDelivre() == null){
+                    prescription.setDelivre(false);
+                }
+            }
+            return liste_prescription;
 		}
     }
      
