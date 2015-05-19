@@ -25,6 +25,7 @@ public class fMedAccueil extends javax.swing.JFrame {
     private interactionBaseDonnees a;
     public fMedAccueil() {
         initComponents();
+        this.setTitle("Page d'accueil médecin");
         this.btnCreer.setEnabled(false);
         this.btnModifier.setEnabled(false);
         this.btnSupprimer.setEnabled(false);

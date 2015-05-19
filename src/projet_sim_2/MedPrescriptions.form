@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -31,35 +31,39 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="lblPosologie" min="-2" pref="64" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblDelivre" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDateDePrescription" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblUnites" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDose" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblForme" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="btnAjouter" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                               <Component id="btnModifier" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                               <Component id="btnSupprimer" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblInami" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblDateDePrescription" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNom" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="57" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="dcDateDePrescription" alignment="1" pref="175" max="32767" attributes="0"/>
+                                  <Component id="spinInami" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="cbNom" alignment="1" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" min="-2" pref="244" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="48" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="lblNom" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="tfNom" max="32767" attributes="0"/>
-                          <Component id="dcDateDePrescription" alignment="1" max="32767" attributes="0"/>
-                          <Component id="rbtnDelivre" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfForme" alignment="1" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="spinDose" alignment="1" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="tfUnites" alignment="1" min="-2" pref="91" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -69,36 +73,32 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblNom" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfNom" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="lblInami" min="-2" max="-2" attributes="0"/>
+                  <Component id="spinInami" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblForme" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfForme" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblDose" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="spinDose" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblUnites" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfUnites" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblDateDePrescription" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="dcDateDePrescription" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDateDePrescription" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblDelivre" min="-2" max="-2" attributes="0"/>
-                  <Component id="rbtnDelivre" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblNom" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbNom" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="lblPosologie" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="82" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAjouter" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnModifier" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -122,48 +122,10 @@
         <Component class="javax.swing.JTable" name="tabPrescriptions">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="4">
-                <Column editable="true" title="Nom" type="java.lang.String"/>
-                <Column editable="true" title="Forme" type="java.lang.String"/>
-                <Column editable="true" title="Dose " type="java.lang.Integer"/>
-                <Column editable="true" title="Unit&#xe9;s" type="java.lang.String"/>
-                <Column editable="true" title="Date de prescription" type="java.lang.String"/>
-                <Column editable="true" title="Delivr&#xe9;" type="java.lang.Boolean"/>
-              </Table>
+              <Table columnCount="0" rowCount="4"/>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-              </TableColumnModel>
+              <TableColumnModel selectionModel="0"/>
             </Property>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -193,24 +155,14 @@
         <Property name="text" type="java.lang.String" value="Supprimer"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JLabel" name="lblInami">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Num&#xe9;ro INAMI :"/>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JLabel" name="lblNom">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nom :"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblForme">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Forme :"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblDose">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Dose :"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblUnites">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Unit&#xe9;s :"/>
+        <Property name="text" type="java.lang.String" value="M&#xe9;dicament :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDateDePrescription">
@@ -218,28 +170,44 @@
         <Property name="text" type="java.lang.String" value="Date de prescription :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblDelivre">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="D&#xe9;livr&#xe9; :"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfNom">
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfForme">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfFormeActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="spinDose">
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfUnites">
-    </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dcDateDePrescription">
     </Component>
-    <Component class="javax.swing.JRadioButton" name="rbtnDelivre">
+    <Component class="com.toedter.components.JSpinField" name="spinInami">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbNom">
       <Properties>
-        <Property name="text" type="java.lang.String" value="D&#xe9;livr&#xe9;"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbNomActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblPosologie">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Posologie :"/>
       </Properties>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="txtPosologie">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

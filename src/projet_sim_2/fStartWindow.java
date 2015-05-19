@@ -16,6 +16,7 @@ public class fStartWindow extends javax.swing.JFrame {
      */
     public fStartWindow() {
         initComponents();
+        this.setTitle("Page d'accueil");
     }
 
     /**

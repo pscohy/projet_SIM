@@ -12,28 +12,11 @@ import java.sql.Date;
  * @author INFO-H-400
  */
 public class prescription {
-    int pID, mID, eID,inami;
-<<<<<<< HEAD
-    String posologie;
-    String date_prescription, date_delivrance;
-=======
-    String posologie, date_prescription, date_delivrance;
->>>>>>> 156116add2c76d43dd9b48a0c03e94e35f67a59e
+    int pID,eID,inami;
+    String posologie, date_prescription, date_delivrance, mID;
     Boolean delivre;
-    
-    
-    /*public prescription(){
-        pID = 4;
-        mID = 33;
-        eID = 456789;
-        inami = 17;
-        posologie = "3x/jour";
-        date_prescription = "2015/05/12";
-        date_delivrance = "2015/05/14";
-        delivre = false;
-    }*/
 
-    public prescription(int pID, int mID, int eID, int inami, String posologie, String date_prescription, String date_delivrance, Boolean delivre) {
+    public prescription(int pID, String mID, int eID, int inami, String posologie, String date_prescription, String date_delivrance, Boolean delivre) {
         this.pID = pID;
         this.mID = mID;
         this.eID = eID;
@@ -48,7 +31,7 @@ public class prescription {
         return pID;
     }
 
-    public int getmID() {
+    public String getmID() {
         return mID;
     }
 
@@ -80,7 +63,7 @@ public class prescription {
         this.pID = pID;
     }
 
-    public void setmID(int mID) {
+    public void setmID(String mID) {
         this.mID = mID;
     }
 
