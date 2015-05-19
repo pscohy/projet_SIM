@@ -53,7 +53,7 @@ public class fPharmAccueil extends javax.swing.JDialog {
     public fPharmAccueil(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        //this.setTitle("Pharmacien");
+        this.setTitle("Pharmacien");
         this.okButton.setEnabled(false);
         
         this.patient = null;
@@ -62,6 +62,8 @@ public class fPharmAccueil extends javax.swing.JDialog {
         this.base = new interactionBaseDonnees();
         
        okButton.setToolTipText("Aucune prescription sélectionnée");
+       
+       this.setResizable(true);
        
        this.tableModel = new ResultSetTableModel();
        this.tablePharmacien.setModel(this.tableModel);
@@ -81,7 +83,7 @@ public class fPharmAccueil extends javax.swing.JDialog {
     }
     
     public ResultSet getAllPrescription() throws SQLException{
-        String sql = "SELECT p.date_prescription, p.date_delivrance, p.delivre, m.nom, m.quantite, p.posologie, m.generic, m.mah, m.pack_size, m.PharmFormFr, m.PackFr, m.DelivFr, m.ActSubsts FROM prescription AS p, medicament AS m WHERE p.eID =? AND p.mID = m.mID";
+        String sql = "SELECT prescription.date_prescription, prescription.date_delivrance, prescription.delivre,  medicament.nom,  medicament.quantite, prescription.posologie, medicament.generic, medicament.mah, medicament.pack_size, medicament.PharmFormFr, medicament.PackFr, medicament.DelivFr, medicament.ActSubsts  FROM prescription, medicament WHERE prescription.eID = ? AND prescription.mID=medicament.mID";
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
@@ -122,6 +124,7 @@ public class fPharmAccueil extends javax.swing.JDialog {
         labeleID = new javax.swing.JLabel();
         labelNomPatient = new javax.swing.JLabel();
         labelTest = new javax.swing.JLabel();
+        buttonLecteur = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -165,6 +168,13 @@ public class fPharmAccueil extends javax.swing.JDialog {
 
         labeleID.setText("eID");
 
+        buttonLecteur.setText("lecteur de carte");
+        buttonLecteur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLecteurActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,15 +193,17 @@ public class fPharmAccueil extends javax.swing.JDialog {
                                 .addComponent(cancelButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labelTest)))
-                        .addContainerGap(326, Short.MAX_VALUE))
+                        .addContainerGap(711, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1243, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(spinnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
-                                .addComponent(buttonChercher)))
+                                .addComponent(buttonChercher)
+                                .addGap(95, 95, 95)
+                                .addComponent(buttonLecteur)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -201,12 +213,13 @@ public class fPharmAccueil extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spinnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labeleID)
-                    .addComponent(buttonChercher))
+                    .addComponent(buttonChercher)
+                    .addComponent(buttonLecteur))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelNomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(labelTest)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,9 +272,13 @@ public class fPharmAccueil extends javax.swing.JDialog {
             this.okButton.setEnabled(true);
             
 
-            
+        }       
     }//GEN-LAST:event_buttonChercherActionPerformed
-    }
+
+    private void buttonLecteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLecteurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonLecteurActionPerformed
+
         
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -313,6 +330,7 @@ public class fPharmAccueil extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChercher;
+    private javax.swing.JButton buttonLecteur;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel labelNomPatient;
     private javax.swing.JLabel labelTest;
