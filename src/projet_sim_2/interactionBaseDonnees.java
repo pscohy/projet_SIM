@@ -229,7 +229,7 @@ public class interactionBaseDonnees {
 
     
     public void removePrescription(int pID) throws SQLException{
-        String sql = "DELETE*FROM prescription WHERE pID=?";
+        String sql = "DELETE FROM prescription WHERE pID=?";
         PreparedStatement ps;
         prescription prescription = null;
         interactionBaseDonnees base = new interactionBaseDonnees();
@@ -240,7 +240,7 @@ public class interactionBaseDonnees {
     }
     
     public void removeMedicament(String mID) throws SQLException{
-        String sql = "DELETE*FROM medicament WHERE mID=?";
+        String sql = "DELETE FROM medicament WHERE mID=?";
         PreparedStatement ps;
         medicament medicament = null;
         interactionBaseDonnees base = new interactionBaseDonnees();
