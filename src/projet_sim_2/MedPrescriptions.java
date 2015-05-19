@@ -32,23 +32,23 @@ public class MedPrescriptions extends javax.swing.JFrame {
         this.setTitle("Boîte de dialogue prescription à l'usage du médecin");
         this.m = new ResultSetTableModel();
         this.tabPrescriptions.setModel(this.m);
-        this.m.setResultSet(this.getAll());
+        this.m.setResultSet(this.getAllP());
         this.n = new ResultSetTableModel();
         this.tabMedicament.setModel(this.n);
+        this.n.setResultSet(this.getAllM());
         
     }
+    
+    public ResultSet getAllM() throws SQLException{
+        String sql = "SELECT mID, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament";
+        PreparedStatement ps;
+        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+        ps = c.prepareStatement(sql);
+        ResultSet resultat = ps.executeQuery();
+        return resultat;
+    }
    
-    public ResultSet getAll() throws SQLException{
-        /*this.mID = mID;
-        this.nom = nom;
-        this.mah = mah;
-        this.generic = generic;
-        this.pack_size = pack_size;
-        this.PharmFormFr = PharmFormFr;
-        this.PackFr = PackFr;
-        this.DelivFr = DelivFr;
-        this.ActSubsts = ActSubsts;
-        this.quantite = quantite;*/
+    public ResultSet getAllP() throws SQLException{
         String sql = "SELECT p. pID, p.eID, p.inami, p.date_prescription, p.date_delivrance, p.delivre,"
                 + " m.nom, m.mah, m.generic, m.pack_size, m.PharmFormFr, m.PackFr, m.DelivFr, m.ActSubsts,p.posologie "
                 + "FROM prescription AS p, medicament AS m"
@@ -56,7 +56,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setInt(1, eID);
+        ps.setInt(1, this.eID);
         ResultSet resultat = ps.executeQuery();
         return resultat;
     }
@@ -85,6 +85,9 @@ public class MedPrescriptions extends javax.swing.JFrame {
         txtPosologie = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabMedicament = new javax.swing.JTable();
+        lblMedicament = new javax.swing.JLabel();
+        tfMedicament = new javax.swing.JTextField();
+        lblPrescriptions = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,6 +150,16 @@ public class MedPrescriptions extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tabMedicament);
 
+        lblMedicament.setText("Médicament :");
+
+        tfMedicament.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                tfMedicamentCaretUpdate(evt);
+            }
+        });
+
+        lblPrescriptions.setText("Prescriptions :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,32 +167,43 @@ public class MedPrescriptions extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblPosologie, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblInami)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(lblInami)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(spinInami, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblDateDePrescription)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(dcDateDePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(lblMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(btnAjouter)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnModifier)
+                                        .addGap(56, 56, 56)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(spinInami, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblDateDePrescription)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(dcDateDePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btnAjouter)
-                                .addGap(49, 49, 49)
-                                .addComponent(btnModifier)
-                                .addGap(47, 47, 47)
                                 .addComponent(btnSupprimer))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(27, 27, 27))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblPrescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,19 +216,28 @@ public class MedPrescriptions extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dcDateDePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDateDePrescription))
-                .addGap(57, 57, 57)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPosologie)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(142, 142, 142)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMedicament)
+                    .addComponent(tfMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblPosologie)
+                        .addGap(120, 120, 120))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAjouter)
                     .addComponent(btnModifier)
-                    .addComponent(btnSupprimer)
-                    .addComponent(btnAjouter))
-                .addGap(9, 9, 9)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSupprimer))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblPrescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -230,11 +263,26 @@ public class MedPrescriptions extends javax.swing.JFrame {
             Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            this.m.setResultSet(this.getAll());
+            this.m.setResultSet(this.getAllP());
         } catch (SQLException ex) {
             Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSupprimerActionPerformed
+
+    private void tfMedicamentCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfMedicamentCaretUpdate
+        // TODO add your handling code here:
+        String nom = this.tfMedicament.getText();
+        String sql = "SELECT mID, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament WHERE nom LIKE '%"+nom+"%'";
+        PreparedStatement ps;
+        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+        try {
+            ps = c.prepareStatement(sql);
+            ResultSet resultat = ps.executeQuery();
+            this.n.setResultSet(resultat);
+        } catch (SQLException ex) {
+            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tfMedicamentCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -286,10 +334,13 @@ public class MedPrescriptions extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblDateDePrescription;
     private javax.swing.JLabel lblInami;
+    private javax.swing.JLabel lblMedicament;
     private javax.swing.JLabel lblPosologie;
+    private javax.swing.JLabel lblPrescriptions;
     private com.toedter.components.JSpinField spinInami;
     private javax.swing.JTable tabMedicament;
     private javax.swing.JTable tabPrescriptions;
+    private javax.swing.JTextField tfMedicament;
     private javax.swing.JTextArea txtPosologie;
     // End of variables declaration//GEN-END:variables
 }
