@@ -129,6 +129,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
     }
     
     private void create (int inami, String date_prescription, String mID, String posologie) throws SQLException{
+
         String sql = "INSERT INTO prescription (mID,eID,inami,posologie, date_prescription, delivre) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
@@ -140,6 +141,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         ps.setString(5,date_prescription);
         ps.setBoolean(6, false);
         int statut = ps.executeUpdate();
+        
     }
     public void refresh() throws SQLException{
         this.spinInami.setValue(0);

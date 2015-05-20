@@ -7,6 +7,7 @@ package projet_sim_2;
 
 import be.belgium.eid.eidlib.BeID;
 import be.belgium.eid.exceptions.EIDException;
+import be.belgium.eid.objects.IDAddress;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -39,8 +40,15 @@ public class fMedAccueil extends javax.swing.JFrame {
         this.textFieldIDAccueil.setText("");
         this.p = null;
         this.a = new interactionBaseDonnees();
+        
     }
     
+    public CardTerminal connect() throws CardException{
+        TerminalFactory factory = TerminalFactory.getDefault();
+        List<CardTerminal> terminals = factory.terminals().list();
+        CardTerminal terminal = terminals.get(0);
+        return terminal;
+    }
     public patient getPatient(){
         return this.p;
     }
@@ -215,8 +223,18 @@ public class fMedAccueil extends javax.swing.JFrame {
     
     private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
         // TODO add your handling code here:
+
         fMedBDPatient di = new fMedBDPatient(this , true,true);
-        this.display(this.p, di);
+        try {
+            this.display(this.p, di);
+        } catch (CardException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (EIDException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         di.setPatient(p);
         di.setVisible(true);
         System.out.println(di.getReturnStatus());//1 = ok; 0 = cancel
@@ -237,20 +255,26 @@ public class fMedAccueil extends javax.swing.JFrame {
             System.out.println(di.getReturnStatus());//1 = ok; 0 = cancel
         } catch (SQLException ex) {
             Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CardException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (EIDException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.refresh();
         
     }//GEN-LAST:event_btnCreerActionPerformed
 
     private void buttonLecteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLecteurActionPerformed
-        TerminalFactory factory = TerminalFactory.getDefault();
+
         try {
-            List<CardTerminal> terminals = factory.terminals().list();
-            CardTerminal terminal = terminals.get(0);
-            if (terminal.isCardPresent()){
+            if (connect().isCardPresent()){
                 final BeID Carte = new BeID(false);
                 String textID = Carte.getIDData().getNationalNumber();
                 long eID = Long.valueOf(textID);
+                
+                
                 try {
                     this.p = this.a.getPatient(eID);
                 } catch (SQLException ex) {
@@ -272,7 +296,27 @@ public class fMedAccueil extends javax.swing.JFrame {
     
     }//GEN-LAST:event_buttonLecteurActionPerformed
 
-    public void display (patient p, fMedBDPatient di){
+    public void display (patient p, fMedBDPatient di) throws CardException, EIDException, ParseException{
+        if (connect().isCardPresent()){
+            final BeID Carte = new BeID(false);
+            String textID = Carte.getIDData().getNationalNumber();
+            long eID = Long.valueOf(textID);
+            String name = Carte.getIDData().getName();
+            String surname = Carte.getIDData().get1stFirstname();
+            java.util.Date birth_date = (Carte.getIDData().getBirthDate());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+            String datum = sdf.format(birth_date);
+            java.util.Date naissance = (java.util.Date) sdf.parse(datum);
+            IDAddress address = Carte.getIDAddress();
+    
+            di.getTextFieldID().setText(textID);
+            di.getTfNom().setText(name);
+            di.getTfPrenom().setText(surname);
+            di.getDcDateDeNaissance().setDate(naissance);
+            di.getTfAdresse().setText(address.getStreet() + address.getMunicipality());
+            
+        }
+        else{
         String textID = Long.toString(this.p.geteID());
         di.getTextFieldID().setText(textID);
         di.getTfNom().setText(this.p.getNom());
@@ -289,7 +333,7 @@ public class fMedAccueil extends javax.swing.JFrame {
         }
         di.getTfAdresse().setText(this.p.getAdresse());
     }
-
+    }
      /* @param args the command line arguments
      */
     public static void main(String args[]) {

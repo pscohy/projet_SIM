@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/fStartWindow.java</file>
             <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/fPharmStock.java</file>
             <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/prescription.java</file>
@@ -18,6 +19,10 @@
             <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/fPharmPrescription.java</file>
             <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/Ipatient.java</file>
             <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/fMedPrescriptions.java</file>
+=======
+            <file>file:/C:/Users/Félix/Documents/GitHub/Git/projet_SIM/src/projet_sim_2/fMedPrescriptions.java</file>
+            <file>file:/C:/Users/Félix/Documents/GitHub/Git/projet_SIM/src/projet_sim_2/fMedAccueil.java</file>
+>>>>>>> 515c6df5d2d9350f5743a242a42bc692515f9483
         </group>
     </open-files>
 </project-private>
