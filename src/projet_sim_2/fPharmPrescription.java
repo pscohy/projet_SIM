@@ -342,6 +342,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
         try {
             String textID = this.textFieldID.getText();
             long eID = Long.parseLong(textID);
+            //long eID = Long.parseLong(textID);
             this.patient = this.base.getPatient(eID);
         } catch (SQLException ex) {
             Logger.getLogger(fPharmPrescription.class.getName()).log(Level.SEVERE, null, ex);

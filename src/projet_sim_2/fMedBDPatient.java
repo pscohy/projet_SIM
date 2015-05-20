@@ -44,7 +44,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
      * Creates new form fMedBDPatient
      */
     private patient p;
-    public fMedBDPatient(java.awt.Frame parent, boolean modal) {
+    public fMedBDPatient(java.awt.Frame parent, boolean modal, boolean i) {
         super(parent, modal);
         initComponents();
         this.p = null;
@@ -59,6 +59,9 @@ public class fMedBDPatient extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
+        if (i== false){
+            this.btnPrescriptions.setEnabled(false);
+        }
     }
     
     /**
@@ -71,7 +74,6 @@ public class fMedBDPatient extends javax.swing.JDialog {
     public void setPatient(patient p){
         this.p = p;
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -297,7 +299,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                fMedBDPatient dialog = new fMedBDPatient(new javax.swing.JFrame(), true);
+                fMedBDPatient dialog = new fMedBDPatient(new javax.swing.JFrame(), true, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
