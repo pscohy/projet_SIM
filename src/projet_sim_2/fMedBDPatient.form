@@ -43,14 +43,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cancelButton" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Component id="spinID" min="-2" pref="166" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="tfNom" alignment="0" max="32767" attributes="0"/>
-                          <Component id="tfPrenom" alignment="0" max="32767" attributes="0"/>
-                          <Component id="dcDateDeNaissance" alignment="0" pref="166" max="32767" attributes="0"/>
-                          <Component id="tfAdresse" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="textFieldID" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tfNom" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tfPrenom" alignment="0" max="32767" attributes="0"/>
+                      <Component id="dcDateDeNaissance" alignment="0" pref="166" max="32767" attributes="0"/>
+                      <Component id="tfAdresse" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -60,17 +58,18 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblID" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spinID" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="lblID" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblNom" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="tfNom" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="textFieldID" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="tfNom" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -86,7 +85,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="lblAdresse" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="55" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="58" max="32767" attributes="0"/>
                   </Group>
                   <Component id="tfAdresse" max="32767" attributes="0"/>
               </Group>
@@ -146,8 +145,6 @@
         <Property name="text" type="java.lang.String" value="Adresse :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSpinner" name="spinID">
-    </Component>
     <Component class="javax.swing.JTextField" name="tfNom">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfNomActionPerformed"/>
@@ -166,6 +163,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrescriptionsActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textFieldID">
     </Component>
   </SubComponents>
 </Form>

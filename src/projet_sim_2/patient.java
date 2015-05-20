@@ -14,7 +14,7 @@ public class patient implements Ipatient {
     
     String nom, prenom,adresse;
     String date_naissance;
-    int eID;
+    long eID;
     
     public patient(){
         nom = "Proutprout";
@@ -25,7 +25,7 @@ public class patient implements Ipatient {
     }
     
     
-    public patient(int eID, String nom, String prenom, String adresse, String date_naissance){
+    public patient(long eID, String nom, String prenom, String adresse, String date_naissance){
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
@@ -49,7 +49,7 @@ public class patient implements Ipatient {
         return date_naissance;
     }
 
-    public int geteID() {
+    public long geteID() {
         return eID;
     }
 
@@ -69,7 +69,7 @@ public class patient implements Ipatient {
         this.date_naissance = date_naissance;
     }
 
-    public void seteID(int eID) {
+    public void seteID(long eID) {
         this.eID = eID;
     }
 

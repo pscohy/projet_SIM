@@ -21,17 +21,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Madli
  */
-public class MedPrescriptions extends javax.swing.JFrame {
+public class fMedPrescriptions extends javax.swing.JFrame {
 
     
     ResultSetTableModel m;
     ResultSetTableModel n;
-    int eID;
+    long eID;
     int pID;
     /**
      * Creates new form MedPrescriptions
      */
-    public MedPrescriptions(int eID) throws SQLException {
+    public fMedPrescriptions(long eID) throws SQLException {
         initComponents();
         this. eID = eID;
         this.pID = 0;
@@ -66,7 +66,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setInt(1, this.eID);
+        ps.setLong(1, this.eID);
         ResultSet resultat = ps.executeQuery();
         while(resultat.next()){ // Juste pour tests avec Workbench.
             int value = resultat.getInt("p.inami");
@@ -83,7 +83,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
                 + "FROM prescription AS p, medicament AS m"
                 + " WHERE p.eID =? and p.mID = m.mID";
         ps = c.prepareStatement(sql2);
-        ps.setInt(1, this.eID);
+        ps.setLong(1, this.eID);
         ResultSet resultat2 = ps.executeQuery();
         return resultat2;
     }
@@ -134,7 +134,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setString(1, mID);
-        ps.setInt(2, this.eID);
+        ps.setLong(2, this.eID);
         ps.setInt(3, inami);
         ps.setString(4,posologie);
         ps.setString(5,date_prescription);
@@ -214,11 +214,11 @@ public class MedPrescriptions extends javax.swing.JFrame {
             }
         });
         tabPrescriptions.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                tabPrescriptionsCaretPositionChanged(evt);
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 tabPrescriptionsInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                tabPrescriptionsCaretPositionChanged(evt);
             }
         });
         jScrollPane1.setViewportView(tabPrescriptions);
@@ -249,18 +249,18 @@ public class MedPrescriptions extends javax.swing.JFrame {
         lblDateDePrescription.setText("Date de prescription :");
 
         dcDateDePrescription.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 dcDateDePrescriptionCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
         spinInami.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 spinInamiCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -269,11 +269,11 @@ public class MedPrescriptions extends javax.swing.JFrame {
         txtPosologie.setColumns(20);
         txtPosologie.setRows(5);
         txtPosologie.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                txtPosologieCaretPositionChanged(evt);
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtPosologieInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                txtPosologieCaretPositionChanged(evt);
             }
         });
         jScrollPane2.setViewportView(txtPosologie);
@@ -410,12 +410,12 @@ public class MedPrescriptions extends javax.swing.JFrame {
         try {
             this.create(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(this.tabMedicament.getSelectedRow(),0), this.txtPosologie.getText());
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             this.refresh();
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
     }//GEN-LAST:event_btnAjouterActionPerformed
@@ -429,12 +429,12 @@ public class MedPrescriptions extends javax.swing.JFrame {
         try {
             i.removePrescription((int) this.m.getValueAt(this.tabPrescriptions.getSelectedRow(), 0));
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             this.refresh();
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSupprimerActionPerformed
 
@@ -449,7 +449,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
             ResultSet resultat = ps.executeQuery();
             this.n.setResultSet(resultat);
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tfMedicamentCaretUpdate
 
@@ -463,12 +463,12 @@ public class MedPrescriptions extends javax.swing.JFrame {
         try {
             this.update(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(0,0), this.txtPosologie.getText());
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             this.refresh();
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
     }//GEN-LAST:event_btnModifierActionPerformed
@@ -483,9 +483,9 @@ public class MedPrescriptions extends javax.swing.JFrame {
             this.display(this.tabPrescriptions.getSelectedRow());
             this.pID = (int) this.m.getValueAt(this.tabPrescriptions.getSelectedRow(), 0);
         } catch (ParseException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.btnAjouter.setEnabled(false);
         this.btnModifier.setEnabled(true);
@@ -529,24 +529,25 @@ public class MedPrescriptions extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            private int eID;
+            private long eID;
             public void run() {
                 try {
-                    new MedPrescriptions(this.eID).setVisible(true);
+                    new fMedPrescriptions(this.eID).setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
