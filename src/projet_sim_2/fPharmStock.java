@@ -52,10 +52,11 @@ public class fPharmStock extends javax.swing.JDialog {
     private interactionBaseDonnees base;
     private ResultSetTableModel tableModel;
     private ArrayList <prescription> liste_prescription;
+    private ResultSet resultatTable;
         
     
     
-    public fPharmStock(java.awt.Frame parent, boolean modal) {
+    public fPharmStock(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
         this.setTitle("Stock du pharmacien");
@@ -64,13 +65,20 @@ public class fPharmStock extends javax.swing.JDialog {
         this.prescription = null;
         this.medicament = null;
         this.base = new interactionBaseDonnees();
+        this.buttonGenerique.setEnabled(false);
+        this.buttonTout.setEnabled(false);
+        this.buttonOriginaux.setEnabled(false);
         
+        this.buttonGenerique.setToolTipText("Aucune substance active mentionnée");
+        this.buttonTout.setToolTipText("Aucune substance active mentionnée");
+        this.buttonOriginaux.setToolTipText("Aucune substance active mentionnée");
        
        this.setResizable(true);
        
        this.tableModel = new ResultSetTableModel();
        this.tableMedicament.setModel(this.tableModel);
-       //this.tableModel.setResultSet(this.getAllPrescription(this.patient.geteID()));
+       this.tableModel.setResultSet(this.getAllMedicament());
+
        
 
         // Close the dialog when Esc is pressed
@@ -86,26 +94,15 @@ public class fPharmStock extends javax.swing.JDialog {
     }
     
     //a modifier
-    /*public ResultSet getAllMedicament() throws SQLException{
-        String sql = "SELECT p.pID, p.date_prescription, p.date_delivrance, p.delivre,  m.nom, m.mID,  m.quantite, p.posologie, m.generic, m.mah, m.pack_size, m.PharmFormFr, m.PackFr, m.DelivFr, m.ActSubsts  FROM prescription AS p, medicament AS m WHERE p.eID = ? AND p.mID=m.mID";
+    private ResultSet getAllMedicament() throws SQLException{
+        String sql = "SELECT mID,quantite, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament";
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setLong(1, this.patient.geteID());
         ResultSet resultat = ps.executeQuery();
         return resultat;
-    }*/
+    }
 
-    //a modifier
-    /*public boolean generique() throws SQLException{
-        String sql = "SELECT delivre FROM prescription WHERE eID = ? AND delivre = 0";
-        PreparedStatement ps;
-        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
-        ps = c.prepareStatement(sql);
-        ps.setLong(1, this.patient.geteID());
-        ResultSet resultat = ps.executeQuery();
-        return resultat.next();
-    }*/
             
     
     /**
@@ -115,7 +112,41 @@ public class fPharmStock extends javax.swing.JDialog {
         return returnStatus;
     }
     
-    private void refresh(){  
+    private void refresh(){
+        this.spinnerQuantite.setValue(0);
+        if (this.textFieldActSub.getText().length() !=0){
+            try {
+                String ActSubsts = this.textFieldActSub.getText();
+                String sql = "SELECT mID,quantite, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament WHERE ActSubsts LIKE '%"+ActSubsts+"%'";
+                PreparedStatement ps;
+                java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+                ps = c.prepareStatement(sql);
+                this.resultatTable = ps.executeQuery();
+                this.tableModel.setResultSet(this.resultatTable);
+            } catch (SQLException ex) {
+              Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        }
+          else if (this.textFieldMedicament.getText().length() !=0){
+            try {
+                String nom = this.textFieldMedicament.getText();
+                String sql = "SELECT mID,quantite, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament WHERE nom LIKE '%"+nom+"%'";
+                PreparedStatement ps;
+                java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+                ps = c.prepareStatement(sql);
+                this.resultatTable = ps.executeQuery();
+                this.tableModel.setResultSet(this.resultatTable);
+            } catch (SQLException ex) {
+                Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           }
+          else{
+            try {
+                this.tableModel.setResultSet(this.getAllMedicament());
+            } catch (SQLException ex) {
+                Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
         
     }
 
@@ -128,7 +159,7 @@ public class fPharmStock extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonModifier = new javax.swing.JButton();
+        buttonAjouter = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         scrolePanelTable = new javax.swing.JScrollPane();
         tableMedicament = new javax.swing.JTable();
@@ -140,7 +171,8 @@ public class fPharmStock extends javax.swing.JDialog {
         labelQuantite = new javax.swing.JLabel();
         spinnerQuantite = new javax.swing.JSpinner();
         labelActSub = new javax.swing.JLabel();
-        testFieldActSub = new javax.swing.JTextField();
+        textFieldActSub = new javax.swing.JTextField();
+        buttonTotal = new javax.swing.JToggleButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -148,10 +180,10 @@ public class fPharmStock extends javax.swing.JDialog {
             }
         });
 
-        buttonModifier.setText("Modifier");
-        buttonModifier.addActionListener(new java.awt.event.ActionListener() {
+        buttonAjouter.setText("Ajouter");
+        buttonAjouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonModifierActionPerformed(evt);
+                buttonAjouterActionPerformed(evt);
             }
         });
 
@@ -175,6 +207,11 @@ public class fPharmStock extends javax.swing.JDialog {
         ));
         scrolePanelTable.setViewportView(tableMedicament);
 
+        textFieldMedicament.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                textFieldMedicamentCaretUpdate(evt);
+            }
+        });
         textFieldMedicament.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldMedicamentActionPerformed(evt);
@@ -191,6 +228,11 @@ public class fPharmStock extends javax.swing.JDialog {
         });
 
         buttonOriginaux.setText("Originaux");
+        buttonOriginaux.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOriginauxActionPerformed(evt);
+            }
+        });
 
         buttonTout.setText("Tout");
         buttonTout.addActionListener(new java.awt.event.ActionListener() {
@@ -203,9 +245,21 @@ public class fPharmStock extends javax.swing.JDialog {
 
         labelActSub.setText("Substance active");
 
-        testFieldActSub.addActionListener(new java.awt.event.ActionListener() {
+        textFieldActSub.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                textFieldActSubCaretUpdate(evt);
+            }
+        });
+        textFieldActSub.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                testFieldActSubActionPerformed(evt);
+                textFieldActSubActionPerformed(evt);
+            }
+        });
+
+        buttonTotal.setText("Au Total");
+        buttonTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTotalActionPerformed(evt);
             }
         });
 
@@ -217,17 +271,7 @@ public class fPharmStock extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(labelQuantite)
-                        .addGap(18, 18, 18)
-                        .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(buttonModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(639, 639, 639)
-                        .addComponent(cancelButton))
+                        .addComponent(scrolePanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1243, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(labelMedicament)
@@ -236,15 +280,26 @@ public class fPharmStock extends javax.swing.JDialog {
                         .addGap(82, 82, 82)
                         .addComponent(labelActSub)
                         .addGap(28, 28, 28)
-                        .addComponent(testFieldActSub, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textFieldActSub, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addComponent(buttonOriginaux)
                         .addGap(96, 96, 96)
                         .addComponent(buttonGenerique)
                         .addGap(162, 162, 162)
-                        .addComponent(buttonTout)))
-                .addContainerGap(977, Short.MAX_VALUE))
+                        .addComponent(buttonTout))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(labelQuantite)
+                        .addGap(30, 30, 30)
+                        .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonTotal))
+                        .addGap(360, 360, 360)
+                        .addComponent(cancelButton)))
+                .addGap(977, 977, 977))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,32 +309,59 @@ public class fPharmStock extends javax.swing.JDialog {
                     .addComponent(textFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMedicament)
                     .addComponent(labelActSub)
-                    .addComponent(testFieldActSub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldActSub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonTout)
                     .addComponent(buttonOriginaux)
                     .addComponent(buttonGenerique))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelQuantite)
-                    .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonModifier))
-                .addGap(18, 18, 18)
-                .addComponent(cancelButton)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(scrolePanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addGap(78, 78, 78)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(cancelButton)
+                            .addGap(22, 22, 22))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelQuantite))
+                            .addGap(41, 41, 41)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonAjouter)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonTotal)
+                        .addGap(22, 22, 22))))
         );
 
-        getRootPane().setDefaultButton(buttonModifier);
+        getRootPane().setDefaultButton(buttonAjouter);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifierActionPerformed
-      this.refresh();
-    }//GEN-LAST:event_buttonModifierActionPerformed
+    private void buttonAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAjouterActionPerformed
+            
+      String mID = (String) this.tableModel.getValueAt(this.tableMedicament.getSelectedRow(), 0);
+      medicament medicament;
+        try {
+            medicament = this.base.getMedicament(mID);
+            int quantite = medicament.getQuantite();
+            int ajout = (int) this.spinnerQuantite.getValue();
+            quantite = quantite +ajout;
+      
+            medicament.setQuantite(quantite);
+      
+            this.base.updateMedicament(medicament);
+        } catch (SQLException ex) {
+            Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.refresh();
+        
+    }//GEN-LAST:event_buttonAjouterActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
@@ -297,16 +379,123 @@ public class fPharmStock extends javax.swing.JDialog {
     }//GEN-LAST:event_textFieldMedicamentActionPerformed
 
     private void buttonGeneriqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeneriqueActionPerformed
-        // TODO add your handling code here:
+        try {
+            String ActSubsts = this.textFieldActSub.getText();
+            String sql = "SELECT mID,quantite, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament WHERE ActSubsts LIKE '%"+ActSubsts+"%' AND (generic!='0' AND generic !='')";
+            PreparedStatement ps;
+            java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+            ps = c.prepareStatement(sql);
+            ResultSet resultat = ps.executeQuery();
+            this.tableModel.setResultSet(resultat);
+        } catch (SQLException ex) {
+            Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonGeneriqueActionPerformed
 
     private void buttonToutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToutActionPerformed
-        // TODO add your handling code here:
+        try {
+            this.tableModel.setResultSet(this.resultatTable);
+        } catch (SQLException ex) {
+            Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonToutActionPerformed
 
-    private void testFieldActSubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testFieldActSubActionPerformed
+    private void textFieldActSubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldActSubActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_testFieldActSubActionPerformed
+    }//GEN-LAST:event_textFieldActSubActionPerformed
+
+    private void textFieldMedicamentCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_textFieldMedicamentCaretUpdate
+        this.textFieldActSub.setText("");
+
+        this.buttonGenerique.setEnabled(false);
+        this.buttonTout.setEnabled(false);
+        this.buttonOriginaux.setEnabled(false);
+
+        this.buttonGenerique.setToolTipText("Aucune substance active mentionnée");
+        this.buttonTout.setToolTipText("Aucune substance active mentionnée");
+        this.buttonOriginaux.setToolTipText("Aucune substance active mentionnée");
+ 
+        String nom = this.textFieldMedicament.getText();
+        String sql = "SELECT mID,quantite, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament WHERE nom LIKE '%"+nom+"%'";
+        PreparedStatement ps;
+        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+        try {
+            ps = c.prepareStatement(sql);
+            this.resultatTable = ps.executeQuery();
+            this.tableModel.setResultSet(this.resultatTable);
+        } catch (SQLException ex) {
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_textFieldMedicamentCaretUpdate
+
+    private void textFieldActSubCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_textFieldActSubCaretUpdate
+        this.textFieldMedicament.setText("");
+        
+        if (this.textFieldActSub.getText().length()==0){
+            this.buttonGenerique.setEnabled(false);
+            this.buttonTout.setEnabled(false);
+            this.buttonOriginaux.setEnabled(false);
+
+            this.buttonGenerique.setToolTipText("Aucune substance active mentionnée");
+            this.buttonTout.setToolTipText("Aucune substance active mentionnée");
+            this.buttonOriginaux.setToolTipText("Aucune substance active mentionnée");
+        }
+        
+        else{
+            this.buttonGenerique.setEnabled(true);
+            this.buttonTout.setEnabled(true);
+            this.buttonOriginaux.setEnabled(true);
+
+            this.buttonGenerique.setToolTipText("");
+            this.buttonTout.setToolTipText("");
+            this.buttonOriginaux.setToolTipText("");
+        }
+        String ActSubsts = this.textFieldActSub.getText();
+        String sql = "SELECT mID,quantite, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament WHERE ActSubsts LIKE '%"+ActSubsts+"%'";
+        PreparedStatement ps;
+        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+        try {
+            ps = c.prepareStatement(sql);
+            this.resultatTable = ps.executeQuery();
+            this.tableModel.setResultSet(this.resultatTable);
+        } catch (SQLException ex) {
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_textFieldActSubCaretUpdate
+
+    private void buttonOriginauxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOriginauxActionPerformed
+        try {
+            String ActSubsts = this.textFieldActSub.getText();
+            String sql = "SELECT mID, quantite, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament WHERE ActSubsts LIKE '%"+ActSubsts+"%' AND (generic='0' OR generic ='')";
+            PreparedStatement ps;
+            java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+            ps = c.prepareStatement(sql);
+            ResultSet resultat = ps.executeQuery();
+            this.tableModel.setResultSet(resultat);
+        } catch (SQLException ex) {
+            Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_buttonOriginauxActionPerformed
+
+    private void buttonTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTotalActionPerformed
+        String mID = (String) this.tableModel.getValueAt(this.tableMedicament.getSelectedRow(), 0);
+        medicament medicament;
+        try {
+            medicament = this.base.getMedicament(mID);
+            int quantite = (int) this.spinnerQuantite.getValue();      
+            medicament.setQuantite(quantite);
+      
+            this.base.updateMedicament(medicament);
+        } catch (SQLException ex) {
+            Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.refresh();
+    }//GEN-LAST:event_buttonTotalActionPerformed
 
         
     private void doClose(int retStatus) {
@@ -359,9 +548,10 @@ public class fPharmStock extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAjouter;
     private javax.swing.JButton buttonGenerique;
-    private javax.swing.JButton buttonModifier;
     private javax.swing.JButton buttonOriginaux;
+    private javax.swing.JToggleButton buttonTotal;
     private javax.swing.JButton buttonTout;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel labelActSub;
@@ -370,7 +560,7 @@ public class fPharmStock extends javax.swing.JDialog {
     private javax.swing.JScrollPane scrolePanelTable;
     private javax.swing.JSpinner spinnerQuantite;
     private javax.swing.JTable tableMedicament;
-    private javax.swing.JTextField testFieldActSub;
+    private javax.swing.JTextField textFieldActSub;
     private javax.swing.JTextField textFieldMedicament;
     // End of variables declaration//GEN-END:variables
 

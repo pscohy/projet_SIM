@@ -5,6 +5,10 @@
  */
 package projet_sim_2;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author philo
@@ -79,10 +83,14 @@ public class fPharmAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPrescriptionActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-        fPharmStock fenetre = new fPharmStock(this , true);
-        fenetre.setVisible(true);
-        System.out.println(fenetre.getReturnStatus());//1 = ok; 0 = cancel
+        try {
+            this.dispose();
+            fPharmStock fenetre = new fPharmStock(this , true);
+            fenetre.setVisible(true);
+            System.out.println(fenetre.getReturnStatus());//1 = ok; 0 = cancel
+        } catch (SQLException ex) {
+            Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

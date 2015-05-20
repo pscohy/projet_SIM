@@ -24,13 +24,12 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labeleID" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrolePanelTable" min="-2" pref="1243" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               <Component id="textFieldID" min="-2" pref="153" max="-2" attributes="0"/>
@@ -42,13 +41,14 @@
                               <Component id="labelCard" min="-2" pref="254" max="-2" attributes="0"/>
                           </Group>
                           <Component id="labelNomPatient" alignment="0" min="-2" pref="609" max="-2" attributes="0"/>
+                          <Component id="scrolePanelTable" alignment="0" min="-2" pref="1023" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Component id="buttonDelivrer" min="-2" pref="86" max="-2" attributes="0"/>
-                      <EmptySpace pref="448" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="1551" max="-2" attributes="0"/>
                   </Group>
@@ -59,7 +59,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="labeleID" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -69,11 +69,11 @@
                   </Group>
                   <Component id="labelCard" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelNomPatient" min="-2" pref="23" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="scrolePanelTable" min="-2" pref="266" max="-2" attributes="0"/>
-              <EmptySpace pref="72" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <Component id="scrolePanelTable" pref="266" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonDelivrer" alignment="0" min="-2" max="-2" attributes="0"/>
