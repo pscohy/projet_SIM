@@ -178,7 +178,7 @@ public class fMedAccueil extends javax.swing.JFrame {
 
     private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
         // TODO add your handling code here:
-        fMedBDPatient di = new fMedBDPatient(this , true);
+        fMedBDPatient di = new fMedBDPatient(this , true,true);
         this.display(this.p, di);
         di.setPatient(p);
         di.setVisible(true);
@@ -189,7 +189,7 @@ public class fMedAccueil extends javax.swing.JFrame {
     private void btnCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreerActionPerformed
         // TODO add your handling code here:
         try {
-            fMedBDPatient di = new fMedBDPatient(this , true);
+            fMedBDPatient di = new fMedBDPatient(this , true,false);
             this.p = a.createPatient((int) this.spinID.getValue());
             this.display(this.p, di);
             di.setPatient(p);
