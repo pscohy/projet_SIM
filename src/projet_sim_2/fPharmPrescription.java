@@ -150,7 +150,6 @@ public class fPharmPrescription extends javax.swing.JDialog {
     
     private void refresh(){  
         this.labelNomPatient.setText("");
-        this.textFieldID.setText("");
         this.labelCard.setText("");
         
     }
@@ -381,7 +380,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
         }
 
     
-    }//GEN-LAST:event_buttonLecteurActionPerformed
+    }                                             
 //GEN-LAST:event_buttonLecteurActionPerformed
         
     private void doClose(int retStatus) {
