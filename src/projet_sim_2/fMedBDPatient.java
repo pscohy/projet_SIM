@@ -19,6 +19,7 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -44,9 +45,12 @@ public class fMedBDPatient extends javax.swing.JDialog {
      * Creates new form fMedBDPatient
      */
     private patient p;
+    private java.awt.Frame fenetre_precedente;
+    
     public fMedBDPatient(java.awt.Frame parent, boolean modal, boolean i) {
         super(parent, modal);
         initComponents();
+        this.fenetre_precedente = parent;
         this.p = null;
         this.setTitle("Boîte de dialogue patient à l'usage d'un médecin");
         // Close the dialog when Esc is pressed
@@ -96,6 +100,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
         tfAdresse = new javax.swing.JTextField();
         btnPrescriptions = new javax.swing.JButton();
         textFieldID = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -140,33 +145,46 @@ public class fMedBDPatient extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setText("Retour");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblID)
-                        .addComponent(lblAdresse)
-                        .addComponent(lblDateDeNaissance)
-                        .addComponent(lblPrenom)
-                        .addComponent(lblNom))
-                    .addComponent(btnPrescriptions))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addGap(92, 92, 92)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblID)
+                            .addComponent(lblAdresse)
+                            .addComponent(lblDateDeNaissance)
+                            .addComponent(lblPrenom)
+                            .addComponent(lblNom)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnPrescriptions)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(textFieldID, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfNom, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dcDateDeNaissance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(tfAdresse, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelButton))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(textFieldID, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tfNom, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(dcDateDeNaissance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                        .addComponent(tfAdresse, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelButton)))
                 .addContainerGap())
         );
 
@@ -203,7 +221,8 @@ public class fMedBDPatient extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(okButton)
-                    .addComponent(btnPrescriptions))
+                    .addComponent(btnPrescriptions)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -252,7 +271,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
         fMedPrescriptions d;
         try {
             long eID = Long.parseLong(this.textFieldID.getText());
-            d = new fMedPrescriptions(eID);
+            d = new fMedPrescriptions(eID, this);
             d.setVisible(true);
             this.dispose();
             d.setAlwaysOnTop(true);
@@ -261,6 +280,11 @@ public class fMedBDPatient extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_btnPrescriptionsActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        this.fenetre_precedente.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -297,7 +321,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 fMedBDPatient dialog = new fMedBDPatient(new javax.swing.JFrame(), true, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -308,7 +332,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
                 });
                 dialog.setVisible(true);
             }
-        });
+        });*/
     }
     
     public JDateChooser getDcDateDeNaissance(){
@@ -331,6 +355,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
     private javax.swing.JButton btnPrescriptions;
     private javax.swing.JButton cancelButton;
     private com.toedter.calendar.JDateChooser dcDateDeNaissance;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblAdresse;
     private javax.swing.JLabel lblDateDeNaissance;
     private javax.swing.JLabel lblID;

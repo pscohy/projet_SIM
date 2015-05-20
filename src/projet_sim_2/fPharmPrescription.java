@@ -28,6 +28,7 @@ import be.belgium.eid.exceptions.EIDException;
 import javax.smartcardio.CardException;
 import java.util.List;
 import javax.smartcardio.*;
+import javax.swing.JFrame;
 
 /**
  *
@@ -57,13 +58,15 @@ public class fPharmPrescription extends javax.swing.JDialog {
     private medicament medicament;
     private interactionBaseDonnees base;
     private ResultSetTableModel tableModel;
-    private ArrayList <prescription> liste_prescription;
+    private java.awt.Frame fenetre_precedente;
+    
         
     
     
     public fPharmPrescription(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.fenetre_precedente = parent;
         this.setTitle("Pharmacien");
         this.buttonDelivrer.setEnabled(false);
         this.textFieldID.setText("");
@@ -173,6 +176,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
         buttonLecteur = new javax.swing.JButton();
         labelCard = new javax.swing.JLabel();
         textFieldID = new javax.swing.JTextField();
+        buttonRetour = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -223,6 +227,13 @@ public class fPharmPrescription extends javax.swing.JDialog {
             }
         });
 
+        buttonRetour.setText("Retour");
+        buttonRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRetourActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -244,14 +255,15 @@ public class fPharmPrescription extends javax.swing.JDialog {
                                 .addGap(26, 26, 26)
                                 .addComponent(labelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(labelNomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1023, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1023, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(buttonDelivrer, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancelButton)
-                        .addGap(1551, 1551, 1551))))
+                        .addGap(62, 62, 62)
+                        .addComponent(buttonRetour)
+                        .addGap(50, 50, 50)
+                        .addComponent(cancelButton)))
+                .addContainerGap(728, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,9 +281,10 @@ public class fPharmPrescription extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrolePanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                 .addGap(72, 72, 72)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonDelivrer)
                     .addComponent(cancelButton)
-                    .addComponent(buttonDelivrer))
+                    .addComponent(buttonRetour))
                 .addGap(18, 18, 18))
         );
 
@@ -383,6 +396,11 @@ public class fPharmPrescription extends javax.swing.JDialog {
     
     }                                             
 //GEN-LAST:event_buttonLecteurActionPerformed
+
+    private void buttonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRetourActionPerformed
+        this.dispose();
+        this.fenetre_precedente.setVisible(true);
+    }//GEN-LAST:event_buttonRetourActionPerformed
         
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -419,7 +437,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 fPharmPrescription dialog = new fPharmPrescription(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -430,13 +448,14 @@ public class fPharmPrescription extends javax.swing.JDialog {
                 });
                 dialog.setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChercher;
     private javax.swing.JButton buttonDelivrer;
     private javax.swing.JButton buttonLecteur;
+    private javax.swing.JButton buttonRetour;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel labelCard;
     private javax.swing.JLabel labelNomPatient;

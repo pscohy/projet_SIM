@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
 import javax.smartcardio.TerminalFactory;
+import javax.swing.JFrame;
 
 /**
  *
@@ -30,8 +31,11 @@ public class fMedAccueil extends javax.swing.JFrame {
      */
     private patient p;
     private interactionBaseDonnees a;
-    public fMedAccueil() {
+    private JFrame fenetre_precedente;
+    
+    public fMedAccueil(JFrame fenetre) {
         initComponents();
+        this.fenetre_precedente = fenetre;
         this.setTitle("Page d'accueil médecin");
         this.btnCreer.setEnabled(false);
         this.btnModifier.setEnabled(false);
@@ -79,6 +83,7 @@ public class fMedAccueil extends javax.swing.JFrame {
         buttonLecteur = new javax.swing.JButton();
         labelCard = new javax.swing.JLabel();
         textFieldIDAccueil = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +124,13 @@ public class fMedAccueil extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Retour");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,13 +138,6 @@ public class fMedAccueil extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(btnModifier)
-                        .addGap(68, 68, 68)
-                        .addComponent(btnCreer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                        .addComponent(btnSupprimer)
-                        .addGap(30, 30, 30))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(lblAppartenance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,7 +155,17 @@ public class fMedAccueil extends javax.swing.JFrame {
                                 .addComponent(textFieldIDAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(buttonLecteur)))
-                        .addGap(50, 50, 50))))
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnModifier)
+                                .addGap(68, 68, 68)
+                                .addComponent(btnCreer)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(btnSupprimer)
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +186,9 @@ public class fMedAccueil extends javax.swing.JFrame {
                     .addComponent(btnModifier)
                     .addComponent(btnCreer)
                     .addComponent(btnSupprimer))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(47, 47, 47))
         );
 
         pack();
@@ -298,6 +315,13 @@ public class fMedAccueil extends javax.swing.JFrame {
     
     }//GEN-LAST:event_buttonLecteurActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        this.fenetre_precedente.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+
     public void display (patient p, fMedBDPatient di) throws CardException, EIDException, ParseException, SQLException{
         String ftextID = this.textFieldIDAccueil.getText();
         long longeID = Long.parseLong(ftextID);
@@ -366,11 +390,11 @@ public class fMedAccueil extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new fMedAccueil().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -379,6 +403,7 @@ public class fMedAccueil extends javax.swing.JFrame {
     private javax.swing.JButton btnModifier;
     private javax.swing.JButton btnSupprimer;
     private javax.swing.JButton buttonLecteur;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel labelCard;
     private javax.swing.JLabel lblAppartenance;
     private javax.swing.JLabel lblID;
