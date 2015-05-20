@@ -226,15 +226,11 @@ public class fMedAccueil extends javax.swing.JFrame {
     private void btnCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreerActionPerformed
         // TODO add your handling code here:
         try {
-<<<<<<< HEAD
+
             fMedBDPatient di = new fMedBDPatient(this , true,false);
-            this.p = a.createPatient((int) this.spinID.getValue());
-=======
-            fMedBDPatient di = new fMedBDPatient(this , true);
             String textID = this.textFieldIDAccueil.getText();
             long eID = Long.parseLong(textID);
             this.p = a.createPatient(eID);
->>>>>>> aafb8d1637294024c8b3f872369ccd7a93174fd4
             this.display(this.p, di);
             di.setPatient(p);
             di.setVisible(true);
