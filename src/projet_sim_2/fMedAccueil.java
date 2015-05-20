@@ -223,8 +223,8 @@ public class fMedAccueil extends javax.swing.JFrame {
     
     private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        fMedBDPatient di = new fMedBDPatient(this , true);
+
+        fMedBDPatient di = new fMedBDPatient(this , true,true);
         try {
             this.display(this.p, di);
         } catch (CardException ex) {
@@ -234,10 +234,7 @@ public class fMedAccueil extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-=======
-        fMedBDPatient di = new fMedBDPatient(this , true,true);
-        this.display(this.p, di);
->>>>>>> f69883c97f26a7a16173c50c609add8a92380cb5
+
         di.setPatient(p);
         di.setVisible(true);
         System.out.println(di.getReturnStatus());//1 = ok; 0 = cancel
@@ -316,7 +313,7 @@ public class fMedAccueil extends javax.swing.JFrame {
             di.getTfNom().setText(name);
             di.getTfPrenom().setText(surname);
             di.getDcDateDeNaissance().setDate(naissance);
-            di.getTfAdresse().setText(address.getStreet().toString() + address.getMunicipality().toString());
+            di.getTfAdresse().setText(address.getStreet() + address.getMunicipality());
             
         }
         else{
