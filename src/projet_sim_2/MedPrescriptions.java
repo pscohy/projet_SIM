@@ -5,9 +5,13 @@
  */
 package projet_sim_2;
 
+
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -23,12 +27,14 @@ public class MedPrescriptions extends javax.swing.JFrame {
     ResultSetTableModel m;
     ResultSetTableModel n;
     int eID;
+    int pID;
     /**
      * Creates new form MedPrescriptions
      */
     public MedPrescriptions(int eID) throws SQLException {
         initComponents();
         this. eID = eID;
+        this.pID = 0;
         this.setTitle("Boîte de dialogue prescription à l'usage du médecin");
         this.m = new ResultSetTableModel();
         this.tabPrescriptions.setModel(this.m);
@@ -36,6 +42,9 @@ public class MedPrescriptions extends javax.swing.JFrame {
         this.n = new ResultSetTableModel();
         this.tabMedicament.setModel(this.n);
         this.n.setResultSet(this.getAllM());
+        this.btnAjouter.setEnabled(true);
+        this.btnModifier.setEnabled(false);
+        this.btnSupprimer.setEnabled(false);
         
     }
     
@@ -48,9 +57,10 @@ public class MedPrescriptions extends javax.swing.JFrame {
         return resultat;
     }
    
+    @SuppressWarnings("null")
     public ResultSet getAllP() throws SQLException{
-        String sql = "SELECT p. pID, p.eID, p.inami, p.date_prescription, p.date_delivrance, p.delivre,"
-                + " m.nom, m.mah, m.generic, m.pack_size, m.PharmFormFr, m.PackFr, m.DelivFr, m.ActSubsts,p.posologie "
+        String sql = "SELECT p.pID, p.eID, p.inami, p.date_prescription, p.date_delivrance, p.delivre,"
+                + " m.mID, m.nom, m.mah, m.generic, m.pack_size, m.PharmFormFr, m.PackFr, m.DelivFr, m.ActSubsts,p.posologie "
                 + "FROM prescription AS p, medicament AS m"
                 + " WHERE p.eID =? and p.mID = m.mID";
         PreparedStatement ps;
@@ -58,9 +68,102 @@ public class MedPrescriptions extends javax.swing.JFrame {
         ps = c.prepareStatement(sql);
         ps.setInt(1, this.eID);
         ResultSet resultat = ps.executeQuery();
-        return resultat;
+        while(resultat.next()){ // Juste pour tests avec Workbench.
+            int value = resultat.getInt("p.inami");
+            boolean nullValue = resultat.wasNull();
+            if (resultat.wasNull()){
+                
+            }
+            if ((resultat.getString("p.posologie")== null )){
+                this.changePosologie(resultat.getInt("p.pID"));
+            }
+        }
+        String sql2 = "SELECT p.pID, p.eID, p.inami, p.date_prescription, p.date_delivrance, p.delivre,"
+                + " m.mID, m.nom, m.mah, m.generic, m.pack_size, m.PharmFormFr, m.PackFr, m.DelivFr, m.ActSubsts,p.posologie "
+                + "FROM prescription AS p, medicament AS m"
+                + " WHERE p.eID =? and p.mID = m.mID";
+        ps = c.prepareStatement(sql2);
+        ps.setInt(1, this.eID);
+        ResultSet resultat2 = ps.executeQuery();
+        return resultat2;
     }
     
+    public void changePosologie(int pIDt) throws SQLException{
+        String sql = "UPDATE prescription SET posologie =?  WHERE pID =?";
+        PreparedStatement ps;
+        interactionBaseDonnees base = new interactionBaseDonnees();
+        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+        ps = c.prepareStatement(sql);
+        ps.setString(1, "");
+        ps.setInt(2, pIDt);
+        int statut = ps.executeUpdate();
+    }
+    
+    public void changeInami(int pIDt) throws SQLException{
+        String sql = "UPDATE prescription SET inami =?  WHERE pID =?";
+        PreparedStatement ps;
+        interactionBaseDonnees base = new interactionBaseDonnees();
+        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+        ps = c.prepareStatement(sql);
+        ps.setInt(1, 0);
+        ps.setInt(2, pIDt);
+        int statut = ps.executeUpdate();
+    }
+    
+    public void display (int raw) throws ParseException, SQLException{
+        this.spinInami.setValue((int) this.m.getValueAt(raw, 2));
+        /*if (this.m.getValueAt(raw,3) == ""){
+            
+        }*/
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        java.util.Date d = (java.util.Date) sdf.parse((String) this.m.getValueAt(raw,3));
+        this.dcDateDePrescription.setDate(d);
+        String sql = "SELECT mID, nom, mah, generic, pack_size, PharmFormFr, PackFr, DelivFr, ActSubsts FROM medicament WHERE mID =?";
+        PreparedStatement ps;
+        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+        ps = c.prepareStatement(sql);
+        ps.setString(1,(String) this.m.getValueAt(raw,6));
+        ResultSet resultat = ps.executeQuery();
+        this.n.setResultSet(resultat);
+        this.txtPosologie.setText((String) this.m.getValueAt(raw, 15));
+    }
+    
+    public void create (int inami, String date_prescription, String mID, String posologie) throws SQLException{
+        String sql = "INSERT INTO prescription (mID,eID,inami,posologie, date_prescription) VALUES (?,?,?,?,?)";
+        PreparedStatement ps;
+        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+        ps = c.prepareStatement(sql);
+        ps.setString(1, mID);
+        ps.setInt(2, this.eID);
+        ps.setInt(3, inami);
+        ps.setString(4,posologie);
+        ps.setString(5,date_prescription);
+        int statut = ps.executeUpdate();
+    }
+    public void refresh() throws SQLException{
+        this.spinInami.setValue(0);
+        this.dcDateDePrescription.setCalendar(null);
+        this.tfMedicament.setText("");
+        this.tabMedicament.changeSelection(0,0,false,false);
+        this.n.setResultSet(this.getAllM());
+        this.txtPosologie.setText("");
+        this.btnAjouter.setEnabled(true);
+        this.btnModifier.setEnabled(false);
+        this.btnSupprimer.setEnabled(false);
+        this.m.setResultSet(this.getAllP());
+    }
+    public void update (int inami, String date_prescription, String mID, String posologie) throws SQLException{
+        String sql = "UPDATE prescription SET inami=?,date_prescription=?,mID=?,posologie=? WHERE pID=?";
+        PreparedStatement ps;
+        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
+        ps = c.prepareStatement(sql);
+        ps.setInt(1, inami);
+        ps.setString(2, date_prescription);
+        ps.setString(3, mID);
+        ps.setString(4, posologie);
+        ps.setInt(5, this.pID);
+        int statut = ps.executeUpdate();
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,8 +205,14 @@ public class MedPrescriptions extends javax.swing.JFrame {
 
             }
         ));
+        tabPrescriptions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabPrescriptionsMouseClicked(evt);
+            }
+        });
         tabPrescriptions.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                tabPrescriptionsCaretPositionChanged(evt);
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 tabPrescriptionsInputMethodTextChanged(evt);
@@ -112,6 +221,11 @@ public class MedPrescriptions extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabPrescriptions);
 
         btnModifier.setText("Modifier");
+        btnModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifierActionPerformed(evt);
+            }
+        });
 
         btnAjouter.setText("Ajouter");
         btnAjouter.addActionListener(new java.awt.event.ActionListener() {
@@ -250,6 +364,17 @@ public class MedPrescriptions extends javax.swing.JFrame {
 
     private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterActionPerformed
         // TODO add your handling code here:
+        String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDePrescription.getDate());
+        try {
+            this.create(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(this.tabMedicament.getSelectedRow(),0), this.txtPosologie.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.refresh();
+        } catch (SQLException ex) {
+            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAjouterActionPerformed
 
     private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerActionPerformed
@@ -263,7 +388,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
             Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            this.m.setResultSet(this.getAllP());
+            this.refresh();
         } catch (SQLException ex) {
             Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -283,6 +408,39 @@ public class MedPrescriptions extends javax.swing.JFrame {
             Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tfMedicamentCaretUpdate
+
+    private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
+        String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDePrescription.getDate());
+        try {
+            this.update(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(0,0), this.txtPosologie.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.refresh();
+        } catch (SQLException ex) {
+            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnModifierActionPerformed
+
+    private void tabPrescriptionsCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tabPrescriptionsCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabPrescriptionsCaretPositionChanged
+
+    private void tabPrescriptionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrescriptionsMouseClicked
+        try {
+            // TODO add your handling code here:
+            this.display(this.tabPrescriptions.getSelectedRow());
+            this.pID = (int) this.m.getValueAt(this.tabPrescriptions.getSelectedRow(), 0);
+        } catch (ParseException ex) {
+            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.btnAjouter.setEnabled(false);
+        this.btnModifier.setEnabled(true);
+        this.btnSupprimer.setEnabled(true);
+    }//GEN-LAST:event_tabPrescriptionsMouseClicked
 
     /**
      * @param args the command line arguments
