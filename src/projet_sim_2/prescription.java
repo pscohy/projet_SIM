@@ -12,11 +12,12 @@ import java.sql.Date;
  * @author INFO-H-400
  */
 public class prescription {
-    int pID,eID,inami;
+    long eID;
+    int pID,inami;
     String posologie, date_prescription, date_delivrance, mID;
     Boolean delivre;
 
-    public prescription(int pID, String mID, int eID, int inami, String posologie, String date_prescription, String date_delivrance, Boolean delivre) {
+    public prescription(int pID, String mID, long eID, int inami, String posologie, String date_prescription, String date_delivrance, Boolean delivre) {
         this.pID = pID;
         this.mID = mID;
         this.eID = eID;
@@ -35,7 +36,7 @@ public class prescription {
         return mID;
     }
 
-    public int geteID() {
+    public long geteID() {
         return eID;
     }
 
@@ -67,7 +68,7 @@ public class prescription {
         this.mID = mID;
     }
 
-    public void seteID(int eID) {
+    public void seteID(long eID) {
         this.eID = eID;
     }
 

@@ -17,16 +17,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Madli
  */
-public class MedPrescriptions extends javax.swing.JFrame {
+public class fMedPrescriptions extends javax.swing.JFrame {
 
     
     ResultSetTableModel m;
     ResultSetTableModel n;
-    int eID;
+    long eID;
     /**
      * Creates new form MedPrescriptions
      */
-    public MedPrescriptions(int eID) throws SQLException {
+    public fMedPrescriptions(long eID) throws SQLException {
         initComponents();
         this. eID = eID;
         this.setTitle("Boîte de dialogue prescription à l'usage du médecin");
@@ -56,7 +56,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setInt(1, this.eID);
+        ps.setLong(1, this.eID);
         ResultSet resultat = ps.executeQuery();
         return resultat;
     }
@@ -260,12 +260,12 @@ public class MedPrescriptions extends javax.swing.JFrame {
         try {
             i.removePrescription((int) this.m.getValueAt(this.tabPrescriptions.getSelectedRow(), 0));
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             this.m.setResultSet(this.getAllP());
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSupprimerActionPerformed
 
@@ -280,7 +280,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
             ResultSet resultat = ps.executeQuery();
             this.n.setResultSet(resultat);
         } catch (SQLException ex) {
-            Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tfMedicamentCaretUpdate
 
@@ -301,24 +301,25 @@ public class MedPrescriptions extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(fMedPrescriptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            private int eID;
+            private long eID;
             public void run() {
                 try {
-                    new MedPrescriptions(this.eID).setVisible(true);
+                    new fMedPrescriptions(this.eID).setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

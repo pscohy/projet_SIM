@@ -105,7 +105,7 @@ public class medicament {
     }
 
     public int getQuantite() {
-        return quantite;
+        return this.quantite;
     }
 
    

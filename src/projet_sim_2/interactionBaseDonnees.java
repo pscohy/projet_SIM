@@ -29,12 +29,12 @@ public class interactionBaseDonnees {
     public interactionBaseDonnees(){
     }
         
-    public patient getPatient (int eID) throws SQLException, ParseException{
+    public patient getPatient (long eID) throws SQLException, ParseException{
         String sql = "SELECT eID, nom, prenom, adresse,date_de_naissance FROM patient WHERE eID = ?";
         PreparedStatement ps;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setInt(1, eID);
+        ps.setLong(1, eID);
         ResultSet resultat = ps.executeQuery();
         patient patient = null;
         if (!resultat.next()){
@@ -42,7 +42,7 @@ public class interactionBaseDonnees {
             return patient;
         }
         else{
-            patient = new patient(resultat.getInt("eID"), resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getString("date_de_naissance") );
+            patient = new patient(resultat.getLong("eID"), resultat.getString("nom"),resultat.getString("prenom"), resultat.getString("adresse"), resultat.getString("date_de_naissance") );
             if (patient.getNom()== null){
                 patient.setNom("");
             }
@@ -72,7 +72,7 @@ public class interactionBaseDonnees {
             return prescription;
         }
         else{
-            prescription = new prescription(resultat.getInt("pID"),resultat.getString("mID"), resultat.getInt("eID"), resultat.getInt("inami"), resultat.getString("posologie"), resultat.getString("date_prescription"),resultat.getString("date_delivrance"),resultat.getBoolean("delivre") );
+            prescription = new prescription(resultat.getInt("pID"),resultat.getString("mID"), resultat.getLong("eID"), resultat.getInt("inami"), resultat.getString("posologie"), resultat.getString("date_prescription"),resultat.getString("date_delivrance"),resultat.getBoolean("delivre") );
             
             if (prescription.getPosologie() == null){
                 prescription.setPosologie("");
@@ -91,12 +91,12 @@ public class interactionBaseDonnees {
 		}
     }
         
-        public ArrayList<prescription> getPrescriptionPatient (int eID) throws SQLException, ParseException{
+        public ArrayList<prescription> getPrescriptionPatient (long eID) throws SQLException, ParseException{
         String sql = "SELECT pID, mID, eID, inami, posologie, date_prescription, date_delivrance, delivre FROM prescription WHERE eID = ?";
         PreparedStatement ps;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setInt(1, eID);
+        ps.setLong(1, eID);
         ResultSet resultat = ps.executeQuery();
         prescription prescription = null;
         ArrayList <prescription> liste_prescription = new ArrayList<prescription>();
@@ -106,7 +106,7 @@ public class interactionBaseDonnees {
         }
         else{
             while (resultat.next()){
-                prescription = new prescription(resultat.getInt("pID"),resultat.getString("mID"), resultat.getInt("eID"), resultat.getInt("inami"), resultat.getString("posologie"), resultat.getString("date_prescription"),resultat.getString("date_delivrance"),resultat.getBoolean("delivre") );
+                prescription = new prescription(resultat.getInt("pID"),resultat.getString("mID"), resultat.getLong("eID"), resultat.getInt("inami"), resultat.getString("posologie"), resultat.getString("date_prescription"),resultat.getString("date_delivrance"),resultat.getBoolean("delivre") );
                 liste_prescription.add(prescription);
                 
                 
@@ -141,7 +141,7 @@ public class interactionBaseDonnees {
                 return medicament;
             }
             else{
-                medicament = new medicament(resultat.getString("mID"),resultat.getString("nom"), resultat.getString("mah"), resultat.getString("generic"), resultat.getString("pack_size"), resultat.getString("PharFormFr"),resultat.getString("PackFr"), resultat.getString("DelivFr"), resultat.getString("ActSubsts"),resultat.getInt("quantite")); 
+                medicament = new medicament(resultat.getString("mID"),resultat.getString("nom"), resultat.getString("mah"), resultat.getString("generic"), resultat.getString("pack_size"), resultat.getString("PharmFormFr"),resultat.getString("PackFr"), resultat.getString("DelivFr"), resultat.getString("ActSubsts"),resultat.getInt("quantite")); 
          
                 if (medicament.getmID()== null){
                     medicament.setmID("");
@@ -180,12 +180,12 @@ public class interactionBaseDonnees {
                 }
         }
 
-    public patient createPatient(int eID) throws SQLException{
+    public patient createPatient(long eID) throws SQLException{
         String sql = "INSERT INTO patient (eID) VALUES (?)";
         PreparedStatement ps;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setInt(1, eID);
+        ps.setLong(1, eID);
         int statut = ps.executeUpdate(); 
         patient patient = new patient (eID,"", "", "",""); 
         return patient;    
@@ -201,7 +201,7 @@ public class interactionBaseDonnees {
         ps = c.prepareStatement(sql);
         ps.setInt(1, pID);
         int statut = ps.executeUpdate(); 
-        prescription prescription = new prescription (pID,"",0 ,0 ,"", "", "", false); 
+        prescription prescription = new prescription (pID,"",0,0 ,"", "", "", false); 
         return prescription;
     }
      
@@ -217,13 +217,13 @@ public class interactionBaseDonnees {
         
     }
     
-    public void removePatient(int eID) throws SQLException{
+    public void removePatient(long eID) throws SQLException{
         String sql = "DELETE FROM patient WHERE eID=?";
         PreparedStatement ps;
         patient patient = null;
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setInt(1, eID);
+        ps.setLong(1, eID);
         int statut = ps.executeUpdate(); 
     }
 
@@ -260,7 +260,7 @@ public class interactionBaseDonnees {
         ps.setString(2, patient.getPrenom());
         ps.setString(3, patient.getAdresse());
         ps.setString(4, patient.getDate_naissance());
-        ps.setInt(5, patient.geteID());
+        ps.setLong(5, patient.geteID());
         int statut = ps.executeUpdate();
     }
     
@@ -272,7 +272,7 @@ public class interactionBaseDonnees {
         Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setString(1, p.getmID());
-        ps.setInt(2, p.geteID());
+        ps.setLong(2, p.geteID());
         ps.setInt(3, p.getInami());
         ps.setString(4, p.getPosologie());
         ps.setString (5, p.getDate_prescription());
@@ -311,7 +311,7 @@ public class interactionBaseDonnees {
         ResultSet resultat = ps.executeQuery();
         ArrayList prescriptions = new ArrayList();
         while (resultat.next()){
-            prescriptions.add(new prescription(resultat.getInt("pID"),resultat.getString("mID"), resultat.getInt("eID"), resultat.getInt("inami"), resultat.getString("posologie"), resultat.getString("date_prescription"),resultat.getString("date_delivrance"),resultat.getBoolean("delivre")));
+            prescriptions.add(new prescription(resultat.getInt("pID"),resultat.getString("mID"), resultat.getLong("eID"), resultat.getInt("inami"), resultat.getString("posologie"), resultat.getString("date_prescription"),resultat.getString("date_delivrance"),resultat.getBoolean("delivre")));
         }
         return prescriptions;
     }

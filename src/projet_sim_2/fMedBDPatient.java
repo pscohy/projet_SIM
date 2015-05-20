@@ -246,9 +246,9 @@ public class fMedBDPatient extends javax.swing.JDialog {
 
     private void btnPrescriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescriptionsActionPerformed
         // TODO add your handling code here:
-        MedPrescriptions d;
+        fMedPrescriptions d;
         try {
-            d = new MedPrescriptions((int)this.spinID.getValue());
+            d = new fMedPrescriptions((int)this.spinID.getValue());
             d.setVisible(true);
             this.dispose();
             d.setAlwaysOnTop(true);

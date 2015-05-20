@@ -5,105 +5,18 @@
  */
 package projet_sim_2;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
-
 /**
  *
  * @author philo
  */
-
-public class fPharmAccueil extends javax.swing.JDialog {
-
-    /**
-     * A return status code - returned if Cancel button has been pressed
-     */
-    public static final int RET_CANCEL = 0;
-    /**
-     * A return status code - returned if OK button has been pressed
-     */
-    public static final int RET_OK = 1;
-
+public class fPharmAccueil extends javax.swing.JFrame {
+        
     /**
      * Creates new form fPharmAccueil
      */
-    
-    
-    private patient patient;
-    private prescription prescription;
-    private medicament medicament;
-    private interactionBaseDonnees base;
-    private ResultSetTableModel tableModel;
-    private ArrayList <prescription> liste_prescription;
-        
-    
-    
-    public fPharmAccueil(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public fPharmAccueil() {
+        this.setTitle("Accueil du pharmacien");
         initComponents();
-        this.setTitle("Pharmacien");
-        this.okButton.setEnabled(false);
-        
-        this.patient = null;
-        this.prescription = null;
-        this.medicament = null;
-        this.base = new interactionBaseDonnees();
-        
-       okButton.setToolTipText("Aucune prescription sélectionnée");
-       
-       this.setResizable(true);
-       
-       this.tableModel = new ResultSetTableModel();
-       this.tablePharmacien.setModel(this.tableModel);
-       //this.tableModel.setResultSet(this.getAllPrescription(this.patient.geteID()));
-       
-
-        // Close the dialog when Esc is pressed
-        String cancelName = "cancel";
-        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
-        ActionMap actionMap = getRootPane().getActionMap();
-        actionMap.put(cancelName, new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                doClose(RET_CANCEL);
-            }
-        });
-    }
-    
-    public ResultSet getAllPrescription() throws SQLException{
-        String sql = "SELECT prescription.date_prescription, prescription.date_delivrance, prescription.delivre,  medicament.nom,  medicament.quantite, prescription.posologie, medicament.generic, medicament.mah, medicament.pack_size, medicament.PharmFormFr, medicament.PackFr, medicament.DelivFr, medicament.ActSubsts  FROM prescription, medicament WHERE prescription.eID = ? AND prescription.mID=medicament.mID";
-        PreparedStatement ps;
-        java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
-        ps = c.prepareStatement(sql);
-        ps.setInt(1, this.patient.geteID());
-        ResultSet resultat = ps.executeQuery();
-        return resultat;
-    }
-
-    
-    /**
-     * @return the return status of this dialog - one of RET_OK or RET_CANCEL
-     */
-    public int getReturnStatus() {
-        return returnStatus;
-    }
-    
-    private void refresh(){  
-        this.labelNomPatient.setText(" ");
-        this.labelTest.setText(" ");
-        
     }
 
     /**
@@ -115,63 +28,22 @@ public class fPharmAccueil extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        okButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
-        spinnerID = new javax.swing.JSpinner();
-        buttonChercher = new javax.swing.JButton();
-        scrolePanelTable = new javax.swing.JScrollPane();
-        tablePharmacien = new javax.swing.JTable();
-        labeleID = new javax.swing.JLabel();
-        labelNomPatient = new javax.swing.JLabel();
-        labelTest = new javax.swing.JLabel();
-        buttonLecteur = new javax.swing.JButton();
+        buttonPrescription = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                closeDialog(evt);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        buttonPrescription.setText("Prescription");
+        buttonPrescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPrescriptionActionPerformed(evt);
             }
         });
 
-        okButton.setText("Délivrer");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Stock");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
-            }
-        });
-
-        cancelButton.setText("Fermer");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
-
-        buttonChercher.setText("Chercher");
-        buttonChercher.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChercherActionPerformed(evt);
-            }
-        });
-
-        tablePharmacien.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        scrolePanelTable.setViewportView(tablePharmacien);
-
-        labeleID.setText("eID");
-
-        buttonLecteur.setText("lecteur de carte");
-        buttonLecteur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonLecteurActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -180,111 +52,35 @@ public class fPharmAccueil extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labeleID)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelNomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cancelButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelTest)))
-                        .addContainerGap(711, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(spinnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(buttonChercher)
-                                .addGap(95, 95, 95)
-                                .addComponent(buttonLecteur)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addGap(45, 45, 45)
+                .addComponent(buttonPrescription)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(91, 91, 91))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labeleID)
-                    .addComponent(buttonChercher)
-                    .addComponent(buttonLecteur))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelNomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(labelTest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cancelButton)
-                    .addComponent(okButton))
-                .addGap(18, 18, 18))
+                    .addComponent(buttonPrescription)
+                    .addComponent(jButton1))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
-
-        getRootPane().setDefaultButton(okButton);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        doClose(RET_OK);
-    }//GEN-LAST:event_okButtonActionPerformed
+    private void buttonPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrescriptionActionPerformed
+        this.dispose();
+        fPharmPrescription fenetre = new fPharmPrescription(this , true);
+        fenetre.setVisible(true);
+        System.out.println(fenetre.getReturnStatus());//1 = ok; 0 = cancel
+    }//GEN-LAST:event_buttonPrescriptionActionPerformed
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        doClose(RET_CANCEL);
-    }//GEN-LAST:event_cancelButtonActionPerformed
-
-    /**
-     * Closes the dialog
-     */
-    private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        doClose(RET_CANCEL);
-    }//GEN-LAST:event_closeDialog
-
-    private void buttonChercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChercherActionPerformed
-        this.refresh();
-        try {
-            this.patient = this.base.getPatient((int) this.spinnerID.getValue());
-        } catch (SQLException ex) {
-            Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (this.patient == null){
-            labelNomPatient.setText("Ce patient n'appartient pas encore à la base de données");
-        }
-        else{
-            String prenom = this.patient.getPrenom();
-            String nom = this.patient.getNom();
-            labelNomPatient.setText("Ce patient appartient déjà à la base de données, il s'appelle "+ prenom + " " + nom);
-            try {
-                this.tableModel.setResultSet(this.getAllPrescription());
-            } catch (SQLException ex) {
-                Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            this.okButton.setEnabled(true);
-            
-
-        }       
-    }//GEN-LAST:event_buttonChercherActionPerformed
-
-    private void buttonLecteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLecteurActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonLecteurActionPerformed
-
-        
-    private void doClose(int retStatus) {
-        returnStatus = retStatus;
-        setVisible(false);
-        dispose();
-    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,33 +109,16 @@ public class fPharmAccueil extends javax.swing.JDialog {
         }
         //</editor-fold>
 
-        /* Create and display the dialog */
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                fPharmAccueil dialog = new fPharmAccueil(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new fPharmAccueil().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonChercher;
-    private javax.swing.JButton buttonLecteur;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel labelNomPatient;
-    private javax.swing.JLabel labelTest;
-    private javax.swing.JLabel labeleID;
-    private javax.swing.JButton okButton;
-    private javax.swing.JScrollPane scrolePanelTable;
-    private javax.swing.JSpinner spinnerID;
-    private javax.swing.JTable tablePharmacien;
+    private javax.swing.JButton buttonPrescription;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
-
-    private int returnStatus = RET_CANCEL;
 }
