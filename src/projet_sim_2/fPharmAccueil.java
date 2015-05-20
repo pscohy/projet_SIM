@@ -8,6 +8,7 @@ package projet_sim_2;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,8 +19,12 @@ public class fPharmAccueil extends javax.swing.JFrame {
     /**
      * Creates new form fPharmAccueil
      */
-    public fPharmAccueil() {
+    
+    JFrame fenetre_precedente;
+    
+    public fPharmAccueil(JFrame fenetre) {
         this.setTitle("Accueil du pharmacien");
+        this.fenetre_precedente = fenetre;
         initComponents();
     }
 
@@ -33,7 +38,8 @@ public class fPharmAccueil extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonPrescription = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        buttonStock = new javax.swing.JButton();
+        buttonRetour = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,10 +50,17 @@ public class fPharmAccueil extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Stock");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonStock.setText("Stock");
+        buttonStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonStockActionPerformed(evt);
+            }
+        });
+
+        buttonRetour.setText("Retour");
+        buttonRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRetourActionPerformed(evt);
             }
         });
 
@@ -58,9 +71,11 @@ public class fPharmAccueil extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(buttonPrescription)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(91, 91, 91))
+                .addGap(41, 41, 41)
+                .addComponent(buttonStock)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(buttonRetour)
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -68,7 +83,8 @@ public class fPharmAccueil extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonPrescription)
-                    .addComponent(jButton1))
+                    .addComponent(buttonStock)
+                    .addComponent(buttonRetour))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
@@ -76,22 +92,27 @@ public class fPharmAccueil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrescriptionActionPerformed
-        this.dispose();
+        this.setVisible(false);
         fPharmPrescription fenetre = new fPharmPrescription(this , true);
         fenetre.setVisible(true);
         System.out.println(fenetre.getReturnStatus());//1 = ok; 0 = cancel
     }//GEN-LAST:event_buttonPrescriptionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStockActionPerformed
         try {
-            this.dispose();
+            this.setVisible(false);
             fPharmStock fenetre = new fPharmStock(this , true);
             fenetre.setVisible(true);
             System.out.println(fenetre.getReturnStatus());//1 = ok; 0 = cancel
         } catch (SQLException ex) {
             Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonStockActionPerformed
+
+    private void buttonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRetourActionPerformed
+        this.dispose();
+        this.fenetre_precedente.setVisible(true);
+    }//GEN-LAST:event_buttonRetourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,15 +142,16 @@ public class fPharmAccueil extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new fPharmAccueil().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonPrescription;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton buttonRetour;
+    private javax.swing.JButton buttonStock;
     // End of variables declaration//GEN-END:variables
 }

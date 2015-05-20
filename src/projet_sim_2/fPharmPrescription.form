@@ -43,16 +43,17 @@
                           <Component id="labelNomPatient" alignment="0" min="-2" pref="609" max="-2" attributes="0"/>
                           <Component id="scrolePanelTable" alignment="0" min="-2" pref="1023" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Component id="buttonDelivrer" min="-2" pref="86" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      <Component id="buttonRetour" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="1551" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="728" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,9 +75,10 @@
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Component id="scrolePanelTable" pref="266" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonDelivrer" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="buttonDelivrer" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonRetour" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
@@ -151,6 +153,14 @@
     <Component class="javax.swing.JLabel" name="labelCard">
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldID">
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonRetour">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Retour"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRetourActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

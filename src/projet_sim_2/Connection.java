@@ -27,8 +27,8 @@ public class Connection {
     String userName = "root";
     //String userName = "student";
     //String password = "";
-    String password = "fyf3636b7084";
-    String url = "jdbc:mysql://localhost:3306/sim";
+    String password = "1234";
+    String url = "jdbc:mysql://localhost:3306/projet";
     //String url = "jdbc:mysql://192.168.3.108:3306/projet";
     
     try {

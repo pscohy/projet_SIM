@@ -21,6 +21,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 /**
@@ -53,6 +54,7 @@ public class fPharmStock extends javax.swing.JDialog {
     private ResultSetTableModel tableModel;
     private ArrayList <prescription> liste_prescription;
     private ResultSet resultatTable;
+    private java.awt.Frame fenetre_precedente;
         
     
     
@@ -60,6 +62,7 @@ public class fPharmStock extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setTitle("Stock du pharmacien");
+        this.fenetre_precedente = parent;
         
         this.patient = null;
         this.prescription = null;
@@ -173,6 +176,7 @@ public class fPharmStock extends javax.swing.JDialog {
         labelActSub = new javax.swing.JLabel();
         textFieldActSub = new javax.swing.JTextField();
         buttonTotal = new javax.swing.JToggleButton();
+        buttonRetour = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -263,6 +267,13 @@ public class fPharmStock extends javax.swing.JDialog {
             }
         });
 
+        buttonRetour.setText("Retour");
+        buttonRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRetourActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -273,32 +284,37 @@ public class fPharmStock extends javax.swing.JDialog {
                         .addContainerGap()
                         .addComponent(scrolePanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1243, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(labelMedicament)
-                        .addGap(18, 18, 18)
-                        .addComponent(textFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82)
-                        .addComponent(labelActSub)
-                        .addGap(28, 28, 28)
-                        .addComponent(textFieldActSub, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(buttonOriginaux)
-                        .addGap(96, 96, 96)
-                        .addComponent(buttonGenerique)
-                        .addGap(162, 162, 162)
-                        .addComponent(buttonTout))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(labelQuantite)
-                        .addGap(30, 30, 30)
-                        .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonTotal))
-                        .addGap(360, 360, 360)
-                        .addComponent(cancelButton)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(labelMedicament)
+                                .addGap(18, 18, 18)
+                                .addComponent(textFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(82, 82, 82)
+                                .addComponent(labelActSub)
+                                .addGap(28, 28, 28)
+                                .addComponent(textFieldActSub, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(146, 146, 146)
+                                .addComponent(buttonOriginaux)
+                                .addGap(96, 96, 96)
+                                .addComponent(buttonGenerique)
+                                .addGap(162, 162, 162)
+                                .addComponent(buttonTout))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(labelQuantite)
+                                .addGap(30, 30, 30)
+                                .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonTotal))
+                                .addGap(219, 219, 219)
+                                .addComponent(buttonRetour)
+                                .addGap(68, 68, 68)
+                                .addComponent(cancelButton)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(977, 977, 977))
         );
         layout.setVerticalGroup(
@@ -321,7 +337,9 @@ public class fPharmStock extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(cancelButton)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cancelButton)
+                                .addComponent(buttonRetour))
                             .addGap(22, 22, 22))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -497,6 +515,11 @@ public class fPharmStock extends javax.swing.JDialog {
         this.refresh();
     }//GEN-LAST:event_buttonTotalActionPerformed
 
+    private void buttonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRetourActionPerformed
+        this.dispose();
+        this.fenetre_precedente.setVisible(true);
+    }//GEN-LAST:event_buttonRetourActionPerformed
+
         
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -533,7 +556,7 @@ public class fPharmStock extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 fPharmPrescription dialog = new fPharmPrescription(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -544,13 +567,14 @@ public class fPharmStock extends javax.swing.JDialog {
                 });
                 dialog.setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAjouter;
     private javax.swing.JButton buttonGenerique;
     private javax.swing.JButton buttonOriginaux;
+    private javax.swing.JButton buttonRetour;
     private javax.swing.JToggleButton buttonTotal;
     private javax.swing.JButton buttonTout;
     private javax.swing.JButton cancelButton;
