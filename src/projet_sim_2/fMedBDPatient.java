@@ -88,12 +88,12 @@ public class fMedBDPatient extends javax.swing.JDialog {
         lblPrenom = new javax.swing.JLabel();
         lblDateDeNaissance = new javax.swing.JLabel();
         lblAdresse = new javax.swing.JLabel();
-        spinID = new javax.swing.JSpinner();
         tfNom = new javax.swing.JTextField();
         tfPrenom = new javax.swing.JTextField();
         dcDateDeNaissance = new com.toedter.calendar.JDateChooser();
         tfAdresse = new javax.swing.JTextField();
         btnPrescriptions = new javax.swing.JButton();
+        textFieldID = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -159,13 +159,12 @@ public class fMedBDPatient extends javax.swing.JDialog {
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(spinID, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfNom, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dcDateDeNaissance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(tfAdresse, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(textFieldID, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tfNom, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dcDateDeNaissance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                        .addComponent(tfAdresse, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap())
         );
 
@@ -174,15 +173,16 @@ public class fMedBDPatient extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblID)
-                            .addComponent(spinID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblID)
                         .addGap(18, 18, 18)
                         .addComponent(lblNom))
-                    .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(textFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPrenom)
@@ -195,7 +195,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblAdresse)
-                        .addGap(0, 55, Short.MAX_VALUE))
+                        .addGap(0, 58, Short.MAX_VALUE))
                     .addComponent(tfAdresse))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -211,7 +211,8 @@ public class fMedBDPatient extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     public void save () throws SQLException{
-        this.p.seteID((int) this.spinID.getValue());
+        long eid  = Long.parseLong(this.textFieldID.getText());
+        this.p.seteID(eid);
         this.p.setNom(this.tfNom.getText());
         this.p.setPrenom(this.tfPrenom.getText());
         this.p.setAdresse(this.tfAdresse.getText()); 
@@ -248,7 +249,8 @@ public class fMedBDPatient extends javax.swing.JDialog {
         // TODO add your handling code here:
         fMedPrescriptions d;
         try {
-            d = new fMedPrescriptions((int)this.spinID.getValue());
+            long eID = Long.parseLong(this.textFieldID.getText());
+            d = new fMedPrescriptions(eID);
             d.setVisible(true);
             this.dispose();
             d.setAlwaysOnTop(true);
@@ -319,8 +321,8 @@ public class fMedBDPatient extends javax.swing.JDialog {
     public JTextField getTfPrenom(){
         return this.tfPrenom;
     }
-    public JSpinner getSpinID(){
-        return this.spinID;
+    public JTextField getTextFieldID(){
+        return this.textFieldID;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -333,7 +335,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
     private javax.swing.JLabel lblNom;
     private javax.swing.JLabel lblPrenom;
     private javax.swing.JButton okButton;
-    private javax.swing.JSpinner spinID;
+    private javax.swing.JTextField textFieldID;
     private javax.swing.JTextField tfAdresse;
     private javax.swing.JTextField tfNom;
     private javax.swing.JTextField tfPrenom;

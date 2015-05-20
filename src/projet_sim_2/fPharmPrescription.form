@@ -27,34 +27,30 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labeleID" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="labelNomPatient" min="-2" pref="335" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="1817" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="buttonDelivrer" min="-2" pref="86" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="1551" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="scrolePanelTable" min="-2" pref="1243" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="spinnerID" min="-2" pref="376" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Component id="textFieldID" min="-2" pref="153" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                               <Component id="buttonChercher" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                               <Component id="buttonLecteur" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="labelCard" min="-2" pref="254" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="labelNomPatient" alignment="0" min="-2" pref="609" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="buttonDelivrer" min="-2" pref="86" max="-2" attributes="0"/>
+                      <EmptySpace pref="448" max="32767" attributes="0"/>
+                      <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="1551" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -64,11 +60,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="spinnerID" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="labeleID" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonChercher" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonLecteur" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="labeleID" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonChercher" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonLecteur" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textFieldID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="labelCard" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labelNomPatient" min="-2" pref="23" max="-2" attributes="0"/>
@@ -104,8 +103,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JSpinner" name="spinnerID">
-    </Component>
     <Component class="javax.swing.JButton" name="buttonChercher">
       <Properties>
         <Property name="text" type="java.lang.String" value="Chercher"/>
@@ -121,7 +118,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tablePharmacien">
+        <Component class="javax.swing.JTable" name="tablePrescription">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="0" rowCount="4"/>
@@ -145,11 +142,15 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonLecteur">
       <Properties>
-        <Property name="text" type="java.lang.String" value="lecteur de carte"/>
+        <Property name="text" type="java.lang.String" value="Lecteur de carte"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonLecteurActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelCard">
+    </Component>
+    <Component class="javax.swing.JTextField" name="textFieldID">
     </Component>
   </SubComponents>
 </Form>

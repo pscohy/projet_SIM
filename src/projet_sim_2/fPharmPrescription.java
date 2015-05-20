@@ -22,6 +22,12 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+import javax.smartcardio.CardTerminal;
+import be.belgium.eid.eidlib.BeID;
+import be.belgium.eid.exceptions.EIDException;
+import javax.smartcardio.CardException;
+import java.util.List;
+import javax.smartcardio.*;
 
 /**
  *
@@ -60,6 +66,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
         initComponents();
         this.setTitle("Pharmacien");
         this.buttonDelivrer.setEnabled(false);
+        this.textFieldID.setText("");
         
         this.patient = null;
         this.prescription = null;
@@ -71,7 +78,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
        this.setResizable(true);
        
        this.tableModel = new ResultSetTableModel();
-       this.tablePharmacien.setModel(this.tableModel);
+       this.tablePrescription.setModel(this.tableModel);
        //this.tableModel.setResultSet(this.getAllPrescription(this.patient.geteID()));
        
 
@@ -87,7 +94,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
         });
     }
     
-    public ResultSet getAllPrescription() throws SQLException{
+    private ResultSet getAllPrescription() throws SQLException{
         String sql = "SELECT p.pID, p.date_prescription, p.date_delivrance, p.delivre,  m.nom, m.mID,  m.quantite, p.posologie, m.generic, m.mah, m.pack_size, m.PharmFormFr, m.PackFr, m.DelivFr, m.ActSubsts  FROM prescription AS p, medicament AS m WHERE p.eID = ? AND p.mID=m.mID";
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
@@ -97,7 +104,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
         return resultat;
     }
 
-    public boolean prescriptionsNonDelivrees() throws SQLException{
+    private boolean prescriptionsNonDelivrees() throws SQLException{
         String sql = "SELECT delivre FROM prescription WHERE eID = ? AND delivre = 0";
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
@@ -106,6 +113,32 @@ public class fPharmPrescription extends javax.swing.JDialog {
         ResultSet resultat = ps.executeQuery();
         return resultat.next();
     }
+    
+    private void chercherPrescription(){
+        if (this.patient == null){
+            labelNomPatient.setText("Ce patient n'appartient pas à la base de données et n'a donc pas de prescription");
+        }
+        else{
+            try {
+                if (prescriptionsNonDelivrees()){
+                    this.buttonDelivrer.setEnabled(true);
+                    buttonDelivrer.setToolTipText("");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String prenom = this.patient.getPrenom();
+            String nom = this.patient.getNom();
+            labelNomPatient.setText("Le patient s'appelle "+ prenom + " " + nom);
+            try {
+                ResultSet resultat = this.getAllPrescription();
+                this.tableModel.setResultSet(resultat);
+            } catch (SQLException ex) {
+                Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
             
     
     /**
@@ -116,7 +149,9 @@ public class fPharmPrescription extends javax.swing.JDialog {
     }
     
     private void refresh(){  
-        this.labelNomPatient.setText(" ");
+        this.labelNomPatient.setText("");
+        this.textFieldID.setText("");
+        this.labelCard.setText("");
         
     }
 
@@ -131,13 +166,14 @@ public class fPharmPrescription extends javax.swing.JDialog {
 
         buttonDelivrer = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        spinnerID = new javax.swing.JSpinner();
         buttonChercher = new javax.swing.JButton();
         scrolePanelTable = new javax.swing.JScrollPane();
-        tablePharmacien = new javax.swing.JTable();
+        tablePrescription = new javax.swing.JTable();
         labeleID = new javax.swing.JLabel();
         labelNomPatient = new javax.swing.JLabel();
         buttonLecteur = new javax.swing.JButton();
+        labelCard = new javax.swing.JLabel();
+        textFieldID = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -166,7 +202,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
             }
         });
 
-        tablePharmacien.setModel(new javax.swing.table.DefaultTableModel(
+        tablePrescription.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -177,11 +213,11 @@ public class fPharmPrescription extends javax.swing.JDialog {
 
             }
         ));
-        scrolePanelTable.setViewportView(tablePharmacien);
+        scrolePanelTable.setViewportView(tablePrescription);
 
         labeleID.setText("eID");
 
-        buttonLecteur.setText("lecteur de carte");
+        buttonLecteur.setText("Lecteur de carte");
         buttonLecteur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonLecteurActionPerformed(evt);
@@ -197,37 +233,38 @@ public class fPharmPrescription extends javax.swing.JDialog {
                 .addComponent(labeleID)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelNomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 1817, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(buttonDelivrer, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cancelButton)
-                                .addGap(1551, 1551, 1551))))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1243, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(spinnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
+                                .addGap(8, 8, 8)
+                                .addComponent(textFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
                                 .addComponent(buttonChercher)
-                                .addGap(95, 95, 95)
-                                .addComponent(buttonLecteur)))
-                        .addContainerGap())))
+                                .addGap(74, 74, 74)
+                                .addComponent(buttonLecteur)
+                                .addGap(26, 26, 26)
+                                .addComponent(labelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelNomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(buttonDelivrer, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 448, Short.MAX_VALUE)
+                        .addComponent(cancelButton)
+                        .addGap(1551, 1551, 1551))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labeleID)
-                    .addComponent(buttonChercher)
-                    .addComponent(buttonLecteur))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labeleID)
+                        .addComponent(buttonChercher)
+                        .addComponent(buttonLecteur)
+                        .addComponent(textFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelNomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -249,8 +286,8 @@ public class fPharmPrescription extends javax.swing.JDialog {
         SimpleDateFormat date_ajd = new SimpleDateFormat("yyyy/MM/dd");
         String date_delivre = date_ajd.format(date);
         
-        int pID = (int) this.tableModel.getValueAt(this.tablePharmacien.getSelectedRow(), 0);
-        String mID = (String) this.tableModel.getValueAt(this.tablePharmacien.getSelectedRow(), 5);
+        int pID = (int) this.tableModel.getValueAt(this.tablePrescription.getSelectedRow(), 0);
+        String mID = (String) this.tableModel.getValueAt(this.tablePrescription.getSelectedRow(), 5);
         
         try {
             this.medicament = this.base.getMedicament(mID);
@@ -304,42 +341,48 @@ public class fPharmPrescription extends javax.swing.JDialog {
     private void buttonChercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChercherActionPerformed
         this.refresh();
         try {
-            this.patient = this.base.getPatient((int) this.spinnerID.getValue());
+            String textID = this.textFieldID.getText();
+            long eID = Long.parseLong(textID);
+            this.patient = this.base.getPatient(eID);
         } catch (SQLException ex) {
             Logger.getLogger(fPharmPrescription.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(fPharmPrescription.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (this.patient == null){
-            labelNomPatient.setText("Ce patient n'appartient pas à la base de données et n'a donc pas de prescription");
-        }
-        else{
-            try {
-                if (prescriptionsNonDelivrees()){
-                    this.buttonDelivrer.setEnabled(true);
-                    buttonDelivrer.setToolTipText("");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            String prenom = this.patient.getPrenom();
-            String nom = this.patient.getNom();
-            labelNomPatient.setText("Le patient s'appelle "+ prenom + " " + nom);
-            try {
-                ResultSet resultat = this.getAllPrescription();
-                this.tableModel.setResultSet(resultat);
-            } catch (SQLException ex) {
-                Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-
-        }       
+        chercherPrescription();
     }//GEN-LAST:event_buttonChercherActionPerformed
 
+    
     private void buttonLecteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLecteurActionPerformed
+        TerminalFactory factory = TerminalFactory.getDefault();
+        try {
+            List<CardTerminal> terminals = factory.terminals().list();
+            CardTerminal terminal = terminals.get(0);
+            if (terminal.isCardPresent()){
+                final BeID Carte = new BeID(false);
+                String textID = Carte.getIDData().getNationalNumber();
+                long eID = Long.valueOf(textID);
+                try {
+                    this.patient = this.base.getPatient(eID);
+                } catch (SQLException ex) {
+                    Logger.getLogger(fPharmPrescription.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(fPharmPrescription.class.getName()).log(Level.SEVERE, null, ex);
+                }  
+                this.textFieldID.setText(textID);
+                chercherPrescription();
+            }
+            else{
+                labelCard.setText("Il n'y a pas de carte");
+            }
+        }
+        catch (CardException | EIDException ex) {
+            Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    
     }//GEN-LAST:event_buttonLecteurActionPerformed
-
+//GEN-LAST:event_buttonLecteurActionPerformed
         
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -395,11 +438,12 @@ public class fPharmPrescription extends javax.swing.JDialog {
     private javax.swing.JButton buttonDelivrer;
     private javax.swing.JButton buttonLecteur;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel labelCard;
     private javax.swing.JLabel labelNomPatient;
     private javax.swing.JLabel labeleID;
     private javax.swing.JScrollPane scrolePanelTable;
-    private javax.swing.JSpinner spinnerID;
-    private javax.swing.JTable tablePharmacien;
+    private javax.swing.JTable tablePrescription;
+    private javax.swing.JTextField textFieldID;
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;

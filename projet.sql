@@ -74,7 +74,7 @@ CREATE TABLE `patient` (
 
 LOCK TABLES `patient` WRITE;
 /*!40000 ALTER TABLE `patient` DISABLE KEYS */;
-INSERT INTO `patient` VALUES (2345,'Romero','Victor','banane','1990-09-12');
+INSERT INTO `patient` VALUES (0,NULL,NULL,NULL,NULL),(2345,'Romero','Victor','banane','1990-09-12'),(93092717660,'Scohy','Philomène','rue Bodson 10','27/09/1993');
 /*!40000 ALTER TABLE `patient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ DROP TABLE IF EXISTS `prescription`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prescription` (
-  `pID` int(11) NOT NULL,
+  `pID` int(11) NOT NULL AUTO_INCREMENT,
   `mID` varchar(12) NOT NULL,
   `posologie` varchar(250) DEFAULT NULL,
   `date_prescription` varchar(25) DEFAULT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE `prescription` (
   KEY `lien_prescription_patient_idx` (`eID`),
   KEY `lien_medic_idx` (`mID`),
   CONSTRAINT `lien_prescription_patient` FOREIGN KEY (`eID`) REFERENCES `patient` (`eID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +107,7 @@ CREATE TABLE `prescription` (
 
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
-INSERT INTO `prescription` VALUES (1,'000025','3X par jour','2015-05-19','2015/05/20',1,2345,1234),(2,'000095','1x le matin','2015-05-18',NULL,0,2345,1234);
+INSERT INTO `prescription` VALUES (1,'000025','3X par jour','2015/05/19','2015/05/20',1,2345,1234),(2,'000095','1x le matin','2015/05/08',NULL,0,2345,1234),(3,'000095','3x par jour après le repas','2015/05/20',NULL,0,93092717660,1234),(4,'000271','3x par jour','20/05/2015',NULL,NULL,93092717660,1234);
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -120,4 +120,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-20 14:18:12
+-- Dump completed on 2015-05-20 16:04:12

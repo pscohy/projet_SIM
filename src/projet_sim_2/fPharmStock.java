@@ -69,7 +69,7 @@ public class fPharmStock extends javax.swing.JDialog {
        this.setResizable(true);
        
        this.tableModel = new ResultSetTableModel();
-       this.tablePharmacien.setModel(this.tableModel);
+       this.tableMedicament.setModel(this.tableModel);
        //this.tableModel.setResultSet(this.getAllPrescription(this.patient.geteID()));
        
 
@@ -128,10 +128,19 @@ public class fPharmStock extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonDelivrer = new javax.swing.JButton();
+        buttonModifier = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         scrolePanelTable = new javax.swing.JScrollPane();
-        tablePharmacien = new javax.swing.JTable();
+        tableMedicament = new javax.swing.JTable();
+        textFieldMedicament = new javax.swing.JTextField();
+        labelMedicament = new javax.swing.JLabel();
+        buttonGenerique = new javax.swing.JButton();
+        buttonOriginaux = new javax.swing.JButton();
+        buttonTout = new javax.swing.JButton();
+        labelQuantite = new javax.swing.JLabel();
+        spinnerQuantite = new javax.swing.JSpinner();
+        labelActSub = new javax.swing.JLabel();
+        testFieldActSub = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -139,10 +148,10 @@ public class fPharmStock extends javax.swing.JDialog {
             }
         });
 
-        buttonDelivrer.setText("Délivrer");
-        buttonDelivrer.addActionListener(new java.awt.event.ActionListener() {
+        buttonModifier.setText("Modifier");
+        buttonModifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDelivrerActionPerformed(evt);
+                buttonModifierActionPerformed(evt);
             }
         });
 
@@ -153,7 +162,7 @@ public class fPharmStock extends javax.swing.JDialog {
             }
         });
 
-        tablePharmacien.setModel(new javax.swing.table.DefaultTableModel(
+        tableMedicament.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -164,43 +173,113 @@ public class fPharmStock extends javax.swing.JDialog {
 
             }
         ));
-        scrolePanelTable.setViewportView(tablePharmacien);
+        scrolePanelTable.setViewportView(tableMedicament);
+
+        textFieldMedicament.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldMedicamentActionPerformed(evt);
+            }
+        });
+
+        labelMedicament.setText("Médicament:");
+
+        buttonGenerique.setText("Génériques");
+        buttonGenerique.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGeneriqueActionPerformed(evt);
+            }
+        });
+
+        buttonOriginaux.setText("Originaux");
+
+        buttonTout.setText("Tout");
+        buttonTout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonToutActionPerformed(evt);
+            }
+        });
+
+        labelQuantite.setText("quantité");
+
+        labelActSub.setText("Substance active");
+
+        testFieldActSub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testFieldActSubActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(buttonDelivrer, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 448, Short.MAX_VALUE)
-                .addComponent(cancelButton)
-                .addGap(1551, 1551, 1551))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(labelQuantite)
+                        .addGap(18, 18, 18)
+                        .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(buttonModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(639, 639, 639)
+                        .addComponent(cancelButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(labelMedicament)
+                        .addGap(18, 18, 18)
+                        .addComponent(textFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
+                        .addComponent(labelActSub)
+                        .addGap(28, 28, 28)
+                        .addComponent(testFieldActSub, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(buttonOriginaux)
+                        .addGap(96, 96, 96)
+                        .addComponent(buttonGenerique)
+                        .addGap(162, 162, 162)
+                        .addComponent(buttonTout)))
+                .addContainerGap(977, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMedicament)
+                    .addComponent(labelActSub)
+                    .addComponent(testFieldActSub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonTout)
+                    .addComponent(buttonOriginaux)
+                    .addComponent(buttonGenerique))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrolePanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cancelButton)
-                    .addComponent(buttonDelivrer))
-                .addGap(18, 18, 18))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelQuantite)
+                    .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonModifier))
+                .addGap(18, 18, 18)
+                .addComponent(cancelButton)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        getRootPane().setDefaultButton(buttonDelivrer);
+        getRootPane().setDefaultButton(buttonModifier);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonDelivrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDelivrerActionPerformed
+    private void buttonModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifierActionPerformed
       this.refresh();
-    }//GEN-LAST:event_buttonDelivrerActionPerformed
+    }//GEN-LAST:event_buttonModifierActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
@@ -212,6 +291,22 @@ public class fPharmStock extends javax.swing.JDialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
+
+    private void textFieldMedicamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldMedicamentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldMedicamentActionPerformed
+
+    private void buttonGeneriqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeneriqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonGeneriqueActionPerformed
+
+    private void buttonToutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonToutActionPerformed
+
+    private void testFieldActSubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testFieldActSubActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_testFieldActSubActionPerformed
 
         
     private void doClose(int retStatus) {
@@ -264,10 +359,19 @@ public class fPharmStock extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonDelivrer;
+    private javax.swing.JButton buttonGenerique;
+    private javax.swing.JButton buttonModifier;
+    private javax.swing.JButton buttonOriginaux;
+    private javax.swing.JButton buttonTout;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel labelActSub;
+    private javax.swing.JLabel labelMedicament;
+    private javax.swing.JLabel labelQuantite;
     private javax.swing.JScrollPane scrolePanelTable;
-    private javax.swing.JTable tablePharmacien;
+    private javax.swing.JSpinner spinnerQuantite;
+    private javax.swing.JTable tableMedicament;
+    private javax.swing.JTextField testFieldActSub;
+    private javax.swing.JTextField textFieldMedicament;
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;
