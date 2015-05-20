@@ -202,22 +202,6 @@ public class interactionBaseDonnees {
         return prescription;
     }
     
-    public prescription createPrescription2(int eID) throws SQLException{
-        prescription prescription = null;
-        String sql = "INSERT INTO prescription (eID,mID) VALUES (?,?)";
-        PreparedStatement ps;
-        Connection c = projet_sim_2.Connection.getInstance().getConn();
-        ps = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-        ps.setInt(1, eID);
-        ps.setString(2, "000000");
-        int statut = ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-        if (rs.next()){
-        prescription = new prescription (rs.getInt(1),"000000",eID ,0 ,"", "", "", false); 
-        }
-        return prescription;
-    }
-     
     public medicament createMedicament(String mID) throws SQLException{
         String sql = "INSERT INTO medicament (mID) VALUES (?)";
         PreparedStatement ps;

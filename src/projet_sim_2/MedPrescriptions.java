@@ -42,9 +42,9 @@ public class MedPrescriptions extends javax.swing.JFrame {
         this.n = new ResultSetTableModel();
         this.tabMedicament.setModel(this.n);
         this.n.setResultSet(this.getAllM());
-        this.btnAjouter.setEnabled(true);
         this.btnModifier.setEnabled(false);
         this.btnSupprimer.setEnabled(false);
+        this.btnAjouter.setEnabled(true);
         
     }
     
@@ -151,6 +151,8 @@ public class MedPrescriptions extends javax.swing.JFrame {
         this.btnModifier.setEnabled(false);
         this.btnSupprimer.setEnabled(false);
         this.m.setResultSet(this.getAllP());
+        
+        
     }
     public void update (int inami, String date_prescription, String mID, String posologie) throws SQLException{
         String sql = "UPDATE prescription SET inami=?,date_prescription=?,mID=?,posologie=? WHERE pID=?";
@@ -191,6 +193,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
         lblMedicament = new javax.swing.JLabel();
         tfMedicament = new javax.swing.JTextField();
         lblPrescriptions = new javax.swing.JLabel();
+        lblErreur = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -245,10 +248,34 @@ public class MedPrescriptions extends javax.swing.JFrame {
 
         lblDateDePrescription.setText("Date de prescription :");
 
+        dcDateDePrescription.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                dcDateDePrescriptionCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+
+        spinInami.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                spinInamiCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+
         lblPosologie.setText("Posologie :");
 
         txtPosologie.setColumns(20);
         txtPosologie.setRows(5);
+        txtPosologie.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                txtPosologieCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txtPosologieInputMethodTextChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(txtPosologie);
 
         tabMedicament.setModel(new javax.swing.table.DefaultTableModel(
@@ -262,6 +289,11 @@ public class MedPrescriptions extends javax.swing.JFrame {
 
             }
         ));
+        tabMedicament.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMedicamentMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tabMedicament);
 
         lblMedicament.setText("Médicament :");
@@ -279,54 +311,57 @@ public class MedPrescriptions extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblPosologie, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(lblInami)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(spinInami, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblInami))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblDateDePrescription)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(dcDateDePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(lblMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(btnAjouter)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnModifier)
-                                        .addGap(56, 56, 56)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSupprimer))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 8, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addGap(125, 125, 125)
+                                                .addComponent(spinInami, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(btnAjouter)
+                                                .addGap(87, 87, 87)
+                                                .addComponent(btnModifier))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(131, 131, 131)
+                                        .addComponent(tfMedicament))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblPrescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(lblDateDePrescription)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(dcDateDePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(43, 43, 43)
+                        .addComponent(btnSupprimer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblPosologie, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblPrescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblErreur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblInami)
-                    .addComponent(spinInami, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(spinInami, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblInami)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dcDateDePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDateDePrescription))
@@ -335,7 +370,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
                     .addComponent(lblMedicament)
                     .addComponent(tfMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -349,9 +384,11 @@ public class MedPrescriptions extends javax.swing.JFrame {
                     .addComponent(btnModifier)
                     .addComponent(btnSupprimer))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblErreur, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addComponent(lblPrescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -364,6 +401,11 @@ public class MedPrescriptions extends javax.swing.JFrame {
 
     private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterActionPerformed
         // TODO add your handling code here:
+        this.lblErreur.setText("");
+        if ((this.spinInami.getValue() == 0)||(this.dcDateDePrescription.getDate() == null)||(this.tabMedicament.getSelectedRow()<0)||(this.txtPosologie.getText().length()==0)){ 
+            this.lblErreur.setText("Attention, la prescription n'a pas été enregistrée en base de données car certains champs restent vides!");
+        }
+        else{
         String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDePrescription.getDate());
         try {
             this.create(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(this.tabMedicament.getSelectedRow(),0), this.txtPosologie.getText());
@@ -375,11 +417,13 @@ public class MedPrescriptions extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
     }//GEN-LAST:event_btnAjouterActionPerformed
 
     private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerActionPerformed
         // TODO add your handling code here:
         //System.out.println((int) this.m.getValueAt(this.tabPrescriptions.getSelectedRow(), 0));
+        this.lblErreur.setText("");
         interactionBaseDonnees i = new interactionBaseDonnees();
         
         try {
@@ -410,6 +454,11 @@ public class MedPrescriptions extends javax.swing.JFrame {
     }//GEN-LAST:event_tfMedicamentCaretUpdate
 
     private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
+        this.lblErreur.setText("");
+        if ((this.spinInami.getValue() == 0)||(this.dcDateDePrescription.getDate() == null)||(this.n.getRowCount()!=1 && this.tabMedicament.getSelectedRow()<0)||(this.txtPosologie.getText().length()==0)){ 
+            this.lblErreur.setText("Attention, la prescription n'a pas été enregistrée en base de données car certains champs restent vides!");
+        }
+        else{
         String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDePrescription.getDate());
         try {
             this.update(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(0,0), this.txtPosologie.getText());
@@ -420,6 +469,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
             this.refresh();
         } catch (SQLException ex) {
             Logger.getLogger(MedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }//GEN-LAST:event_btnModifierActionPerformed
 
@@ -441,6 +491,26 @@ public class MedPrescriptions extends javax.swing.JFrame {
         this.btnModifier.setEnabled(true);
         this.btnSupprimer.setEnabled(true);
     }//GEN-LAST:event_tabPrescriptionsMouseClicked
+
+    private void spinInamiCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spinInamiCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spinInamiCaretPositionChanged
+
+    private void dcDateDePrescriptionCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_dcDateDePrescriptionCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dcDateDePrescriptionCaretPositionChanged
+
+    private void tabMedicamentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMedicamentMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabMedicamentMouseClicked
+
+    private void txtPosologieCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtPosologieCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPosologieCaretPositionChanged
+
+    private void txtPosologieInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtPosologieInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPosologieInputMethodTextChanged
 
     /**
      * @param args the command line arguments
@@ -491,6 +561,7 @@ public class MedPrescriptions extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblDateDePrescription;
+    private javax.swing.JLabel lblErreur;
     private javax.swing.JLabel lblInami;
     private javax.swing.JLabel lblMedicament;
     private javax.swing.JLabel lblPosologie;
