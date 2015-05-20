@@ -301,7 +301,7 @@ public class fMedAccueil extends javax.swing.JFrame {
     public void display (patient p, fMedBDPatient di) throws CardException, EIDException, ParseException, SQLException{
         String ftextID = this.textFieldIDAccueil.getText();
         long longeID = Long.parseLong(ftextID);
-        if (connect().isCardPresent()&& this.a.getPatient(longeID)==null){
+        if (connect().isCardPresent()&& this.a.getPatient(longeID).getNom().length()==0 && this.a.getPatient(longeID).getPrenom().length()==0 && this.a.getPatient(longeID).getDate_naissance().length()==0 && this.a.getPatient(longeID).getAdresse().length()==0){
             final BeID Carte = new BeID(false);
             String textID = Carte.getIDData().getNationalNumber();
             long eID = Long.valueOf(textID);
@@ -312,7 +312,7 @@ public class fMedAccueil extends javax.swing.JFrame {
             String datum = sdf.format(birth_date);
             java.util.Date naissance = (java.util.Date) sdf.parse(datum);
             IDAddress address = Carte.getIDAddress();
-    
+            System.out.println("coucou");
             di.getTextFieldID().setText(textID);
             di.getTfNom().setText(name);
             di.getTfPrenom().setText(surname);
