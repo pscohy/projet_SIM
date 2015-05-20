@@ -250,6 +250,8 @@ public class fMedAccueil extends javax.swing.JFrame {
             Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         di.setPatient(p);
@@ -318,8 +320,12 @@ public class fMedAccueil extends javax.swing.JFrame {
         this.fenetre_precedente.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void display (patient p, fMedBDPatient di) throws CardException, EIDException, ParseException{
-        if (connect().isCardPresent()){
+
+
+    public void display (patient p, fMedBDPatient di) throws CardException, EIDException, ParseException, SQLException{
+        String ftextID = this.textFieldIDAccueil.getText();
+        long longeID = Long.parseLong(ftextID);
+        if (connect().isCardPresent()&& this.a.getPatient(longeID)==null){
             final BeID Carte = new BeID(false);
             String textID = Carte.getIDData().getNationalNumber();
             long eID = Long.valueOf(textID);
