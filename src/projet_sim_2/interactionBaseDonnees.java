@@ -190,9 +190,6 @@ public class interactionBaseDonnees {
         patient patient = new patient (eID,"", "", "",""); 
         return patient;    
     }
-
-    
-
     
     public prescription createPrescription(int pID) throws SQLException{
         String sql = "INSERT INTO prescription (pID) VALUES (?)";
@@ -204,7 +201,7 @@ public class interactionBaseDonnees {
         prescription prescription = new prescription (pID,"",0,0 ,"", "", "", false); 
         return prescription;
     }
-     
+    
     public medicament createMedicament(String mID) throws SQLException{
         String sql = "INSERT INTO medicament (mID) VALUES (?)";
         PreparedStatement ps;

@@ -74,7 +74,7 @@ CREATE TABLE `patient` (
 
 LOCK TABLES `patient` WRITE;
 /*!40000 ALTER TABLE `patient` DISABLE KEYS */;
-INSERT INTO `patient` VALUES (2345,'Romero','Victor','banane','1990-09-12');
+INSERT INTO `patient` VALUES (12,NULL,NULL,NULL,NULL),(123,'Barbar','Marguerite','Lille','10/01/1800'),(2345,'Romero','Victor','banane','3/09/1993');
 /*!40000 ALTER TABLE `patient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ DROP TABLE IF EXISTS `prescription`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prescription` (
-  `pID` int(11) NOT NULL,
+  `pID` int(11) NOT NULL AUTO_INCREMENT,
   `mID` varchar(12) NOT NULL,
   `posologie` varchar(250) DEFAULT NULL,
   `date_prescription` varchar(25) DEFAULT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE `prescription` (
   KEY `lien_prescription_patient_idx` (`eID`),
   KEY `lien_medic_idx` (`mID`),
   CONSTRAINT `lien_precription_patient` FOREIGN KEY (`eID`) REFERENCES `patient` (`eID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,6 +107,7 @@ CREATE TABLE `prescription` (
 
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
+INSERT INTO `prescription` VALUES (5,'000025','PIPI','19/05/2015',NULL,NULL,2345,4);
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -119,4 +120,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-18 16:48:23
+-- Dump completed on 2015-05-20 10:43:11

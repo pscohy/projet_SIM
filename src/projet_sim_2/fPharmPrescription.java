@@ -117,7 +117,6 @@ public class fPharmPrescription extends javax.swing.JDialog {
     
     private void refresh(){  
         this.labelNomPatient.setText(" ");
-        this.labelTest.setText(" ");
         
     }
 
