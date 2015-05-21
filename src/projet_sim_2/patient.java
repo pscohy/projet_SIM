@@ -10,7 +10,7 @@ package projet_sim_2;
  *
  * @author INFO-H-400
  */
-public class patient implements Ipatient {
+public class patient {
     
     String nom, prenom,adresse;
     String date_naissance;

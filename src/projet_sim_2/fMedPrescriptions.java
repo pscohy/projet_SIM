@@ -73,7 +73,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         ps.setLong(1, this.eID);
         ResultSet resultat = ps.executeQuery();
         while(resultat.next()){ // Juste pour tests avec Workbench.
-            int value = resultat.getInt("p.inami");
+            long value = resultat.getLong("p.inami");
             boolean nullValue = resultat.wasNull();
             if (resultat.wasNull()){
                 
@@ -116,7 +116,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
     
     public void display (int raw) throws ParseException, SQLException{
         
-        this.textFieldINAMI.setText(Integer.toString((int) this.m.getValueAt(raw, 2)));
+        this.textFieldINAMI.setText(Long.toString((long) this.m.getValueAt(raw, 2)));
         
         //this.spinInami.setValue((int) this.m.getValueAt(raw, 2));
         /*if (this.m.getValueAt(raw,3) == ""){
@@ -135,7 +135,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         this.txtPosologie.setText((String) this.m.getValueAt(raw, 15));
     }
     
-    private void create (int inami, String date_prescription, String mID, String posologie) throws SQLException{
+    private void create (long inami, String date_prescription, String mID, String posologie) throws SQLException{
 
         String sql = "INSERT INTO prescription (mID,eID,inami,posologie, date_prescription, delivre) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps;
@@ -143,7 +143,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         ps = c.prepareStatement(sql);
         ps.setString(1, mID);
         ps.setLong(2, this.eID);
-        ps.setInt(3, inami);
+        ps.setLong(3, inami);
         ps.setString(4,posologie);
         ps.setString(5,date_prescription);
         ps.setBoolean(6, false);
@@ -165,12 +165,12 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         
         
     }
-    public void update (int inami, String date_prescription, String mID, String posologie) throws SQLException{
+    public void update (long inami, String date_prescription, String mID, String posologie) throws SQLException{
         String sql = "UPDATE prescription SET inami=?,date_prescription=?,mID=?,posologie=? WHERE pID=?";
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setInt(1, inami);
+        ps.setLong(1, inami);
         ps.setString(2, date_prescription);
         ps.setString(3, mID);
         ps.setString(4, posologie);
@@ -206,6 +206,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         lblErreur = new javax.swing.JLabel();
         textFieldINAMI = new javax.swing.JTextField();
         buttonRetour = new javax.swing.JButton();
+        labelVerif = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -362,6 +363,8 @@ public class fMedPrescriptions extends javax.swing.JFrame {
                         .addComponent(jScrollPane2))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblPrescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87)
+                        .addComponent(labelVerif, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(lblErreur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -399,13 +402,16 @@ public class fMedPrescriptions extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblErreur, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(lblPrescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblPrescriptions, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                    .addComponent(labelVerif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabPrescriptionsInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tabPrescriptionsInputMethodTextChanged
@@ -423,8 +429,14 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         else{
         String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDePrescription.getDate());
         try {
-            int inami = Integer.parseInt(this.textFieldINAMI.getText());
-            this.create(inami, resultat, (String) this.n.getValueAt(this.tabMedicament.getSelectedRow(),0), this.txtPosologie.getText());
+            try {
+                String textINAMI = this.textFieldINAMI.getText();
+                long inami = Long.parseLong(textINAMI);              
+                this.create(inami, resultat, (String) this.n.getValueAt(this.tabMedicament.getSelectedRow(),0), this.txtPosologie.getText());
+                        } catch (NumberFormatException nfe) {
+                this.labelVerif.setText("Ce n'est pas un entier" );
+                return;}
+            
             //this.create(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(this.tabMedicament.getSelectedRow(),0), this.txtPosologie.getText());
             
         } catch (SQLException ex) {
@@ -480,8 +492,14 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         else{
         String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDePrescription.getDate());
         try {
-            int inami = Integer.parseInt(this.textFieldINAMI.getText());
-            this.update(inami, resultat, (String) this.n.getValueAt(0,0), this.txtPosologie.getText());
+            try {
+                String textINAMI = this.textFieldINAMI.getText();
+                long inami = Long.parseLong(textINAMI);
+                this.update(inami, resultat, (String) this.n.getValueAt(0,0), this.txtPosologie.getText());
+                } catch (NumberFormatException nfe) {
+                this.labelVerif.setText("Ce n'est pas un entier" );
+                return;}
+            
             //this.update(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(0,0), this.txtPosologie.getText());
         } catch (SQLException ex) {
             Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
@@ -588,6 +606,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel labelVerif;
     private javax.swing.JLabel lblDateDePrescription;
     private javax.swing.JLabel lblErreur;
     private javax.swing.JLabel lblInami;

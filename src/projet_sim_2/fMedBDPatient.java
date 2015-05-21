@@ -78,6 +78,9 @@ public class fMedBDPatient extends javax.swing.JDialog {
     public void setPatient(patient p){
         this.p = p;
     }
+    private void refresh(){
+        this.labelVerif.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +104,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
         btnPrescriptions = new javax.swing.JButton();
         textFieldID = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        labelVerif = new javax.swing.JLabel();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -145,6 +149,12 @@ public class fMedBDPatient extends javax.swing.JDialog {
             }
         });
 
+        textFieldID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldIDActionPerformed(evt);
+            }
+        });
+
         jButton1.setText("Retour");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +178,10 @@ public class fMedBDPatient extends javax.swing.JDialog {
                             .addComponent(lblNom)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnPrescriptions)))
+                        .addComponent(btnPrescriptions))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(labelVerif, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -215,8 +228,9 @@ public class fMedBDPatient extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblAdresse)
-                        .addGap(0, 58, Short.MAX_VALUE))
-                    .addComponent(tfAdresse))
+                        .addGap(30, 30, 30)
+                        .addComponent(labelVerif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tfAdresse, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
@@ -229,20 +243,30 @@ public class fMedBDPatient extends javax.swing.JDialog {
         getRootPane().setDefaultButton(okButton);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void save () throws SQLException{
-        long eid  = Long.parseLong(this.textFieldID.getText());
-        this.p.seteID(eid);
+        this.refresh();
+         try {
+                String textID = this.textFieldID.getText();
+                long eID = Long.parseLong(textID);
+                this.p.seteID(eID);
+                        } catch (NumberFormatException nfe) {
+                this.labelVerif.setText("Ce n'est pas un entier" );
+                return;}
         this.p.setNom(this.tfNom.getText());
         this.p.setPrenom(this.tfPrenom.getText());
         this.p.setAdresse(this.tfAdresse.getText()); 
         String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDeNaissance.getDate());
         this.p.setDate_naissance(resultat);
         interactionBaseDonnees a = new interactionBaseDonnees();
-        a.updatePatient(this.p);    
+        a.updatePatient(this.p); 
+           
     }
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        this.refresh();
+                
         try {
             this.save();
         } catch (SQLException ex) {
@@ -267,7 +291,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
     }//GEN-LAST:event_tfNomActionPerformed
 
     private void btnPrescriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescriptionsActionPerformed
-        // TODO add your handling code here:
+        this.refresh();
         fMedPrescriptions d;
         try {
             long eID = Long.parseLong(this.textFieldID.getText());
@@ -285,6 +309,10 @@ public class fMedBDPatient extends javax.swing.JDialog {
         this.dispose();
         this.fenetre_precedente.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void textFieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldIDActionPerformed
     
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -356,6 +384,7 @@ public class fMedBDPatient extends javax.swing.JDialog {
     private javax.swing.JButton cancelButton;
     private com.toedter.calendar.JDateChooser dcDateDeNaissance;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel labelVerif;
     private javax.swing.JLabel lblAdresse;
     private javax.swing.JLabel lblDateDeNaissance;
     private javax.swing.JLabel lblID;

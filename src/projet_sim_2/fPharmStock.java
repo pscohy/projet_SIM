@@ -68,14 +68,20 @@ public class fPharmStock extends javax.swing.JDialog {
         this.prescription = null;
         this.medicament = null;
         this.base = new interactionBaseDonnees();
+        
         this.buttonGenerique.setEnabled(false);
         this.buttonTout.setEnabled(false);
         this.buttonOriginaux.setEnabled(false);
+        this.buttonAjouter.setEnabled(false);
+        this.buttonTotal.setEnabled(false);
         
         this.buttonGenerique.setToolTipText("Aucune substance active mentionnée");
         this.buttonTout.setToolTipText("Aucune substance active mentionnée");
         this.buttonOriginaux.setToolTipText("Aucune substance active mentionnée");
-       
+        this.buttonAjouter.setToolTipText("pas de médicament sélectionné");
+        this.buttonTotal.setToolTipText("pas de médicament sélectionné");
+        
+        
        this.setResizable(true);
        
        this.tableModel = new ResultSetTableModel();
@@ -209,6 +215,11 @@ public class fPharmStock extends javax.swing.JDialog {
 
             }
         ));
+        tableMedicament.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMedicamentMouseClicked(evt);
+            }
+        });
         scrolePanelTable.setViewportView(tableMedicament);
 
         textFieldMedicament.addCaretListener(new javax.swing.event.CaretListener() {
@@ -282,7 +293,7 @@ public class fPharmStock extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrolePanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1243, Short.MAX_VALUE))
+                        .addComponent(scrolePanelTable))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -315,7 +326,7 @@ public class fPharmStock extends javax.swing.JDialog {
                                 .addGap(68, 68, 68)
                                 .addComponent(cancelButton)))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(977, 977, 977))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,10 +367,16 @@ public class fPharmStock extends javax.swing.JDialog {
         getRootPane().setDefaultButton(buttonAjouter);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAjouterActionPerformed
-            
+        this.buttonAjouter.setEnabled(false);
+        this.buttonTotal.setEnabled(false);
+        
+        this.buttonAjouter.setToolTipText("pas de médicament sélectionné");
+        this.buttonTotal.setToolTipText("pas de médicament sélectionné");
+        
       String mID = (String) this.tableModel.getValueAt(this.tableMedicament.getSelectedRow(), 0);
       medicament medicament;
         try {
@@ -498,6 +515,12 @@ public class fPharmStock extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonOriginauxActionPerformed
 
     private void buttonTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTotalActionPerformed
+        this.buttonAjouter.setEnabled(false);
+        this.buttonTotal.setEnabled(false);
+        
+        this.buttonAjouter.setToolTipText("pas de médicament sélectionné");
+        this.buttonTotal.setToolTipText("pas de médicament sélectionné");
+        
         String mID = (String) this.tableModel.getValueAt(this.tableMedicament.getSelectedRow(), 0);
         medicament medicament;
         try {
@@ -519,6 +542,14 @@ public class fPharmStock extends javax.swing.JDialog {
         this.dispose();
         this.fenetre_precedente.setVisible(true);
     }//GEN-LAST:event_buttonRetourActionPerformed
+
+    private void tableMedicamentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMedicamentMouseClicked
+        this.buttonAjouter.setEnabled(true);
+        this.buttonTotal.setEnabled(true);
+        
+        this.buttonAjouter.setToolTipText("");
+        this.buttonTotal.setToolTipText("");
+    }//GEN-LAST:event_tableMedicamentMouseClicked
 
         
     private void doClose(int retStatus) {

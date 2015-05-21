@@ -53,6 +53,20 @@ public class fMedAccueil extends javax.swing.JFrame {
         CardTerminal terminal = terminals.get(0);
         return terminal;
     }
+    
+    public long getCardID() throws CardException, EIDException{
+        if (connect().isCardPresent()){
+        final BeID Carte = new BeID(false);
+        String textID = Carte.getIDData().getNationalNumber();
+        long eID = Long.valueOf(textID);
+        return eID;
+        }
+        else{
+        String ftextID = this.textFieldIDAccueil.getText();
+        long longeID = Long.parseLong(ftextID);
+        return longeID;
+        }
+    }
     public patient getPatient(){
         return this.p;
     }
@@ -63,6 +77,7 @@ public class fMedAccueil extends javax.swing.JFrame {
         this.btnSupprimer.setEnabled(false);
         this.textFieldIDAccueil.setText("");
         this.lblAppartenance.setText("");
+
     }
 
     /**
@@ -143,18 +158,15 @@ public class fMedAccueil extends javax.swing.JFrame {
                         .addComponent(lblAppartenance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(btnChercher)
-                                .addGap(61, 61, 61)
-                                .addComponent(labelCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblID)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textFieldIDAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttonLecteur)))
+                        .addComponent(lblID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldIDAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnChercher)
+                            .addComponent(buttonLecteur))
                         .addGap(50, 50, 50))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -192,6 +204,7 @@ public class fMedAccueil extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerActionPerformed
@@ -209,9 +222,17 @@ public class fMedAccueil extends javax.swing.JFrame {
     private void btnChercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChercherActionPerformed
         // TODO add your handling code here:
         try {
-            String textID = this.textFieldIDAccueil.getText();
-            long eID = Long.parseLong(textID);
-            this.p = this.a.getPatient(eID);
+            try {
+                String textID = this.textFieldIDAccueil.getText();
+                long eID = Long.parseLong(textID);
+                this.p = this.a.getPatient(eID);
+                        } catch (NumberFormatException nfe) {
+                this.lblAppartenance.setText("Ce n'est pas un entier" );
+                return;
+    // traitement à faire dans ce cas
+}
+            //long eID = Long.parseLong(textID);
+            
         } catch (SQLException ex) {
             Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -253,7 +274,7 @@ public class fMedAccueil extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        this.setVisible(false);
         di.setPatient(p);
         di.setVisible(true);
         System.out.println(di.getReturnStatus());//1 = ok; 0 = cancel
@@ -325,7 +346,7 @@ public class fMedAccueil extends javax.swing.JFrame {
     public void display (patient p, fMedBDPatient di) throws CardException, EIDException, ParseException, SQLException{
         String ftextID = this.textFieldIDAccueil.getText();
         long longeID = Long.parseLong(ftextID);
-        if (connect().isCardPresent()&& this.a.getPatient(longeID).getNom().length()==0 && this.a.getPatient(longeID).getPrenom().length()==0 && this.a.getPatient(longeID).getDate_naissance().length()==0 && this.a.getPatient(longeID).getAdresse().length()==0){
+        if (connect().isCardPresent()&& longeID==getCardID() && this.a.getPatient(longeID).getNom().length()==0 && this.a.getPatient(longeID).getPrenom().length()==0 && this.a.getPatient(longeID).getDate_naissance().length()==0 && this.a.getPatient(longeID).getAdresse().length()==0){
             final BeID Carte = new BeID(false);
             String textID = Carte.getIDData().getNationalNumber();
             long eID = Long.valueOf(textID);

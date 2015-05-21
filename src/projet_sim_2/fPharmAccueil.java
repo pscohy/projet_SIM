@@ -89,6 +89,7 @@ public class fPharmAccueil extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrescriptionActionPerformed

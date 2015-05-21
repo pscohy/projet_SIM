@@ -15,7 +15,7 @@ public class medicament {
     //mID Clé primaire. Quantite pour le stock. generic 0 si pas generic, different si generic
     
 
-    public medicament(String mID, String nom, String mah, String generic, String pack_size, String PharmFormFr, String PackFr, String DelivFr, String ActSubsts, int quantite){
+        public medicament(String mID, String nom, String mah, String generic, String pack_size, String PharmFormFr, String PackFr, String DelivFr, String ActSubsts, int quantite){
         this.mID = mID;
         this.nom = nom;
         this.mah = mah;
@@ -27,7 +27,7 @@ public class medicament {
         this.ActSubsts = ActSubsts;
         this.quantite = quantite;
     }
-
+    
     public void setmID(String mID) {
         this.mID = mID;
     }

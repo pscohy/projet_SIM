@@ -69,6 +69,7 @@ public class fStartWindow extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMedecinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedecinActionPerformed
