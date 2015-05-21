@@ -22,13 +22,14 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
-import javax.smartcardio.CardTerminal;
 import be.belgium.eid.eidlib.BeID;
 import be.belgium.eid.exceptions.EIDException;
-import javax.smartcardio.CardException;
 import java.util.List;
 import javax.smartcardio.*;
 import javax.swing.JFrame;
+import javax.smartcardio.CardException;
+import javax.smartcardio.CardTerminal;
+import javax.smartcardio.TerminalFactory;
 
 /**
  *
@@ -78,6 +79,13 @@ public class fPharmPrescription extends javax.swing.JDialog {
         
        buttonDelivrer.setToolTipText("Aucune prescription sélectionnée");
        
+        if(getReaderList()==0){
+        this.buttonLecteur.setEnabled(false);
+        }
+        else if (getReaderList()==1){
+        this.buttonLecteur.setEnabled(true);
+        }
+       
        this.setResizable(true);
        
        this.tableModel = new ResultSetTableModel();
@@ -97,6 +105,37 @@ public class fPharmPrescription extends javax.swing.JDialog {
         });
     }
     
+    public int getReaderList(){
+        try{
+        TerminalFactory factory = TerminalFactory.getDefault();
+        List<CardTerminal> terminals = factory.terminals().list();
+        return 1;
+        }
+        catch(javax.smartcardio.CardException lec){
+        return 0;
+        }
+        
+    }
+    public CardTerminal connect() throws CardException{
+        TerminalFactory factory = TerminalFactory.getDefault();
+        List<CardTerminal> terminals = factory.terminals().list();
+        CardTerminal terminal = terminals.get(0);
+        return terminal;
+    }
+    
+    public long getCardID() throws CardException, EIDException{
+        if (connect().isCardPresent()){
+        final BeID Carte = new BeID(false);
+        String textID = Carte.getIDData().getNationalNumber();
+        long eID = Long.valueOf(textID);
+        return eID;
+        }
+        else{
+        String ftextID = this.textFieldID.getText();
+        long longeID = Long.parseLong(ftextID);
+        return longeID;
+        }
+    }
     private ResultSet getAllPrescription() throws SQLException{
         String sql = "SELECT p.pID, p.date_prescription, p.date_delivrance, p.delivre,  m.nom, m.mID, m.quantite, p.posologie, m.generic, m.mah, m.pack_size, m.PharmFormFr, m.PackFr, m.DelivFr, m.ActSubsts  FROM prescription AS p, medicament AS m WHERE p.eID = ? AND p.mID=m.mID";
         PreparedStatement ps;
@@ -403,6 +442,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
 
     
     private void buttonLecteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLecteurActionPerformed
+
         TerminalFactory factory = TerminalFactory.getDefault();
         try {
             List<CardTerminal> terminals = factory.terminals().list();
@@ -428,6 +468,7 @@ public class fPharmPrescription extends javax.swing.JDialog {
         catch (CardException | EIDException ex) {
             Logger.getLogger(fPharmAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
     
     }                                             
