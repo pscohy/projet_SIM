@@ -74,13 +74,14 @@ public class fPharmStock extends javax.swing.JDialog {
         this.buttonOriginaux.setEnabled(false);
         this.buttonAjouter.setEnabled(false);
         this.buttonTotal.setEnabled(false);
+        this.buttonEnlever.setEnabled(false);
         
         this.buttonGenerique.setToolTipText("Aucune substance active mentionnée");
         this.buttonTout.setToolTipText("Aucune substance active mentionnée");
         this.buttonOriginaux.setToolTipText("Aucune substance active mentionnée");
         this.buttonAjouter.setToolTipText("pas de médicament sélectionné");
         this.buttonTotal.setToolTipText("pas de médicament sélectionné");
-        
+        this.buttonEnlever.setToolTipText("pas de médicament sélectionné");
         
        this.setResizable(true);
        
@@ -183,6 +184,7 @@ public class fPharmStock extends javax.swing.JDialog {
         textFieldActSub = new javax.swing.JTextField();
         buttonTotal = new javax.swing.JToggleButton();
         buttonRetour = new javax.swing.JButton();
+        buttonEnlever = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -285,6 +287,13 @@ public class fPharmStock extends javax.swing.JDialog {
             }
         });
 
+        buttonEnlever.setText("Enlever");
+        buttonEnlever.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEnleverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -315,12 +324,13 @@ public class fPharmStock extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
                                 .addComponent(labelQuantite)
-                                .addGap(30, 30, 30)
+                                .addGap(26, 26, 26)
                                 .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
+                                .addGap(32, 32, 32)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(buttonAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(buttonTotal))
+                                    .addComponent(buttonTotal)
+                                    .addComponent(buttonEnlever))
                                 .addGap(219, 219, 219)
                                 .addComponent(buttonRetour)
                                 .addGap(68, 68, 68)
@@ -344,21 +354,20 @@ public class fPharmStock extends javax.swing.JDialog {
                     .addComponent(buttonGenerique))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrolePanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                .addGap(78, 78, 78)
+                .addGap(44, 44, 44)
+                .addComponent(buttonEnlever)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cancelButton)
-                                .addComponent(buttonRetour))
-                            .addGap(22, 22, 22))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(labelQuantite))
-                            .addGap(41, 41, 41)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonAjouter)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelButton)
+                            .addComponent(buttonRetour))
+                        .addGap(35, 35, 35))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonAjouter)
+                            .addComponent(spinnerQuantite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelQuantite))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonTotal)
                         .addGap(22, 22, 22))))
@@ -373,9 +382,11 @@ public class fPharmStock extends javax.swing.JDialog {
     private void buttonAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAjouterActionPerformed
         this.buttonAjouter.setEnabled(false);
         this.buttonTotal.setEnabled(false);
+        this.buttonEnlever.setEnabled(false);
         
         this.buttonAjouter.setToolTipText("pas de médicament sélectionné");
         this.buttonTotal.setToolTipText("pas de médicament sélectionné");
+        this.buttonEnlever.setToolTipText("pas de médicament sélectionné");
         
       String mID = (String) this.tableModel.getValueAt(this.tableMedicament.getSelectedRow(), 0);
       medicament medicament;
@@ -517,9 +528,11 @@ public class fPharmStock extends javax.swing.JDialog {
     private void buttonTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTotalActionPerformed
         this.buttonAjouter.setEnabled(false);
         this.buttonTotal.setEnabled(false);
+        this.buttonEnlever.setEnabled(false);
         
         this.buttonAjouter.setToolTipText("pas de médicament sélectionné");
         this.buttonTotal.setToolTipText("pas de médicament sélectionné");
+        this.buttonEnlever.setToolTipText("pas de médicament sélectionné");
         
         String mID = (String) this.tableModel.getValueAt(this.tableMedicament.getSelectedRow(), 0);
         medicament medicament;
@@ -546,10 +559,41 @@ public class fPharmStock extends javax.swing.JDialog {
     private void tableMedicamentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMedicamentMouseClicked
         this.buttonAjouter.setEnabled(true);
         this.buttonTotal.setEnabled(true);
+        this.buttonEnlever.setEnabled(true);
         
         this.buttonAjouter.setToolTipText("");
         this.buttonTotal.setToolTipText("");
+        this.buttonEnlever.setToolTipText("");
     }//GEN-LAST:event_tableMedicamentMouseClicked
+
+    private void buttonEnleverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEnleverActionPerformed
+       this.buttonAjouter.setEnabled(false);
+        this.buttonTotal.setEnabled(false);
+        this.buttonEnlever.setEnabled(false);
+        
+        this.buttonAjouter.setToolTipText("pas de médicament sélectionné");
+        this.buttonTotal.setToolTipText("pas de médicament sélectionné");
+        this.buttonEnlever.setToolTipText("pas de médicament sélectionné");
+        
+      String mID = (String) this.tableModel.getValueAt(this.tableMedicament.getSelectedRow(), 0);
+      medicament medicament;
+        try {
+            medicament = this.base.getMedicament(mID);
+            int quantite = medicament.getQuantite();
+            int suppression = (int) this.spinnerQuantite.getValue();
+            quantite = quantite - suppression;
+      
+            medicament.setQuantite(quantite);
+      
+            this.base.updateMedicament(medicament);
+        } catch (SQLException ex) {
+            Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(fPharmStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.refresh();
+    }//GEN-LAST:event_buttonEnleverActionPerformed
 
         
     private void doClose(int retStatus) {
@@ -603,6 +647,7 @@ public class fPharmStock extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAjouter;
+    private javax.swing.JButton buttonEnlever;
     private javax.swing.JButton buttonGenerique;
     private javax.swing.JButton buttonOriginaux;
     private javax.swing.JButton buttonRetour;
