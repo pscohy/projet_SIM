@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/fMedAccueil.java</file>
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/ResultSetTableModel.java</file>
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/Connection.java</file>
@@ -11,6 +12,13 @@
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/Projet_SIM_2.java</file>
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/fMedPrescriptions.java</file>
             <file>file:/C:/Users/Madli/Desktop/Projet_SIM/projet_SIM/src/projet_sim_2/fMedBDPatient.java</file>
+=======
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/fPharmStock.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/interactionBaseDonnees.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/TP2-3/ResultSetTableModel.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/fPharmPrescription.java</file>
+            <file>file:/C:/Users/philo/Desktop/projet_SIM/src/projet_sim_2/Connection.java</file>
+>>>>>>> 930bf54f64131c0cd8040e8006ce4ee71063bce1
         </group>
     </open-files>
 </project-private>

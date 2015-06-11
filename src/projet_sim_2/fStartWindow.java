@@ -69,18 +69,21 @@ public class fStartWindow extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMedecinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedecinActionPerformed
         // TODO add your handling code here:
-        new fMedAccueil().setVisible(true);
-        this.dispose();
+        this.setVisible(false);
+        fMedAccueil fMedAccueil = new fMedAccueil(this);
+        fMedAccueil.setVisible(true);
     }//GEN-LAST:event_btnMedecinActionPerformed
 
     private void btnPharmacienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPharmacienActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new fPharmAccueil().setVisible(true);
+        this.setVisible(false);
+        fPharmAccueil fPharmAccueil = new fPharmAccueil(this);
+        fPharmAccueil.setVisible(true);
     }//GEN-LAST:event_btnPharmacienActionPerformed
 
     /**

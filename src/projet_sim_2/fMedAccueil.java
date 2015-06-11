@@ -7,6 +7,7 @@ package projet_sim_2;
 
 import be.belgium.eid.eidlib.BeID;
 import be.belgium.eid.exceptions.EIDException;
+import be.belgium.eid.objects.IDAddress;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
 import javax.smartcardio.TerminalFactory;
+import javax.swing.JFrame;
 
 /**
  *
@@ -29,8 +31,11 @@ public class fMedAccueil extends javax.swing.JFrame {
      */
     private patient p;
     private interactionBaseDonnees a;
-    public fMedAccueil() {
+    private JFrame fenetre_precedente;
+    
+    public fMedAccueil(JFrame fenetre) {
         initComponents();
+        this.fenetre_precedente = fenetre;
         this.setTitle("Page d'accueil médecin");
         this.btnCreer.setEnabled(false);
         this.btnModifier.setEnabled(false);
@@ -39,8 +44,48 @@ public class fMedAccueil extends javax.swing.JFrame {
         this.textFieldIDAccueil.setText("");
         this.p = null;
         this.a = new interactionBaseDonnees();
+        if(getReaderList()==0){
+        this.buttonLecteur.setEnabled(false);
+        }
+        else if (getReaderList()==1){
+        this.buttonLecteur.setEnabled(true);
+        }
+        
     }
     
+    public int getReaderList(){
+        try{
+        TerminalFactory factory = TerminalFactory.getDefault();
+        List<CardTerminal> terminals = factory.terminals().list();
+        return 1;
+        }
+        catch(javax.smartcardio.CardException lec){
+        return 0;
+        }
+        
+        
+    }
+    public CardTerminal connect() throws CardException{
+        TerminalFactory factory = TerminalFactory.getDefault();
+        List<CardTerminal> terminals = factory.terminals().list();
+        CardTerminal terminal = terminals.get(0);
+        return terminal;
+    
+    }
+    
+    public long getCardID() throws CardException, EIDException{
+        if (connect().isCardPresent()){
+        final BeID Carte = new BeID(false);
+        String textID = Carte.getIDData().getNationalNumber();
+        long eID = Long.valueOf(textID);
+        return eID;
+        }
+        else{
+        String ftextID = this.textFieldIDAccueil.getText();
+        long longeID = Long.parseLong(ftextID);
+        return longeID;
+        }
+    }
     public patient getPatient(){
         return this.p;
     }
@@ -51,6 +96,7 @@ public class fMedAccueil extends javax.swing.JFrame {
         this.btnSupprimer.setEnabled(false);
         this.textFieldIDAccueil.setText("");
         this.lblAppartenance.setText("");
+
     }
 
     /**
@@ -71,6 +117,7 @@ public class fMedAccueil extends javax.swing.JFrame {
         buttonLecteur = new javax.swing.JButton();
         labelCard = new javax.swing.JLabel();
         textFieldIDAccueil = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,6 +158,13 @@ public class fMedAccueil extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Retour");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,30 +173,30 @@ public class fMedAccueil extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(btnModifier)
-                        .addGap(68, 68, 68)
-                        .addComponent(btnCreer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                        .addComponent(btnSupprimer)
-                        .addGap(30, 30, 30))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(lblAppartenance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldIDAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnChercher)
+                            .addComponent(buttonLecteur))
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(btnChercher)
-                                .addGap(61, 61, 61)
-                                .addComponent(labelCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblID)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textFieldIDAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttonLecteur)))
-                        .addGap(50, 50, 50))))
+                                .addComponent(btnModifier)
+                                .addGap(68, 68, 68)
+                                .addComponent(btnCreer)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(btnSupprimer)
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,10 +217,13 @@ public class fMedAccueil extends javax.swing.JFrame {
                     .addComponent(btnModifier)
                     .addComponent(btnCreer)
                     .addComponent(btnSupprimer))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(47, 47, 47))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerActionPerformed
@@ -184,9 +241,17 @@ public class fMedAccueil extends javax.swing.JFrame {
     private void btnChercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChercherActionPerformed
         // TODO add your handling code here:
         try {
-            String textID = this.textFieldIDAccueil.getText();
-            long eID = Long.parseLong(textID);
-            this.p = this.a.getPatient(eID);
+            try {
+                String textID = this.textFieldIDAccueil.getText();
+                long eID = Long.parseLong(textID);
+                this.p = this.a.getPatient(eID);
+                        } catch (NumberFormatException nfe) {
+                this.lblAppartenance.setText("Ce n'est pas un entier" );
+                return;
+    // traitement à faire dans ce cas
+}
+            //long eID = Long.parseLong(textID);
+            
         } catch (SQLException ex) {
             Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -215,8 +280,20 @@ public class fMedAccueil extends javax.swing.JFrame {
     
     private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
         // TODO add your handling code here:
+
         fMedBDPatient di = new fMedBDPatient(this , true,true);
-        this.display(this.p, di);
+        try {
+            this.display(this.p, di);
+        } catch (CardException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (EIDException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
         di.setPatient(p);
         di.setVisible(true);
         System.out.println(di.getReturnStatus());//1 = ok; 0 = cancel
@@ -237,20 +314,26 @@ public class fMedAccueil extends javax.swing.JFrame {
             System.out.println(di.getReturnStatus());//1 = ok; 0 = cancel
         } catch (SQLException ex) {
             Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CardException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (EIDException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.refresh();
         
     }//GEN-LAST:event_btnCreerActionPerformed
 
     private void buttonLecteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLecteurActionPerformed
-        TerminalFactory factory = TerminalFactory.getDefault();
+
         try {
-            List<CardTerminal> terminals = factory.terminals().list();
-            CardTerminal terminal = terminals.get(0);
-            if (terminal.isCardPresent()){
+            if (connect().isCardPresent()){
                 final BeID Carte = new BeID(false);
                 String textID = Carte.getIDData().getNationalNumber();
                 long eID = Long.valueOf(textID);
+                
+                
                 try {
                     this.p = this.a.getPatient(eID);
                 } catch (SQLException ex) {
@@ -272,7 +355,38 @@ public class fMedAccueil extends javax.swing.JFrame {
     
     }//GEN-LAST:event_buttonLecteurActionPerformed
 
-    public void display (patient p, fMedBDPatient di){
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        this.fenetre_precedente.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+
+    public void display (patient p, fMedBDPatient di) throws CardException, EIDException, ParseException, SQLException{
+        System.out.println(getReaderList());
+        String ftextID = this.textFieldIDAccueil.getText();
+        long longeID = Long.parseLong(ftextID);
+        if (getReaderList()==1){
+        if (connect().isCardPresent()&& longeID==getCardID() && this.a.getPatient(longeID).getNom().length()==0 && this.a.getPatient(longeID).getPrenom().length()==0 && this.a.getPatient(longeID).getDate_naissance().length()==0 && this.a.getPatient(longeID).getAdresse().length()==0){
+            final BeID Carte = new BeID(false);
+            String textID = Carte.getIDData().getNationalNumber();
+            long eID = Long.valueOf(textID);
+            String name = Carte.getIDData().getName();
+            String surname = Carte.getIDData().get1stFirstname();
+            java.util.Date birth_date = (Carte.getIDData().getBirthDate());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+            String datum = sdf.format(birth_date);
+            java.util.Date naissance = (java.util.Date) sdf.parse(datum);
+            IDAddress address = Carte.getIDAddress();
+            System.out.println("b");
+            di.getTextFieldID().setText(textID);
+            di.getTfNom().setText(name);
+            di.getTfPrenom().setText(surname);
+            di.getDcDateDeNaissance().setDate(naissance);
+            di.getTfAdresse().setText(address.getStreet() + address.getMunicipality());
+            
+        }
+        else{
         String textID = Long.toString(this.p.geteID());
         di.getTextFieldID().setText(textID);
         di.getTfNom().setText(this.p.getNom());
@@ -289,7 +403,25 @@ public class fMedAccueil extends javax.swing.JFrame {
         }
         di.getTfAdresse().setText(this.p.getAdresse());
     }
-
+    }
+        else if(getReaderList()==0){
+        String textID = Long.toString(this.p.geteID());
+        di.getTextFieldID().setText(textID);
+        di.getTfNom().setText(this.p.getNom());
+        di.getTfPrenom().setText(this.p.getPrenom());
+        if (p.getDate_naissance() == ""){
+            this.p.setDate_naissance("1/01/1800");
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        try {
+            java.util.Date d = (java.util.Date) sdf.parse(p.getDate_naissance());
+            di.getDcDateDeNaissance().setDate(d);
+        } catch (ParseException ex) {
+            Logger.getLogger(fMedAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        di.getTfAdresse().setText(this.p.getAdresse());
+        }
+    }
      /* @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -318,11 +450,11 @@ public class fMedAccueil extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new fMedAccueil().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -331,6 +463,7 @@ public class fMedAccueil extends javax.swing.JFrame {
     private javax.swing.JButton btnModifier;
     private javax.swing.JButton btnSupprimer;
     private javax.swing.JButton buttonLecteur;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel labelCard;
     private javax.swing.JLabel lblAppartenance;
     private javax.swing.JLabel lblID;

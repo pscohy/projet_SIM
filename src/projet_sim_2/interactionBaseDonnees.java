@@ -4,19 +4,16 @@
  * and open the template in the editor.
  */
 package projet_sim_2;
-import static com.sun.javafx.fxml.expression.Expression.not;
+
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import projet_sim_2.patient;
+
 import java.sql.ResultSet;
-import java.sql.Statement;
+
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
         
 

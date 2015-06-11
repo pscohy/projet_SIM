@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,11 +30,13 @@ public class fMedPrescriptions extends javax.swing.JFrame {
     ResultSetTableModel n;
     long eID;
     int pID;
+    JDialog fenetre_precedente;
     /**
      * Creates new form MedPrescriptions
      */
-    public fMedPrescriptions(long eID) throws SQLException {
+    public fMedPrescriptions(long eID, JDialog fenetre) throws SQLException {
         initComponents();
+        this.fenetre_precedente = fenetre;
         this. eID = eID;
         this.pID = 0;
         this.setTitle("Boîte de dialogue prescription à l'usage du médecin");
@@ -69,7 +73,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         ps.setLong(1, this.eID);
         ResultSet resultat = ps.executeQuery();
         while(resultat.next()){ // Juste pour tests avec Workbench.
-            int value = resultat.getInt("p.inami");
+            long value = resultat.getLong("p.inami");
             boolean nullValue = resultat.wasNull();
             if (resultat.wasNull()){
                 
@@ -111,7 +115,10 @@ public class fMedPrescriptions extends javax.swing.JFrame {
     }
     
     public void display (int raw) throws ParseException, SQLException{
-        this.spinInami.setValue((int) this.m.getValueAt(raw, 2));
+        
+        this.textFieldINAMI.setText(Long.toString((long) this.m.getValueAt(raw, 2)));
+        
+        //this.spinInami.setValue((int) this.m.getValueAt(raw, 2));
         /*if (this.m.getValueAt(raw,3) == ""){
             
         }*/
@@ -128,20 +135,24 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         this.txtPosologie.setText((String) this.m.getValueAt(raw, 15));
     }
     
-    public void create (int inami, String date_prescription, String mID, String posologie) throws SQLException{
-        String sql = "INSERT INTO prescription (mID,eID,inami,posologie, date_prescription) VALUES (?,?,?,?,?)";
+    private void create (long inami, String date_prescription, String mID, String posologie) throws SQLException{
+
+        String sql = "INSERT INTO prescription (mID,eID,inami,posologie, date_prescription, delivre) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
         ps.setString(1, mID);
         ps.setLong(2, this.eID);
-        ps.setInt(3, inami);
+        ps.setLong(3, inami);
         ps.setString(4,posologie);
         ps.setString(5,date_prescription);
+        ps.setBoolean(6, false);
         int statut = ps.executeUpdate();
+        
     }
     public void refresh() throws SQLException{
-        this.spinInami.setValue(0);
+        this.textFieldINAMI.setText((""));
+        //this.spinInami.setValue(0);
         this.dcDateDePrescription.setCalendar(null);
         this.tfMedicament.setText("");
         this.tabMedicament.changeSelection(0,0,false,false);
@@ -154,12 +165,12 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         
         
     }
-    public void update (int inami, String date_prescription, String mID, String posologie) throws SQLException{
+    public void update (long inami, String date_prescription, String mID, String posologie) throws SQLException{
         String sql = "UPDATE prescription SET inami=?,date_prescription=?,mID=?,posologie=? WHERE pID=?";
         PreparedStatement ps;
         java.sql.Connection c = projet_sim_2.Connection.getInstance().getConn();
         ps = c.prepareStatement(sql);
-        ps.setInt(1, inami);
+        ps.setLong(1, inami);
         ps.setString(2, date_prescription);
         ps.setString(3, mID);
         ps.setString(4, posologie);
@@ -184,7 +195,6 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         lblInami = new javax.swing.JLabel();
         lblDateDePrescription = new javax.swing.JLabel();
         dcDateDePrescription = new com.toedter.calendar.JDateChooser();
-        spinInami = new com.toedter.components.JSpinField();
         lblPosologie = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtPosologie = new javax.swing.JTextArea();
@@ -194,6 +204,9 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         tfMedicament = new javax.swing.JTextField();
         lblPrescriptions = new javax.swing.JLabel();
         lblErreur = new javax.swing.JLabel();
+        textFieldINAMI = new javax.swing.JTextField();
+        buttonRetour = new javax.swing.JButton();
+        labelVerif = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -214,11 +227,11 @@ public class fMedPrescriptions extends javax.swing.JFrame {
             }
         });
         tabPrescriptions.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                tabPrescriptionsInputMethodTextChanged(evt);
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 tabPrescriptionsCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                tabPrescriptionsInputMethodTextChanged(evt);
             }
         });
         jScrollPane1.setViewportView(tabPrescriptions);
@@ -249,18 +262,10 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         lblDateDePrescription.setText("Date de prescription :");
 
         dcDateDePrescription.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 dcDateDePrescriptionCaretPositionChanged(evt);
             }
-        });
-
-        spinInami.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                spinInamiCaretPositionChanged(evt);
             }
         });
 
@@ -269,11 +274,11 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         txtPosologie.setColumns(20);
         txtPosologie.setRows(5);
         txtPosologie.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtPosologieInputMethodTextChanged(evt);
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 txtPosologieCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txtPosologieInputMethodTextChanged(evt);
             }
         });
         jScrollPane2.setViewportView(txtPosologie);
@@ -306,6 +311,19 @@ public class fMedPrescriptions extends javax.swing.JFrame {
 
         lblPrescriptions.setText("Prescriptions :");
 
+        textFieldINAMI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldINAMIActionPerformed(evt);
+            }
+        });
+
+        buttonRetour.setText("Retour");
+        buttonRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRetourActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -313,7 +331,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -321,32 +339,32 @@ public class fMedPrescriptions extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblInami))
+                                .addGap(131, 131, 131)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addGap(125, 125, 125)
-                                                .addComponent(spinInami, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(btnAjouter)
-                                                .addGap(87, 87, 87)
-                                                .addComponent(btnModifier))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(131, 131, 131)
-                                        .addComponent(tfMedicament))))
+                                    .addComponent(tfMedicament)
+                                    .addComponent(textFieldINAMI, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblDateDePrescription)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(dcDateDePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(43, 43, 43)
-                        .addComponent(btnSupprimer))
+                                .addComponent(dcDateDePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnAjouter)
+                                .addGap(36, 36, 36)
+                                .addComponent(btnModifier)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnSupprimer)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(41, 41, 41)
+                        .addComponent(buttonRetour)
+                        .addGap(10, 10, 10))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblPosologie, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblPrescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87)
+                        .addComponent(labelVerif, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(lblErreur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -354,14 +372,11 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(spinInami, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblInami)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblInami)
+                    .addComponent(textFieldINAMI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dcDateDePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDateDePrescription))
@@ -370,7 +385,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
                     .addComponent(lblMedicament)
                     .addComponent(tfMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -382,17 +397,21 @@ public class fMedPrescriptions extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAjouter)
                     .addComponent(btnModifier)
-                    .addComponent(btnSupprimer))
+                    .addComponent(btnSupprimer)
+                    .addComponent(buttonRetour))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblErreur, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(lblPrescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblPrescriptions, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                    .addComponent(labelVerif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabPrescriptionsInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tabPrescriptionsInputMethodTextChanged
@@ -402,13 +421,24 @@ public class fMedPrescriptions extends javax.swing.JFrame {
     private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterActionPerformed
         // TODO add your handling code here:
         this.lblErreur.setText("");
-        if ((this.spinInami.getValue() == 0)||(this.dcDateDePrescription.getDate() == null)||(this.tabMedicament.getSelectedRow()<0)||(this.txtPosologie.getText().length()==0)){ 
+        
+        //if ((this.spinInami.getValue() == 0)||(this.dcDateDePrescription.getDate() == null)||(this.tabMedicament.getSelectedRow()<0)||(this.txtPosologie.getText().length()==0)){ 
+        if ((this.textFieldINAMI.getText().length() == 0)||(this.dcDateDePrescription.getDate() == null)||(this.tabMedicament.getSelectedRow()<0)||(this.txtPosologie.getText().length()==0)){    
             this.lblErreur.setText("Attention, la prescription n'a pas été enregistrée en base de données car certains champs restent vides!");
         }
         else{
         String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDePrescription.getDate());
         try {
-            this.create(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(this.tabMedicament.getSelectedRow(),0), this.txtPosologie.getText());
+            try {
+                String textINAMI = this.textFieldINAMI.getText();
+                long inami = Long.parseLong(textINAMI);              
+                this.create(inami, resultat, (String) this.n.getValueAt(this.tabMedicament.getSelectedRow(),0), this.txtPosologie.getText());
+                        } catch (NumberFormatException nfe) {
+                this.labelVerif.setText("Ce n'est pas un entier" );
+                return;}
+            
+            //this.create(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(this.tabMedicament.getSelectedRow(),0), this.txtPosologie.getText());
+            
         } catch (SQLException ex) {
             Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -455,13 +485,22 @@ public class fMedPrescriptions extends javax.swing.JFrame {
 
     private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
         this.lblErreur.setText("");
-        if ((this.spinInami.getValue() == 0)||(this.dcDateDePrescription.getDate() == null)||(this.n.getRowCount()!=1 && this.tabMedicament.getSelectedRow()<0)||(this.txtPosologie.getText().length()==0)){ 
+        //if ((this.spinInami.getValue() == 0)||(this.dcDateDePrescription.getDate() == null)||(this.tabMedicament.getSelectedRow()<0)||(this.txtPosologie.getText().length()==0)){ 
+        if ((this.textFieldINAMI.getText().length() == 0)||(this.dcDateDePrescription.getDate() == null)||(this.tabMedicament.getSelectedRow()<0)||(this.txtPosologie.getText().length()==0)){ 
             this.lblErreur.setText("Attention, la prescription n'a pas été enregistrée en base de données car certains champs restent vides!");
         }
         else{
         String resultat = String.format("%1$td/%1$tm/%1$tY",this.dcDateDePrescription.getDate());
         try {
-            this.update(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(0,0), this.txtPosologie.getText());
+            try {
+                String textINAMI = this.textFieldINAMI.getText();
+                long inami = Long.parseLong(textINAMI);
+                this.update(inami, resultat, (String) this.n.getValueAt(0,0), this.txtPosologie.getText());
+                } catch (NumberFormatException nfe) {
+                this.labelVerif.setText("Ce n'est pas un entier" );
+                return;}
+            
+            //this.update(this.spinInami.getValue(), resultat, (String) this.n.getValueAt(0,0), this.txtPosologie.getText());
         } catch (SQLException ex) {
             Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -492,10 +531,6 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         this.btnSupprimer.setEnabled(true);
     }//GEN-LAST:event_tabPrescriptionsMouseClicked
 
-    private void spinInamiCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spinInamiCaretPositionChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spinInamiCaretPositionChanged
-
     private void dcDateDePrescriptionCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_dcDateDePrescriptionCaretPositionChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_dcDateDePrescriptionCaretPositionChanged
@@ -511,6 +546,15 @@ public class fMedPrescriptions extends javax.swing.JFrame {
     private void txtPosologieInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtPosologieInputMethodTextChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPosologieInputMethodTextChanged
+
+    private void textFieldINAMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldINAMIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldINAMIActionPerformed
+
+    private void buttonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRetourActionPerformed
+        this.dispose();
+        this.fenetre_precedente.setVisible(true);
+    }//GEN-LAST:event_buttonRetourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -541,7 +585,7 @@ public class fMedPrescriptions extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             private long eID;
             public void run() {
                 try {
@@ -550,26 +594,28 @@ public class fMedPrescriptions extends javax.swing.JFrame {
                     Logger.getLogger(fMedPrescriptions.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAjouter;
     private javax.swing.JButton btnModifier;
     private javax.swing.JButton btnSupprimer;
+    private javax.swing.JButton buttonRetour;
     private com.toedter.calendar.JDateChooser dcDateDePrescription;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel labelVerif;
     private javax.swing.JLabel lblDateDePrescription;
     private javax.swing.JLabel lblErreur;
     private javax.swing.JLabel lblInami;
     private javax.swing.JLabel lblMedicament;
     private javax.swing.JLabel lblPosologie;
     private javax.swing.JLabel lblPrescriptions;
-    private com.toedter.components.JSpinField spinInami;
     private javax.swing.JTable tabMedicament;
     private javax.swing.JTable tabPrescriptions;
+    private javax.swing.JTextField textFieldINAMI;
     private javax.swing.JTextField tfMedicament;
     private javax.swing.JTextArea txtPosologie;
     // End of variables declaration//GEN-END:variables
